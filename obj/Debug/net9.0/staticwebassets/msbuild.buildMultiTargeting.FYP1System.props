@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\FYP1System.props" />
+</Project>

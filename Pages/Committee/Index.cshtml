@@ -1,0 +1,180 @@
+@page
+@model FYP1System.Pages.Committee.IndexModel
+@{
+    ViewData["Title"] = "Committee Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-3">Committee Dashboard</h1>
+            <p class="text-muted">Welcome, @User.Identity?.Name</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-users fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Total Students</h6>
+                    <h1 class="display-4">@Model.TotalStudents</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-file fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Total Proposals</h6>
+                    <h1 class="display-4">@Model.TotalProposals</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-clock fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Pending Review</h6>
+                    <h1 class="display-4">@Model.PendingProposals</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-check fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Approved</h6>
+                    <h1 class="display-4">@Model.ApprovedProposals</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Recent Proposals</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentProposals.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Title</th>
+                                        <th>Status</th>
+                                        <th>Submitted</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var proposal in Model.RecentProposals)
+                                    {
+                                        <tr>
+                                            <td>@proposal.Student.User.FullName</td>
+                                            <td>@proposal.Title</td>
+                                            <td>
+                                                <span class="badge 
+                                                    @(proposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
+                                                      proposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
+                                                      proposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
+                                                      "bg-secondary")">
+                                                    @proposal.Status
+                                                </span>
+                                            </td>
+                                            <td>@proposal.SubmittedAt?.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                <a href="/Committee/Proposals/Details/@proposal.Id" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fa fa-eye"></i> View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No proposals submitted yet.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Quick Actions</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="/Committee/Proposals" class="btn btn-primary">
+                            <i class="fa fa-file"></i> Manage Proposals
+                        </a>
+                        
+                        <a href="/Committee/Students" class="btn btn-info">
+                            <i class="fa fa-users"></i> Manage Students
+                        </a>
+                        
+                        <a href="/Committee/Evaluators" class="btn btn-success">
+                            <i class="fa fa-user-check"></i> Assign Evaluators
+                        </a>
+                        
+                        <a href="/Committee/Lecturers" class="btn btn-warning">
+                            <i class="fa fa-chalkboard-teacher"></i> Manage Lecturers
+                        </a>
+                        
+                        <a href="/Committee/Reports" class="btn btn-secondary">
+                            <i class="fa fa-chart-bar"></i> View Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title">System Alerts</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.PendingProposals > 0)
+                    {
+                        <div class="alert alert-warning">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <strong>@Model.PendingProposals</strong> proposals awaiting review
+                        </div>
+                    }
+                    
+                    <div class="alert alert-info">
+                        <i class="fa fa-info-circle"></i>
+                        System is running normally
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rotate {
+        text-align: right;
+        padding-bottom: 50px;
+        float: right;
+        opacity: 0.15;
+    }
+</style>

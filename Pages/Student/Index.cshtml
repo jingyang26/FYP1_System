@@ -1,0 +1,148 @@
+@page
+@model FYP1System.Pages.Student.IndexModel
+@{
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-3">Student Dashboard</h1>
+            <p class="text-muted">Welcome, @User.Identity?.Name</p>
+        </div>
+    </div>
+
+    @if (Model.StudentInfo != null)
+    {
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Student Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Student ID:</strong> @Model.StudentInfo.StudentId</p>
+                                <p><strong>Program:</strong> @Model.StudentInfo.Program?.Name</p>
+                                <p><strong>Session:</strong> @Model.StudentInfo.Session</p>
+                                <p><strong>Semester:</strong> @Model.StudentInfo.Semester</p>
+                            </div>
+                            <div class="col-md-6">
+                                @if (Model.StudentInfo.Supervisor != null)
+                                {
+                                    <p><strong>Supervisor:</strong> @Model.StudentInfo.Supervisor.User.FullName</p>
+                                    <p><strong>Domain:</strong> @Model.StudentInfo.Supervisor.Domain</p>
+                                    <p><strong>Office:</strong> @Model.StudentInfo.Supervisor.OfficeLocation</p>
+                                }
+                                else
+                                {
+                                    <p class="text-warning"><strong>Supervisor:</strong> Not assigned yet</p>
+                                }
+                                
+                                @if (Model.StudentInfo.GPA.HasValue)
+                                {
+                                    <p><strong>GPA:</strong> @Model.StudentInfo.GPA.Value.ToString("F2")</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.LatestProposal != null)
+                {
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Latest Proposal</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5>@Model.LatestProposal.Title</h5>
+                            <p><strong>Type:</strong> @Model.LatestProposal.Type</p>
+                            <p><strong>Status:</strong> 
+                                <span class="badge 
+                                    @(Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
+                                      Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
+                                      Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
+                                      "bg-secondary")">
+                                    @Model.LatestProposal.Status
+                                </span>
+                            </p>
+                            <p><strong>Submitted:</strong> @Model.LatestProposal.SubmittedAt?.ToString("MMM dd, yyyy")</p>
+                            
+                            @if (!string.IsNullOrEmpty(Model.LatestProposal.Description))
+                            {
+                                <p><strong>Description:</strong></p>
+                                <p class="text-muted">@Model.LatestProposal.Description</p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Quick Actions</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            @if (Model.StudentInfo.Supervisor == null)
+                            {
+                                <a href="/Student/SelectSupervisor" class="btn btn-primary">
+                                    <i class="fa fa-user-plus"></i> Select Supervisor
+                                </a>
+                            }
+                            
+                            <a href="/Student/Proposals" class="btn btn-info">
+                                <i class="fa fa-file"></i> View All Proposals
+                            </a>
+                            
+                            @if (Model.LatestProposal == null || Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Rejected)
+                            {
+                                <a href="/Student/Proposals/Create" class="btn btn-success">
+                                    <i class="fa fa-plus"></i> Submit New Proposal
+                                </a>
+                            }
+                            else if (Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.NeedsRevision)
+                            {
+                                <a href="/Student/Proposals/Edit/@Model.LatestProposal.Id" class="btn btn-warning">
+                                    <i class="fa fa-edit"></i> Revise Proposal
+                                </a>
+                            }
+                            
+                            <a href="/Student/Comments" class="btn btn-secondary">
+                                <i class="fa fa-comments"></i> View Feedback
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Proposal Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Total Proposals:</strong> @Model.Proposals.Count</p>
+                        
+                        @{
+                            var approvedCount = Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.Approved);
+                            var rejectedCount = Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.Rejected);
+                            var pendingCount = Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.UnderReview || p.Status == FYP1System.Models.ProposalStatus.Submitted);
+                        }
+                        
+                        <p><strong>Approved:</strong> <span class="text-success">@approvedCount</span></p>
+                        <p><strong>Rejected:</strong> <span class="text-danger">@rejectedCount</span></p>
+                        <p><strong>Under Review:</strong> <span class="text-warning">@pendingCount</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <h4>Setup Required</h4>
+            <p>Your student profile is not complete. Please contact the administrator to set up your student record.</p>
+        </div>
+    }
+</div>

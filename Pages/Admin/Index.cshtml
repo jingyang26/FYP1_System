@@ -1,0 +1,105 @@
+@page
+@model FYP1System.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-3">Admin Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-graduation-cap fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Programs</h6>
+                    <h1 class="display-4">@Model.TotalPrograms</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-users fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Lecturers</h6>
+                    <h1 class="display-4">@Model.TotalLecturers</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-user fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Students</h6>
+                    <h1 class="display-4">@Model.TotalStudents</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <div class="rotate">
+                        <i class="fa fa-file fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">Proposals</h6>
+                    <h1 class="display-4">@Model.TotalProposals</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Quick Actions</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="/Admin/Programs" class="btn btn-primary btn-lg btn-block">
+                                <i class="fa fa-graduation-cap"></i> Manage Programs
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="/Admin/Lecturers" class="btn btn-success btn-lg btn-block">
+                                <i class="fa fa-users"></i> Manage Lecturers
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="/Admin/Users" class="btn btn-info btn-lg btn-block">
+                                <i class="fa fa-user-cog"></i> Manage Users
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rotate {
+        text-align: right;
+        padding-bottom: 50px;
+        float: right;
+        opacity: 0.15;
+    }
+    
+    .btn-block {
+        width: 100%;
+    }
+</style>

@@ -1,0 +1,8 @@
+{
+    "dataworkspace.excludedProjects": [
+        "Enyer/Enyer.sqlproj",
+        "Data/Enter/Enter.sqlproj",
+        "AD_test/AD_test.sqlproj",
+        "Escape/Escape.sqlproj"
+    ]
+}
