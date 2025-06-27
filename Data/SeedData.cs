@@ -160,6 +160,119 @@ namespace FYP1System.Data
                 context.Students.Add(student);
                 await context.SaveChangesAsync();
             }
+
+            // Create sample supervisor
+            var supervisorEmail = "supervisor@fyp1.edu.my";
+            var supervisorUser = await userManager.FindByEmailAsync(supervisorEmail);
+
+            if (supervisorUser == null)
+            {
+                var program = await context.Programs.FirstAsync(p => p.Name == "Software Engineering");
+                
+                supervisorUser = new ApplicationUser
+                {
+                    UserName = supervisorEmail,
+                    Email = supervisorEmail,
+                    FullName = "Dr. Sarah Johnson",
+                    EmailConfirmed = true,
+                    ProgramId = program.Id
+                };
+
+                await userManager.CreateAsync(supervisorUser, "Supervisor@123");
+                await userManager.AddToRoleAsync(supervisorUser, "Supervisor");
+
+                // Create lecturer record for supervisor
+                var supervisorLecturer = new Lecturer
+                {
+                    UserId = supervisorUser.Id,
+                    ProgramId = program.Id,
+                    Domain = "Artificial Intelligence",
+                    OfficeLocation = "Block B, Level 3",
+                    IsCommittee = false
+                };
+
+                context.Lecturers.Add(supervisorLecturer);
+                await context.SaveChangesAsync();
+            }
+
+            // Create sample evaluator
+            var evaluatorEmail = "evaluator@fyp1.edu.my";
+            var evaluatorUser = await userManager.FindByEmailAsync(evaluatorEmail);
+
+            if (evaluatorUser == null)
+            {
+                var program = await context.Programs.FirstAsync(p => p.Name == "Data Engineering");
+                
+                evaluatorUser = new ApplicationUser
+                {
+                    UserName = evaluatorEmail,
+                    Email = evaluatorEmail,
+                    FullName = "Prof. Michael Brown",
+                    EmailConfirmed = true,
+                    ProgramId = program.Id
+                };
+
+                await userManager.CreateAsync(evaluatorUser, "Evaluator@123");
+                await userManager.AddToRoleAsync(evaluatorUser, "Evaluator");
+
+                // Create lecturer record for evaluator
+                var evaluatorLecturer = new Lecturer
+                {
+                    UserId = evaluatorUser.Id,
+                    ProgramId = program.Id,
+                    Domain = "Data Science",
+                    OfficeLocation = "Block C, Level 1",
+                    IsCommittee = false
+                };
+
+                context.Lecturers.Add(evaluatorLecturer);
+                await context.SaveChangesAsync();
+            }
+
+            // Create another committee member for Data Engineering program
+            var committee2Email = "committee2@fyp1.edu.my";
+            var committee2User = await userManager.FindByEmailAsync(committee2Email);
+
+            if (committee2User == null)
+            {
+                var program = await context.Programs.FirstAsync(p => p.Name == "Data Engineering");
+                
+                committee2User = new ApplicationUser
+                {
+                    UserName = committee2Email,
+                    Email = committee2Email,
+                    FullName = "Dr. Lisa Wong",
+                    EmailConfirmed = true,
+                    ProgramId = program.Id
+                };
+
+                await userManager.CreateAsync(committee2User, "Committee@123");
+                await userManager.AddToRoleAsync(committee2User, "Committee");
+
+                // Create lecturer record
+                var lecturer2 = new Lecturer
+                {
+                    UserId = committee2User.Id,
+                    ProgramId = program.Id,
+                    Domain = "Data Engineering",
+                    OfficeLocation = "Block C, Level 2",
+                    IsCommittee = true
+                };
+
+                context.Lecturers.Add(lecturer2);
+                await context.SaveChangesAsync();
+
+                // Create committee member record
+                var committeeMember2 = new CommitteeMember
+                {
+                    LecturerId = lecturer2.Id,
+                    ProgramId = program.Id,
+                    Role = "Member"
+                };
+
+                context.CommitteeMembers.Add(committeeMember2);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

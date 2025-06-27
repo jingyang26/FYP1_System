@@ -326,5 +326,6 @@ D:\AD\AD TEST\obj\Debug\net9.0\refint\FYP1System.dll
 D:\AD\AD TEST\obj\Debug\net9.0\FYP1System.pdb
 D:\AD\AD TEST\obj\Debug\net9.0\FYP1System.genruntimeconfig.cache
 D:\AD\AD TEST\obj\Debug\net9.0\ref\FYP1System.dll
-D:\AD\AD TEST\obj\Debug\net9.0\compressed\cg2an0n72r-71ant653rb.gz
 D:\AD\AD TEST\obj\Debug\net9.0\compressed\cy0ervjrk3-ixltsrp58n.gz
+D:\AD\AD TEST\obj\Debug\net9.0\FYP1System.sourcelink.json
+D:\AD\AD TEST\obj\Debug\net9.0\compressed\cg2an0n72r-ij9bwbxpk5.gz

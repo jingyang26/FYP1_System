@@ -4,43 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FYP1 Management System</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FYP1System.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="modern-body">
-    <header class="modern-header">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary-gradient shadow-sm">
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand brand-logo" asp-area="" asp-page="/Index">
-                    <div class="logo-container">
-                        <i class="fas fa-graduation-cap logo-icon"></i>
-                        <span class="brand-text">
-                            <span class="brand-main">FYP1</span>
-                            <span class="brand-sub">Management System</span>
-                        </span>
-                    </div>
-                </a>
-                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <a class="navbar-brand" asp-area="" asp-page="/Index">FYP1 Management System</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 main-nav">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link nav-link-modern" asp-area="" asp-page="/Index">
-                                <i class="fas fa-home nav-icon"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-modern" asp-area="" asp-page="/Privacy">
-                                <i class="fas fa-shield-alt nav-icon"></i>
-                                <span>Privacy</span>
-                            </a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -48,42 +29,11 @@
             </div>
         </nav>
     </header>
-    
-    <div class="main-content">
-        <div class="container-fluid">
-            <main role="main" class="content-wrapper">
-                @RenderBody()
-            </main>
-        </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-
-    <footer class="modern-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <div class="footer-logo">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>FYP1 Management System</span>
-                    </div>
-                    <p class="footer-description">
-                        Professional Final Year Project Management Platform
-                    </p>
-                </div>
-                <div class="footer-right">
-                    <div class="footer-links">
-                        <a asp-area="" asp-page="/Privacy" class="footer-link">
-                            <i class="fas fa-shield-alt"></i>
-                            Privacy Policy
-                        </a>
-                        <span class="footer-separator">|</span>
-                        <span class="copyright">
-                            &copy; 2025 FYP1 Management System. All rights reserved.
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

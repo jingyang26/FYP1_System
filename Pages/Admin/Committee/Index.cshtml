@@ -1,0 +1,249 @@
+@page
+@model FYP1System.Pages.Admin.Committee.IndexModel
+@{
+    ViewData["Title"] = "Manage Committee";
+}
+
+<div class="fade-in-up">
+    <!-- Header Section -->
+    <div class="admin-page-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="mb-3">
+                    <a asp-page="/Admin/Index" class="btn-back-admin">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Admin Dashboard
+                    </a>
+                </div>
+                <h2 class="admin-page-title">
+                    <i class="fas fa-user-tie me-2 text-primary"></i>
+                    Committee Members Management
+                </h2>
+                <p class="admin-page-subtitle">Manage committee members based on lecturer list and academic programs</p>
+            </div>
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>
+            Add Committee Member
+        </a>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Filter by Program</label>
+                    <select name="programId" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Programs</option>
+                        @foreach (var program in Model.Programs)
+                        {
+                            <option value="@program.Id" selected="@(program.Id.ToString() == ViewContext.HttpContext.Request.Query["programId"])">
+                                @program.Name
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Filter by Role</label>
+                    <select name="role" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Roles</option>
+                        <option value="Chair" selected="@(ViewContext.HttpContext.Request.Query["role"] == "Chair")">Chair</option>
+                        <option value="Member" selected="@(ViewContext.HttpContext.Request.Query["role"] == "Member")">Member</option>
+                        <option value="Secretary" selected="@(ViewContext.HttpContext.Request.Query["role"] == "Secretary")">Secretary</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Committee Members by Program -->
+    @foreach (var programGroup in Model.CommitteesByProgram)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-graduation-cap me-2"></i>
+                        @programGroup.Key - Committee Members
+                    </h5>
+                    <span class="badge bg-primary">@programGroup.Value.Count members</span>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (programGroup.Value.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Lecturer</th>
+                                    <th>Email</th>
+                                    <th>Domain</th>
+                                    <th>Office</th>
+                                    <th>Committee Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var committee in programGroup.Value)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="committee-avatar me-3">
+                                                    @if (committee.Role == "Chair")
+                                                    {
+                                                        <i class="fas fa-crown"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fas fa-user-tie"></i>
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <strong>@committee.Lecturer?.User?.FullName</strong>
+                                                    <br>
+                                                    <small class="text-muted">Lecturer ID: @committee.LecturerId</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="mailto:@committee.Lecturer?.User?.Email" class="text-decoration-none">
+                                                @committee.Lecturer?.User?.Email
+                                            </a>
+                                        </td>
+                                        <td>@committee.Lecturer?.Domain</td>
+                                        <td>
+                                            <i class="fas fa-map-marker-alt me-1"></i>
+                                            @committee.Lecturer?.OfficeLocation
+                                        </td>
+                                        <td>
+                                            @if (committee.Role == "Chair")
+                                            {
+                                                <span class="status-badge" style="background: #FFD700; color: #B8860B;">
+                                                    <i class="fas fa-crown me-1"></i>
+                                                    Chairperson
+                                                </span>
+                                            }
+                                            else if (committee.Role == "Secretary")
+                                            {
+                                                <span class="status-badge" style="background: #E3F2FD; color: #1976D2;">
+                                                    <i class="fas fa-edit me-1"></i>
+                                                    Secretary
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="status-badge status-active">
+                                                    <i class="fas fa-user me-1"></i>
+                                                    Member
+                                                </span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-page="Edit" asp-route-id="@committee.Id" 
+                                                   class="btn btn-sm btn-outline-primary" title="Edit Role">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                        title="Remove from Committee" 
+                                                        onclick="confirmRemove(@committee.Id, '@committee.Lecturer?.User?.FullName', '@committee.Role')">
+                                                    <i class="fas fa-user-minus"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-user-tie fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">No committee members assigned to this program</p>
+                        <a asp-page="Create" asp-route-programId="@Model.Programs.FirstOrDefault(p => p.Name == programGroup.Key)?.Id" 
+                           class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus me-2"></i>
+                            Add Committee Member
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (!Model.CommitteesByProgram.Any())
+    {
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-user-tie fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">No Committee Members Found</h5>
+                <p class="text-muted">Start by assigning lecturers to committee roles.</p>
+                <a asp-page="Create" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>
+                    Add First Committee Member
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Remove Confirmation Modal -->
+<div class="modal fade" id="removeModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                    Remove Committee Member
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove <strong id="memberName"></strong> from the <strong id="memberRole"></strong> role?</p>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    This will only remove them from the committee. Their lecturer account will remain active.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" id="removeForm" style="display: inline;">
+                    <input type="hidden" name="id" id="removeId" />
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-user-minus me-2"></i>
+                        Remove from Committee
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmRemove(id, name, role) {
+            document.getElementById('removeId').value = id;
+            document.getElementById('memberName').textContent = name;
+            document.getElementById('memberRole').textContent = role;
+            document.getElementById('removeForm').action = `/Admin/Committee/Remove/${id}`;
+            new bootstrap.Modal(document.getElementById('removeModal')).show();
+        }
+    </script>
+}
+
+<style>
+    .committee-avatar {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+</style>

@@ -4,102 +4,506 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="h3 mb-3">Admin Dashboard</h1>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-graduation-cap fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Programs</h6>
-                    <h1 class="display-4">@Model.TotalPrograms</h1>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-users fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Lecturers</h6>
-                    <h1 class="display-4">@Model.TotalLecturers</h1>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-info">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-user fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Students</h6>
-                    <h1 class="display-4">@Model.TotalStudents</h1>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-file fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Proposals</h6>
-                    <h1 class="display-4">@Model.TotalProposals</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Quick Actions</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <a href="/Admin/Programs" class="btn btn-primary btn-lg btn-block">
-                                <i class="fa fa-graduation-cap"></i> Manage Programs
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="/Admin/Lecturers" class="btn btn-success btn-lg btn-block">
-                                <i class="fa fa-users"></i> Manage Lecturers
-                            </a>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <a href="/Admin/Users" class="btn btn-info btn-lg btn-block">
-                                <i class="fa fa-user-cog"></i> Manage Users
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <style>
-    .rotate {
-        text-align: right;
-        padding-bottom: 50px;
-        float: right;
-        opacity: 0.15;
+/* Admin Dashboard Styling */
+.admin-dashboard {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: calc(100vh - 200px);
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    transform: rotate(45deg);
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-meta {
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-meta .badge {
+    font-size: 0.9rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Statistics Cards */
+.stats-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stats-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stats-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.stats-info h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3e50;
+}
+
+.stats-label {
+    color: #6c757d;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.stats-trend {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+/* Color variants for stats cards */
+.stats-primary {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+}
+
+.stats-success {
+    --primary-color: #28a745;
+    --secondary-color: #1e7e34;
+}
+
+.stats-info {
+    --primary-color: #17a2b8;
+    --secondary-color: #117a8b;
+}
+
+.stats-warning {
+    --primary-color: #ffc107;
+    --secondary-color: #e0a800;
+}
+
+/* Management Cards */
+.management-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.management-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-header-custom {
+    padding: 1.5rem;
+    color: white;
+    border: none;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.header-text h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.header-text span {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.card-body-custom {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.card-description {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.card-footer-custom {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.btn-action {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .dashboard-title {
+        font-size: 2rem;
     }
     
-    .btn-block {
-        width: 100%;
+    .stats-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
+    
+    .stats-info h3 {
+        font-size: 2rem;
+    }
+    
+    .admin-dashboard {
+        padding: 1rem 0;
+    }
+    
+    .dashboard-header {
+        padding: 1.5rem;
+    }
+}
+
+/* Animations */
+@@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.admin-dashboard * {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.admin-dashboard .stats-card:nth-child(1) { animation-delay: 0.1s; }
+.admin-dashboard .stats-card:nth-child(2) { animation-delay: 0.2s; }
+.admin-dashboard .stats-card:nth-child(3) { animation-delay: 0.3s; }
+.admin-dashboard .stats-card:nth-child(4) { animation-delay: 0.4s; }
+
+.management-card:nth-child(1) { animation-delay: 0.5s; }
+.management-card:nth-child(2) { animation-delay: 0.6s; }
+.management-card:nth-child(3) { animation-delay: 0.7s; }
 </style>
+
+<script>
+// Update current date and time
+function updateDateTime() {
+    const now = new Date();
+    const options = { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+    document.getElementById('current-datetime').textContent = now.toLocaleDateString('en-US', options);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateDateTime();
+    setInterval(updateDateTime, 60000); // Update every minute
+});
+</script>
+
+<div class="admin-dashboard">
+    <!-- Header Section -->
+    <div class="dashboard-header mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="dashboard-title">
+                    <i class="fas fa-tachometer-alt me-3"></i>
+                    Admin Dashboard
+                </h1>
+                <p class="dashboard-subtitle">Comprehensive management center for FYP1 system</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="dashboard-meta">
+                    <span class="badge bg-primary px-3 py-2">
+                        <i class="fas fa-calendar me-2"></i>
+                        <span id="current-datetime"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Overview -->
+    <div class="row mb-5">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card stats-primary">
+                <div class="stats-content">
+                    <div class="stats-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3 class="stats-number">@Model.TotalPrograms</h3>
+                        <p class="stats-label">Academic Programs</p>
+                    </div>
+                </div>
+                <div class="stats-trend">
+                    <i class="fas fa-arrow-up"></i> Active
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card stats-success">
+                <div class="stats-content">
+                    <div class="stats-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3 class="stats-number">@Model.TotalLecturers</h3>
+                        <p class="stats-label">Lecturers</p>
+                    </div>
+                </div>
+                <div class="stats-trend">
+                    <i class="fas fa-arrow-up"></i> Registered
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card stats-info">
+                <div class="stats-content">
+                    <div class="stats-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3 class="stats-number">@Model.TotalStudents</h3>
+                        <p class="stats-label">Students</p>
+                    </div>
+                </div>
+                <div class="stats-trend">
+                    <i class="fas fa-arrow-up"></i> Enrolled
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card stats-warning">
+                <div class="stats-content">
+                    <div class="stats-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3 class="stats-number">@Model.TotalProposals</h3>
+                        <p class="stats-label">Proposals</p>
+                    </div>
+                </div>
+                <div class="stats-trend">
+                    <i class="fas fa-arrow-up"></i> Submitted
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Actions -->
+    <div class="row justify-content-center">
+        <!-- Programs Management -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="management-card">
+                <div class="card-header-custom bg-primary">
+                    <div class="header-content">
+                        <div class="header-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="header-text">
+                            <h5>Programs</h5>
+                            <span>Management</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    <p class="card-description">Manage academic programs, their status, and configurations.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check text-success me-2"></i>Add/Edit Programs</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Status Control</li>
+                        <li><i class="fas fa-check text-success me-2"></i>View Analytics</li>
+                    </ul>
+                </div>
+                <div class="card-footer-custom">
+                    <a href="/Admin/Programs" class="btn btn-primary btn-action">
+                        <i class="fas fa-cog me-2"></i>
+                        Manage Programs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lecturers Management -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="management-card">
+                <div class="card-header-custom bg-success">
+                    <div class="header-content">
+                        <div class="header-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="header-text">
+                            <h5>Lecturers</h5>
+                            <span>Management</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    <p class="card-description">Add and manage lecturer accounts, domains, and assignments.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check text-success me-2"></i>Add New Lecturers</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Program Assignment</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Domain Setting</li>
+                    </ul>
+                </div>
+                <div class="card-footer-custom">
+                    <a href="/Admin/Lecturers" class="btn btn-success btn-action">
+                        <i class="fas fa-users-cog me-2"></i>
+                        Manage Lecturers
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Committee Management -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="management-card">
+                <div class="card-header-custom bg-warning">
+                    <div class="header-content">
+                        <div class="header-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="header-text">
+                            <h5>Committee</h5>
+                            <span>Management</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    <p class="card-description">Manage committee members and their roles in the system.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check text-success me-2"></i>Assign Roles</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Program-based</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Role Management</li>
+                    </ul>
+                </div>
+                <div class="card-footer-custom">
+                    <a href="/Admin/Committee" class="btn btn-warning btn-action">
+                        <i class="fas fa-star me-2"></i>
+                        Manage Committee
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

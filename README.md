@@ -90,11 +90,14 @@ This web application manages the Final Year Project (FYP1) process for academic 
 ## Default User Credentials
 
 ### Test Accounts
-| Role | Email | Password | Description |
-|------|-------|----------|-------------|
-| Admin | admin@fyp1.edu.my | Admin@123 | System Administrator |
-| Committee | committee@fyp1.edu.my | Committee@123 | Committee Member (Dr. John Smith) |
-| Student | student@fyp1.edu.my | Student@123 | Student (Ahmad Ali) |
+| Role | Email | Password | Full Name | Program |
+|------|-------|----------|-----------|---------|
+| **Admin** | admin@fyp1.edu.my | Admin@123 | System Administrator | - |
+| **Committee (SE)** | committee@fyp1.edu.my | Committee@123 | Dr. John Smith | Software Engineering |
+| **Committee (DE)** | committee2@fyp1.edu.my | Committee@123 | Dr. Lisa Wong | Data Engineering |
+| **Student** | student@fyp1.edu.my | Student@123 | Ahmad Ali | Software Engineering |
+| **Supervisor** | supervisor@fyp1.edu.my | Supervisor@123 | Dr. Sarah Johnson | Software Engineering |
+| **Evaluator** | evaluator@fyp1.edu.my | Evaluator@123 | Prof. Michael Brown | Data Engineering |
 
 ### Role Permissions
 - **Admin**: Full system access, user management, program management

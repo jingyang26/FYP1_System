@@ -1,0 +1,194 @@
+@page
+@model FYP1System.Pages.TestAdminModel
+@{
+    ViewData["Title"] = "Test Admin Functions";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-flask me-2"></i>Admin Functions Test Page
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        This page allows you to test all Admin functions. Login as admin@fyp1.edu.my with password Admin@123.
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-graduation-cap me-2"></i>
+                                        Programs Management
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Manage academic programs in the system.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="~/Admin/Programs" class="btn btn-primary">
+                                            <i class="fas fa-list me-2"></i>View Programs
+                                        </a>
+                                        <a href="~/Admin/Programs/Create" class="btn btn-outline-primary">
+                                            <i class="fas fa-plus me-2"></i>Add New Program
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <h6>Current Programs:</h6>
+                                    <ul class="list-unstyled">
+                                        @foreach (var program in Model.Programs)
+                                        {
+                                            <li>
+                                                <span class="badge bg-@(program.IsActive ? "success" : "secondary")">
+                                                    @program.Name
+                                                </span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-user-tie me-2"></i>
+                                        Lecturers Management
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Manage lecturer accounts and assignments.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="~/Admin/Lecturers" class="btn btn-success">
+                                            <i class="fas fa-list me-2"></i>View Lecturers
+                                        </a>
+                                        <a href="~/Admin/Lecturers/Create" class="btn btn-outline-success">
+                                            <i class="fas fa-user-plus me-2"></i>Add New Lecturer
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <h6>Lecturer Count: @Model.LecturerCount</h6>
+                                    <div class="small">
+                                        <div>Software Eng: @Model.SoftwareEngLecturers</div>
+                                        <div>Data Eng: @Model.DataEngLecturers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-users me-2"></i>
+                                        Committee Management
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Manage committee member assignments.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="~/Admin/Committee" class="btn btn-warning">
+                                            <i class="fas fa-list me-2"></i>View Committee
+                                        </a>
+                                        <a href="~/Admin/Committee/Create" class="btn btn-outline-warning">
+                                            <i class="fas fa-user-plus me-2"></i>Add Committee Member
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <h6>Committee Members: @Model.CommitteeCount</h6>
+                                    <div class="small">
+                                        <div>Chairs: @Model.ChairCount</div>
+                                        <div>Members: @Model.MemberCount</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-user-shield me-2"></i>
+                                    Test User Accounts
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Role</th>
+                                                <th>Email</th>
+                                                <th>Password</th>
+                                                <th>Program</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-primary">
+                                                <td><span class="badge bg-primary">Admin</span></td>
+                                                <td>admin@fyp1.edu.my</td>
+                                                <td>Admin@123</td>
+                                                <td>-</td>
+                                                <td><small class="text-muted">Current account</small></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-info">Committee</span></td>
+                                                <td>committee@fyp1.edu.my</td>
+                                                <td>Committee@123</td>
+                                                <td>Software Engineering</td>
+                                                <td><a href="/Account/Logout" class="btn btn-sm btn-outline-secondary">Switch</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-success">Student</span></td>
+                                                <td>student@fyp1.edu.my</td>
+                                                <td>Student@123</td>
+                                                <td>Software Engineering</td>
+                                                <td><a href="/Account/Logout" class="btn btn-sm btn-outline-secondary">Switch</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-warning">Supervisor</span></td>
+                                                <td>supervisor@fyp1.edu.my</td>
+                                                <td>Supervisor@123</td>
+                                                <td>Software Engineering</td>
+                                                <td><a href="/Account/Logout" class="btn btn-sm btn-outline-secondary">Switch</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-secondary">Evaluator</span></td>
+                                                <td>evaluator@fyp1.edu.my</td>
+                                                <td>Evaluator@123</td>
+                                                <td>Data Engineering</td>
+                                                <td><a href="/Account/Logout" class="btn btn-sm btn-outline-secondary">Switch</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        margin-bottom: 1.5rem;
+    }
+    
+    .card-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        font-weight: 500;
+    }
+</style>

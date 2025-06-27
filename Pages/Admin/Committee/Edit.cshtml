@@ -1,0 +1,90 @@
+@page
+@model FYP1System.Pages.Admin.Committee.EditModel
+@{
+    ViewData["Title"] = "Edit Committee Member";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user-edit me-2"></i>Edit Committee Member
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        <input type="hidden" asp-for="Input.Id" />
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Lecturer</label>
+                                    <input type="text" class="form-control" value="@Model.LecturerName" readonly />
+                                    <small class="text-muted">Lecturer cannot be changed. Create a new committee assignment if needed.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Input.ProgramId" class="form-label">Program</label>
+                                    <select asp-for="Input.ProgramId" asp-items="Model.ProgramsList" class="form-select">
+                                        <option value="">Select a program</option>
+                                    </select>
+                                    <span asp-validation-for="Input.ProgramId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Input.Role" class="form-label"></label>
+                                    <select asp-for="Input.Role" class="form-select">
+                                        <option value="">Select a role</option>
+                                        <option value="Chair">Chair</option>
+                                        <option value="Member">Member</option>
+                                        <option value="Secretary">Secretary</option>
+                                    </select>
+                                    <span asp-validation-for="Input.Role" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check mt-4">
+                                    <input asp-for="Input.IsActive" class="form-check-input" />
+                                    <label asp-for="Input.IsActive" class="form-check-label"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Assigned Date</label>
+                            <input type="text" class="form-control" value="@Model.AssignedDate.ToString("MMMM dd, yyyy")" readonly />
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Note:</strong> Only the committee role and active status can be changed. 
+                            To change the lecturer or program, remove this assignment and create a new one.
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="./Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i>Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

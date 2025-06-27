@@ -1,0 +1,230 @@
+@page
+@model FYP1System.Pages.Admin.Lecturers.IndexModel
+@{
+    ViewData["Title"] = "Manage Lecturers";
+}
+
+<div class="fade-in-up">
+    <!-- Header Section -->
+    <div class="admin-page-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="mb-3">
+                    <a asp-page="/Admin/Index" class="btn-back-admin">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Admin Dashboard
+                    </a>
+                </div>
+                <h2 class="admin-page-title">
+                    <i class="fas fa-chalkboard-teacher me-2 text-primary"></i>
+                    Lecturers Management
+                </h2>
+                <p class="admin-page-subtitle">Manage lecturer accounts and their program assignments</p>
+            </div>
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>
+            Add New Lecturer
+        </a>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Filter by Program</label>
+                    <select name="programId" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Programs</option>
+                        @foreach (var program in Model.Programs)
+                        {
+                            <option value="@program.Id" selected="@(program.Id.ToString() == ViewContext.HttpContext.Request.Query["programId"])">
+                                @program.Name
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Search by Name</label>
+                    <input type="text" name="search" class="form-control" 
+                           value="@ViewContext.HttpContext.Request.Query["search"]" 
+                           placeholder="Search lecturer name...">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">&nbsp;</label>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="fas fa-search me-1"></i> Search
+                        </button>
+                        <a href="@Url.Page("Index")" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i> Clear
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lecturers List -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i class="fas fa-list me-2"></i>
+                Lecturers List (@Model.Lecturers.Count)
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Lecturers?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Lecturer</th>
+                                <th>Email</th>
+                                <th>Program</th>
+                                <th>Domain</th>
+                                <th>Office</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var lecturer in Model.Lecturers)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="lecturer-avatar me-3">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div>
+                                                <strong>@lecturer.User?.FullName</strong>
+                                                <br>
+                                                <small class="text-muted">ID: @lecturer.Id</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="mailto:@lecturer.User?.Email" class="text-decoration-none">
+                                            @lecturer.User?.Email
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">
+                                            @lecturer.Program?.Name
+                                        </span>
+                                    </td>
+                                    <td>@lecturer.Domain</td>
+                                    <td>
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        @lecturer.OfficeLocation
+                                    </td>
+                                    <td>
+                                        @if (lecturer.IsCommittee)
+                                        {
+                                            <span class="status-badge" style="background: #FFF3E0; color: #E65100;">
+                                                <i class="fas fa-star me-1"></i>
+                                                Committee
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="status-badge status-active">
+                                                <i class="fas fa-chalkboard-teacher me-1"></i>
+                                                Lecturer
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-page="Edit" asp-route-id="@lecturer.Id" 
+                                               class="btn btn-sm btn-outline-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-page="Details" asp-route-id="@lecturer.Id" 
+                                               class="btn btn-sm btn-outline-info" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                    title="Delete" onclick="confirmDelete(@lecturer.Id, '@lecturer.User?.FullName')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-chalkboard-teacher fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">No Lecturers Found</h5>
+                    <p class="text-muted">Start by adding your first lecturer to the system.</p>
+                    <a asp-page="Create" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>
+                        Add First Lecturer
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                    Confirm Delete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete lecturer <strong id="lecturerName"></strong>?</p>
+                <div class="alert alert-warning">
+                    <i class="fas fa-info-circle me-2"></i>
+                    This will also delete the associated user account and cannot be undone.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" id="deleteForm" style="display: inline;">
+                    <input type="hidden" name="id" id="deleteId" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>
+                        Delete Lecturer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(id, name) {
+            document.getElementById('deleteId').value = id;
+            document.getElementById('lecturerName').textContent = name;
+            document.getElementById('deleteForm').action = `/Admin/Lecturers/Delete/${id}`;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+    </script>
+}
+
+<style>
+    .lecturer-avatar {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+</style>

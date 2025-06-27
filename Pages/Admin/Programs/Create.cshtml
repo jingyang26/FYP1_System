@@ -1,0 +1,108 @@
+@page
+@model FYP1System.Pages.Admin.Programs.CreateModel
+@{
+    ViewData["Title"] = "Create Program";
+}
+
+<div class="fade-in-up">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="h3 mb-1">
+                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                Create New Academic Program
+            </h2>
+            <p class="text-muted">Add a new academic program to the system</p>
+        </div>
+        <a asp-page="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>
+            Back to Programs
+        </a>
+    </div>
+
+    <!-- Create Form -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i class="fas fa-form me-2"></i>
+                Program Information
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label asp-for="Program.Name" class="form-label">
+                                <i class="fas fa-graduation-cap me-1"></i>
+                                Program Name *
+                            </label>
+                            <input asp-for="Program.Name" class="form-control" placeholder="e.g., Software Engineering" />
+                            <span asp-validation-for="Program.Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Program.Description" class="form-label">
+                                <i class="fas fa-align-left me-1"></i>
+                                Description *
+                            </label>
+                            <textarea asp-for="Program.Description" class="form-control" rows="4" 
+                                      placeholder="Enter a detailed description of the program..."></textarea>
+                            <span asp-validation-for="Program.Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input asp-for="Program.IsActive" class="form-check-input" type="checkbox" checked />
+                                <label asp-for="Program.IsActive" class="form-check-label">
+                                    <i class="fas fa-toggle-on me-1 text-success"></i>
+                                    Active Program
+                                </label>
+                            </div>
+                            <small class="form-text text-muted">
+                                Active programs are available for student registration and lecturer assignment.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                                <h6>Program Preview</h6>
+                                <p class="text-muted small">
+                                    Once created, this program will be available for:
+                                </p>
+                                <ul class="list-unstyled text-start">
+                                    <li><i class="fas fa-check text-success me-2"></i>Student registration</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Lecturer assignment</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Committee management</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Proposal submissions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-between">
+                    <a asp-page="Index" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>
+                        Create Program
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

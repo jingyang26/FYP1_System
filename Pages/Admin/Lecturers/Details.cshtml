@@ -1,0 +1,172 @@
+@page
+@model FYP1System.Pages.Admin.Lecturers.DetailsModel
+@{
+    ViewData["Title"] = "Lecturer Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user me-2"></i>Lecturer Details
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <dl class="row">
+                                <dt class="col-sm-3">Full Name:</dt>
+                                <dd class="col-sm-9">@Model.Lecturer!.User!.FullName</dd>
+
+                                <dt class="col-sm-3">Email:</dt>
+                                <dd class="col-sm-9">
+                                    <a href="mailto:@Model.Lecturer.User.Email">@Model.Lecturer.User.Email</a>
+                                </dd>
+
+                                <dt class="col-sm-3">Phone:</dt>
+                                <dd class="col-sm-9">@(Model.Lecturer.User.PhoneNumber ?? "Not provided")</dd>
+
+                                <dt class="col-sm-3">Program:</dt>
+                                <dd class="col-sm-9">
+                                    <span class="badge bg-info">@Model.Lecturer.Program!.Name</span>
+                                </dd>
+
+                                <dt class="col-sm-3">Domain:</dt>
+                                <dd class="col-sm-9">@(Model.Lecturer.Domain ?? "Not specified")</dd>
+
+                                <dt class="col-sm-3">Office:</dt>
+                                <dd class="col-sm-9">@(Model.Lecturer.OfficeLocation ?? "Not specified")</dd>
+
+                                <dt class="col-sm-3">Committee Member:</dt>
+                                <dd class="col-sm-9">
+                                    @if (Model.Lecturer.IsCommittee)
+                                    {
+                                        <span class="badge bg-success">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">No</span>
+                                    }
+                                </dd>
+
+                                <dt class="col-sm-3">Status:</dt>
+                                <dd class="col-sm-9">
+                                    @if (Model.Lecturer.IsActive)
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactive</span>
+                                    }
+                                </dd>
+
+                                <dt class="col-sm-3">Created:</dt>
+                                <dd class="col-sm-9">@Model.Lecturer.CreatedAt.ToString("MMM dd, yyyy")</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-title">Statistics</h6>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <div class="stat-item">
+                                                <h4 class="text-primary">@Model.SupervisedStudentsCount</h4>
+                                                <small class="text-muted">Students</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="stat-item">
+                                                <h4 class="text-info">@Model.CommitteeRolesCount</h4>
+                                                <small class="text-muted">Committee Roles</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.CommitteeRoles.Any())
+                    {
+                        <hr />
+                        <h5 class="mb-3">Committee Roles</h5>
+                        <div class="row">
+                            @foreach (var role in Model.CommitteeRoles)
+                            {
+                                <div class="col-md-6 mb-2">
+                                    <div class="card border-primary">
+                                        <div class="card-body py-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <strong>@role.Program!.Name</strong>
+                                                    @if (!string.IsNullOrEmpty(role.Role))
+                                                    {
+                                                        <span class="badge bg-primary ms-2">@role.Role</span>
+                                                    }
+                                                </div>
+                                                <small class="text-muted">
+                                                    Since @role.AssignedDate.ToString("MMM yyyy")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-page="./Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Back to List
+                        </a>
+                        <div>
+                            <a asp-page="./Edit" asp-route-id="@Model.Lecturer.Id" class="btn btn-primary me-2">
+                                <i class="fas fa-edit me-1"></i>Edit
+                            </a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="fas fa-trash me-1"></i>Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete lecturer <strong>@Model.Lecturer!.User!.FullName</strong>?</p>
+                @if (Model.SupervisedStudentsCount > 0 || Model.CommitteeRolesCount > 0)
+                {
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        This lecturer has @Model.SupervisedStudentsCount supervised student(s) and @Model.CommitteeRolesCount committee role(s).
+                        Deleting will remove all associations.
+                    </div>
+                }
+                <p class="text-danger"><strong>This action cannot be undone.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" style="display: inline;">
+                    <input type="hidden" name="id" value="@Model.Lecturer.Id" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i>Delete Lecturer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
