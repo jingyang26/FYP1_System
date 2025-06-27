@@ -1,0 +1,194 @@
+@page
+@model FYP1System.Pages.Account.ProfileModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user me-2"></i>
+                        Profile Information
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    @if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            @Model.Message
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-user me-2"></i>Full Name
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    @Model.UserInfo.FullName
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-envelope me-2"></i>Email
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    @Model.UserInfo.Email
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-phone me-2"></i>Phone Number
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    @(Model.UserInfo.PhoneNumber ?? "Not provided")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-graduation-cap me-2"></i>Program
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    @(Model.UserInfo.Program?.Name ?? "Not assigned")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-calendar-alt me-2"></i>Account Created
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    @Model.UserInfo.CreatedAt.ToString("dddd, MMMM dd, yyyy")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-shield-alt me-2"></i>User Role
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    @string.Join(", ", Model.UserRoles)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.IsStudent && Model.StudentInfo != null)
+                    {
+                        <hr class="my-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="fas fa-user-graduate me-2"></i>Student Information
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Student ID</label>
+                                    <div class="form-control-plaintext border rounded p-2 bg-light">
+                                        @Model.StudentInfo.StudentId
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Supervisor</label>
+                                    <div class="form-control-plaintext border rounded p-2 bg-light">
+                                        @(Model.StudentInfo.Supervisor?.User?.FullName ?? "Not assigned")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.IsLecturer && Model.LecturerInfo != null)
+                    {
+                        <hr class="my-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="fas fa-chalkboard-teacher me-2"></i>Lecturer Information
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Domain/Specialization</label>
+                                    <div class="form-control-plaintext border rounded p-2 bg-light">
+                                        @(Model.LecturerInfo.Domain ?? "Not specified")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Office Location</label>
+                                    <div class="form-control-plaintext border rounded p-2 bg-light">
+                                        @(Model.LecturerInfo.OfficeLocation ?? "Not specified")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Committee Member</label>
+                                    <div class="form-control-plaintext border rounded p-2 bg-light">
+                                        <span class="badge @(Model.LecturerInfo.IsCommittee ? "bg-success" : "bg-secondary")">
+                                            @(Model.LecturerInfo.IsCommittee ? "Yes" : "No")
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Status</label>
+                                    <div class="form-control-plaintext border rounded p-2 bg-light">
+                                        <span class="badge @(Model.LecturerInfo.IsActive ? "bg-success" : "bg-danger")">
+                                            @(Model.LecturerInfo.IsActive ? "Active" : "Inactive")
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="alert alert-warning mt-4" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Note:</strong> Profile information is read-only. Contact your system administrator if you need to update your details.
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <a href="javascript:history.back()" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Go Back
+                        </a>
+                        <div>
+                            <a href="/" class="btn btn-outline-primary me-2">
+                                <i class="fas fa-home me-2"></i>Dashboard
+                            </a>
+                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
