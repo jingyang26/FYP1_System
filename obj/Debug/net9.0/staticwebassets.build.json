@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dqBbMnVZwnBd7Zf4n9TGnSsw8Or3cXPzoalA9Xy+m38=",
+  "Hash": "2/+/AhxUqKvEodoX0gAuJPOxqpTOftKAJfZa/MadOZU=",
   "Source": "FYP1System",
   "BasePath": "_content/FYP1System",
   "Mode": "Default",
@@ -309,6 +309,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\AD\\AD TEST\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Identity": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\a11en71zcd-8284zkbd7h.gz",
+      "SourceId": "FYP1System",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/FYP1System",
+      "RelativePath": "css/role-dashboard#[.{fingerprint=8284zkbd7h}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "eu4jry7lzd",
+      "Integrity": "uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css"
     },
     {
       "Identity": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\a12o3fsbnq-ee0r1s7dh0.gz",
@@ -941,6 +962,27 @@
       "OriginalItemSpec": "D:\\AD\\AD TEST\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
+      "Identity": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\m35ctphot8-hyhxy344ju.gz",
+      "SourceId": "FYP1System",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/FYP1System",
+      "RelativePath": "js/role-dashboard#[.{fingerprint=hyhxy344ju}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\AD\\AD TEST\\wwwroot\\js\\role-dashboard.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "zvkv365buu",
+      "Integrity": "gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\AD\\AD TEST\\wwwroot\\js\\role-dashboard.js"
+    },
+    {
       "Identity": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\nizvf9loxy-cosvhxvwiu.gz",
       "SourceId": "FYP1System",
       "SourceType": "Discovered",
@@ -1445,6 +1487,27 @@
       "OriginalItemSpec": "wwwroot\\css\\auth.css"
     },
     {
+      "Identity": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css",
+      "SourceId": "FYP1System",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\AD\\AD TEST\\wwwroot\\",
+      "BasePath": "_content/FYP1System",
+      "RelativePath": "css/role-dashboard#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8284zkbd7h",
+      "Integrity": "0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\role-dashboard.css"
+    },
+    {
       "Identity": "D:\\AD\\AD TEST\\wwwroot\\css\\site.css",
       "SourceId": "FYP1System",
       "SourceType": "Discovered",
@@ -1485,6 +1548,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\AD\\AD TEST\\wwwroot\\js\\role-dashboard.js",
+      "SourceId": "FYP1System",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\AD\\AD TEST\\wwwroot\\",
+      "BasePath": "_content/FYP1System",
+      "RelativePath": "js/role-dashboard#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hyhxy344ju",
+      "Integrity": "KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\role-dashboard.js"
     },
     {
       "Identity": "D:\\AD\\AD TEST\\wwwroot\\js\\site.js",
@@ -3068,6 +3152,304 @@
       ]
     },
     {
+      "Route": "css/role-dashboard.8284zkbd7h.css",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\a11en71zcd-8284zkbd7h.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000487329435"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8284zkbd7h"
+        },
+        {
+          "Name": "label",
+          "Value": "css/role-dashboard.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.8284zkbd7h.css",
+      "AssetFile": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10006"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8284zkbd7h"
+        },
+        {
+          "Name": "label",
+          "Value": "css/role-dashboard.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.8284zkbd7h.css.gz",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\a11en71zcd-8284zkbd7h.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8284zkbd7h"
+        },
+        {
+          "Name": "label",
+          "Value": "css/role-dashboard.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.css",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\a11en71zcd-8284zkbd7h.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000487329435"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.css",
+      "AssetFile": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10006"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.css.gz",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\a11en71zcd-8284zkbd7h.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\cg2an0n72r-gf5j0xfxff.gz",
       "Selectors": [
@@ -4256,6 +4638,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-I79hN2aUb6ydtLSswdh+Irs88qc+1lZAuhInJEv/ZNo="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.hyhxy344ju.js",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\m35ctphot8-hyhxy344ju.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000650195059"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hyhxy344ju"
+        },
+        {
+          "Name": "label",
+          "Value": "js/role-dashboard.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.hyhxy344ju.js",
+      "AssetFile": "D:\\AD\\AD TEST\\wwwroot\\js\\role-dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4027"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hyhxy344ju"
+        },
+        {
+          "Name": "label",
+          "Value": "js/role-dashboard.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.hyhxy344ju.js.gz",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\m35ctphot8-hyhxy344ju.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hyhxy344ju"
+        },
+        {
+          "Name": "label",
+          "Value": "js/role-dashboard.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.js",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\m35ctphot8-hyhxy344ju.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000650195059"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.js",
+      "AssetFile": "D:\\AD\\AD TEST\\wwwroot\\js\\role-dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4027"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.js.gz",
+      "AssetFile": "D:\\AD\\AD TEST\\obj\\Debug\\net9.0\\compressed\\m35ctphot8-hyhxy344ju.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ="
         }
       ]
     },

@@ -599,6 +599,304 @@
       ]
     },
     {
+      "Route": "css/role-dashboard.8284zkbd7h.css",
+      "AssetFile": "css/role-dashboard.css.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000487329435"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8284zkbd7h"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        },
+        {
+          "Name": "label",
+          "Value": "css/role-dashboard.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.8284zkbd7h.css",
+      "AssetFile": "css/role-dashboard.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10006"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8284zkbd7h"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        },
+        {
+          "Name": "label",
+          "Value": "css/role-dashboard.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.8284zkbd7h.css.gz",
+      "AssetFile": "css/role-dashboard.css.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8284zkbd7h"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794="
+        },
+        {
+          "Name": "label",
+          "Value": "css/role-dashboard.css.gz"
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.css",
+      "AssetFile": "css/role-dashboard.css.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000487329435"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.css",
+      "AssetFile": "css/role-dashboard.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10006"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/role-dashboard.css.gz",
+      "AssetFile": "css/role-dashboard.css.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2051"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:58:37 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uu24N50cQHPa2ka6iHPbWjfDQi3vU9vNDSX3XbFf794="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "css/site.css.gz",
       "Selectors": [
@@ -1191,6 +1489,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-wfFuuYm+Lh6RbCeeiUqxw334b/hIOkp5j9eokGUM1Y0="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.hyhxy344ju.js",
+      "AssetFile": "js/role-dashboard.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000650195059"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hyhxy344ju"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        },
+        {
+          "Name": "label",
+          "Value": "js/role-dashboard.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.hyhxy344ju.js",
+      "AssetFile": "js/role-dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4027"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hyhxy344ju"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        },
+        {
+          "Name": "label",
+          "Value": "js/role-dashboard.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.hyhxy344ju.js.gz",
+      "AssetFile": "js/role-dashboard.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hyhxy344ju"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ="
+        },
+        {
+          "Name": "label",
+          "Value": "js/role-dashboard.js.gz"
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.js",
+      "AssetFile": "js/role-dashboard.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000650195059"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.js",
+      "AssetFile": "js/role-dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4027"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg="
+        }
+      ]
+    },
+    {
+      "Route": "js/role-dashboard.js.gz",
+      "AssetFile": "js/role-dashboard.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Jun 2025 08:59:07 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gbk+5VUP8RL9j0z/Cnp0y7LtU4wR5bywDb02/FvrouQ="
         }
       ]
     },

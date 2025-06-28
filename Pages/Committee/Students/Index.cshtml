@@ -4,61 +4,80 @@
     ViewData["Title"] = "Manage Students";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="mb-4">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h2>Manage Students</h2>
-                        <p>Manage student registrations and supervisor assignments</p>
-                    </div>
-                    <a href="/Committee" class="btn btn-outline-secondary">
-                        Back to Dashboard
+<div class="role-dashboard committee-dashboard">
+    <!-- Header Section -->
+    <div class="dashboard-header mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="dashboard-title">
+                    <i class="bi bi-people me-3"></i>
+                    Manage Students
+                </h1>
+                <p class="dashboard-subtitle">Manage student registrations and supervisor assignments</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="dashboard-meta">
+                    <a href="/Committee" class="btn btn-outline-light btn-sm me-2">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
                     </a>
+                    <span class="badge badge-light-blue px-3 py-2">
+                        <i class="bi bi-calendar me-2"></i>
+                        <span id="current-datetime"></span>
+                    </span>
                 </div>
             </div>
+        </div>
+    </div>
 
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    @TempData["SuccessMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            }
-
-            <!-- Filter Section -->
-            <div class="mb-4 p-3 border">
-                <h5 class="mb-3">Filter Students</h5>
-                <form method="post" asp-page-handler="Filter">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Session</label>
-                            <input asp-for="SelectedSession" class="form-control" placeholder="e.g., 2024/2025" />
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Semester</label>
-                            <select asp-for="SelectedSemester" class="form-select">
-                                <option value="">All Semesters</option>
-                                <option value="1">Semester 1</option>
-                                <option value="2">Semester 2</option>
-                                <option value="3">Semester 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Program</label>
-                            <select asp-for="SelectedProgramId" asp-items="Model.ProgramList" class="form-select">
-                                <option value="">All Programs</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary w-100">
-                                Filter
-                            </button>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-light-blue alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-2"></i>@TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
-                </form>
-            </div>
+                }
+
+                <!-- Filter Section -->
+                <div class="content-card mb-4">
+                    <div class="card-header bg-transparent border-0 pt-3">
+                        <h5 class="mb-0">
+                            <i class="bi bi-funnel me-2"></i>Filter Students
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-page-handler="Filter">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label">Session</label>
+                                    <input asp-for="SelectedSession" class="form-control" placeholder="e.g., 2024/2025" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Semester</label>
+                                    <select asp-for="SelectedSemester" class="form-select">
+                                        <option value="">All Semesters</option>
+                                        <option value="1">Semester 1</option>
+                                        <option value="2">Semester 2</option>
+                                        <option value="3">Semester 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Program</label>
+                                    <select asp-for="SelectedProgramId" asp-items="Model.ProgramList" class="form-select">
+                                        <option value="">All Programs</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-light-blue w-100">
+                                        <i class="bi bi-search me-1"></i>Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
             <!-- Students List -->
             <div class="mb-4">
@@ -325,6 +344,17 @@ h1, h2, h3, h4, h5, h6 {
 
 p, span, div, label, td, li, small {
     color: #000 !important;
+}
+
+.text-danger {
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.text-success {
+    color: #28a745 !important;
 }
 
 .text-danger {

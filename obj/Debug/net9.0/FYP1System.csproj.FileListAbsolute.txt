@@ -372,3 +372,5 @@ D:\AD\AD TEST\obj\Debug\net9.0\FYP1System.pdb
 D:\AD\AD TEST\obj\Debug\net9.0\FYP1System.genruntimeconfig.cache
 D:\AD\AD TEST\obj\Debug\net9.0\ref\FYP1System.dll
 D:\AD\AD TEST\bin\Debug\net9.0\app.db
+D:\AD\AD TEST\obj\Debug\net9.0\compressed\a11en71zcd-8284zkbd7h.gz
+D:\AD\AD TEST\obj\Debug\net9.0\compressed\m35ctphot8-hyhxy344ju.gz

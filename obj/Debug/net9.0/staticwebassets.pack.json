@@ -9,12 +9,20 @@
       "PackagePath": "staticwebassets\\css\\auth.css"
     },
     {
+      "Id": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\role-dashboard.css"
+    },
+    {
       "Id": "D:\\AD\\AD TEST\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "D:\\AD\\AD TEST\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\AD\\AD TEST\\wwwroot\\js\\role-dashboard.js",
+      "PackagePath": "staticwebassets\\js\\role-dashboard.js"
     },
     {
       "Id": "D:\\AD\\AD TEST\\wwwroot\\js\\site.js",
