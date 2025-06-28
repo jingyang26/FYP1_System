@@ -1,0 +1,509 @@
+@page
+@model FYP1System.Pages.Supervisor.IndexModel
+@{
+    ViewData["Title"] = "Supervisor Dashboard";
+}
+
+<style>
+/* Supervisor Dashboard Styling - Consistent with Admin */
+.supervisor-dashboard {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: calc(100vh - 200px);
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, #6f42c1 0%, #5a36a1 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(111, 66, 193, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    transform: rotate(45deg);
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-meta {
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-meta .badge {
+    font-size: 0.9rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Statistics Cards */
+.stats-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stats-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stats-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.stats-info h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3e50;
+}
+
+.stats-label {
+    color: #6c757d;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.stats-trend {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+/* Color variants for stats cards */
+.stats-primary {
+    --primary-color: #6f42c1;
+    --secondary-color: #5a36a1;
+}
+
+.stats-success {
+    --primary-color: #28a745;
+    --secondary-color: #1e7e34;
+}
+
+.stats-info {
+    --primary-color: #17a2b8;
+    --secondary-color: #117a8b;
+}
+
+.stats-warning {
+    --primary-color: #ffc107;
+    --secondary-color: #e0a800;
+}
+
+/* Management Cards */
+.management-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.management-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-header-custom {
+    padding: 1.5rem;
+    color: white;
+    border: none;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.header-text h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.header-text span {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.card-body-custom {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.btn-action {
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Animation */
+@@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .dashboard-title {
+        font-size: 2rem;
+    }
+    
+    .stats-info h3 {
+        font-size: 2rem;
+    }
+    
+    .stats-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<div class="supervisor-dashboard">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header mb-4 fade-in-up">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="dashboard-title">
+                        <i class="fas fa-user-tie me-3"></i>Supervisor Dashboard
+                    </h1>
+                    <p class="dashboard-subtitle">Comprehensive supervision management center</p>
+                </div>
+                <div class="col-md-4 text-md-end dashboard-meta">
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-user-circle me-2"></i>@User.Identity?.Name
+                    </span>
+                    <br>
+                    <small class="text-light opacity-75">
+                        <i class="fas fa-calendar me-1"></i>@DateTime.Now.ToString("MMMM dd, yyyy")
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-primary fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.MyStudentsCount</h3>
+                            <p class="stats-label">My Students</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-users me-1"></i>Supervised
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-info fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.TotalProposals</h3>
+                            <p class="stats-label">Total Proposals</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-file-alt me-1"></i>Received
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-warning fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.PendingProposals</h3>
+                            <p class="stats-label">Pending Review</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-clock me-1"></i>Awaiting
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-success fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.ApprovedProposals</h3>
+                            <p class="stats-label">Approved</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-check me-1"></i>Completed
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Actions -->
+        <div class="row mb-4">
+            <!-- My Students Section -->
+            <div class="col-lg-8 mb-4">
+                <div class="management-card fade-in-up">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, #6f42c1 0%, #5a36a1 100%);">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="header-text">
+                                <h5>My Students</h5>
+                                <span>Students under supervision</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body-custom">
+                        @if (Model.MyStudents.Any())
+                        {
+                            <div class="row">
+                                @foreach (var student in Model.MyStudents)
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card border-0 shadow-sm">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm bg-primary bg-gradient rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                        <i class="fas fa-user-graduate text-white"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="mb-1">@student.User.FullName</h6>
+                                                        <p class="text-muted mb-1 small">@student.StudentId</p>
+                                                        <small class="text-info">@student.Program?.Name</small>
+                                                    </div>
+                                                    <div>
+                                                        <a href="/Supervisor/Students/Details/@student.Id" class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <i class="fas fa-user-graduate fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No students assigned yet.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Recent Proposals -->
+            <div class="col-lg-4">
+                <!-- Quick Actions Card -->
+                <div class="management-card fade-in-up mb-4">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="header-text">
+                                <h5>Quick Actions</h5>
+                                <span>Supervisor tools</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="d-grid gap-3">
+                            <a href="/Supervisor/Students" class="btn btn-outline-primary btn-action">
+                                <i class="fas fa-users me-2"></i>View All Students
+                            </a>
+                            
+                            <a href="/Supervisor/Proposals" class="btn btn-outline-info btn-action">
+                                <i class="fas fa-file-alt me-2"></i>Review Proposals
+                            </a>
+                            
+                            <a href="/Supervisor/Comments" class="btn btn-outline-success btn-action">
+                                <i class="fas fa-comments me-2"></i>Manage Comments
+                            </a>
+                            
+                            <a href="/Supervisor/Reports" class="btn btn-outline-warning btn-action">
+                                <i class="fas fa-chart-bar me-2"></i>View Reports
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Proposals Card -->
+                <div class="management-card fade-in-up">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="header-text">
+                                <h5>Recent Proposals</h5>
+                                <span>Latest submissions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body-custom">
+                        @if (Model.RecentProposals.Any())
+                        {
+                            @foreach (var proposal in Model.RecentProposals)
+                            {
+                                <div class="border-bottom pb-3 mb-3">
+                                    <h6 class="fw-bold mb-2">@proposal.Title</h6>
+                                    <p class="text-muted mb-1 small">by @proposal.Student.User.FullName</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge rounded-pill 
+                                            @(proposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
+                                              proposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
+                                              proposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
+                                              "bg-secondary")">
+                                            @proposal.Status
+                                        </span>
+                                        <small class="text-muted">
+                                            @proposal.SubmittedAt?.ToString("MMM dd")
+                                        </small>
+                                    </div>
+                                </div>
+                            }
+                            <div class="text-center">
+                                <a href="/Supervisor/Proposals" class="btn btn-sm btn-outline-primary">
+                                    View All <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-3">
+                                <i class="fas fa-file-alt fa-2x text-muted mb-2"></i>
+                                <p class="text-muted small">No recent proposals</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-action {
+    border-radius: 10px !important;
+}
+</style>

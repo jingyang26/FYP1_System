@@ -4,165 +4,639 @@
     ViewData["Title"] = "Committee Dashboard";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="h3 mb-3">Committee Dashboard</h1>
-            <p class="text-muted">Welcome, @User.Identity?.Name</p>
-        </div>
-    </div>
+<style>
+/* Committee Dashboard Styling - Consistent with Admin */
+.committee-dashboard {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: calc(100vh - 200px);
+}
 
-    <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-info">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-users fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Total Students</h6>
-                    <h1 class="display-4">@Model.TotalStudents</h1>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-file fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Total Proposals</h6>
-                    <h1 class="display-4">@Model.TotalProposals</h1>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-clock fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Pending Review</h6>
-                    <h1 class="display-4">@Model.PendingProposals</h1>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <div class="rotate">
-                        <i class="fa fa-check fa-4x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Approved</h6>
-                    <h1 class="display-4">@Model.ApprovedProposals</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+    position: relative;
+    overflow: hidden;
+}
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Recent Proposals</h4>
+.dashboard-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    transform: rotate(45deg);
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-meta {
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-meta .badge {
+    font-size: 0.9rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Statistics Cards */
+.stats-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stats-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stats-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.stats-info h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3e50;
+}
+
+.stats-label {
+    color: #6c757d;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.stats-trend {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+/* Color variants for stats cards */
+.stats-primary {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+}
+
+.stats-success {
+    --primary-color: #28a745;
+    --secondary-color: #1e7e34;
+}
+
+.stats-info {
+    --primary-color: #17a2b8;
+    --secondary-color: #117a8b;
+}
+
+.stats-warning {
+    --primary-color: #ffc107;
+    --secondary-color: #e0a800;
+}
+
+/* Management Cards */
+.management-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.management-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-header-custom {
+    padding: 1.5rem;
+    color: white;
+    border: none;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.header-text h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.header-text span {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.card-body-custom {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.card-description {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.card-footer-custom {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.btn-action {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Animation */
+@@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.management-card:nth-child(1) { animation-delay: 0.5s; }
+.management-card:nth-child(2) { animation-delay: 0.6s; }
+.management-card:nth-child(3) { animation-delay: 0.7s; }
+.management-card:nth-child(4) { animation-delay: 0.8s; }
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .dashboard-title {
+        font-size: 2rem;
+    }
+    
+    .stats-info h3 {
+        font-size: 2rem;
+    }
+    
+    .stats-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<div class="committee-dashboard">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header mb-4 fade-in-up">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="dashboard-title">
+                        <i class="fas fa-users-cog me-3"></i>Committee Dashboard
+                    </h1>
+                    <p class="dashboard-subtitle">Comprehensive committee management center for FYP1 system</p>
                 </div>
-                <div class="card-body">
-                    @if (Model.RecentProposals.Any())
-                    {
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Student</th>
-                                        <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Submitted</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var proposal in Model.RecentProposals)
-                                    {
+                <div class="col-md-4 text-md-end dashboard-meta">
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-user-circle me-2"></i>@User.Identity?.Name
+                    </span>
+                    <br>
+                    <small class="text-light opacity-75">
+                        <i class="fas fa-calendar me-1"></i>@DateTime.Now.ToString("MMMM dd, yyyy")
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-info fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.TotalStudents</h3>
+                            <p class="stats-label">Total Students</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-arrow-up me-1"></i>Active
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-primary fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.TotalProposals</h3>
+                            <p class="stats-label">Total Proposals</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-chart-line me-1"></i>Submitted
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-warning fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.PendingProposals</h3>
+                            <p class="stats-label">Pending Review</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-clock me-1"></i>Awaiting
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-success fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.ApprovedProposals</h3>
+                            <p class="stats-label">Approved</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-check me-1"></i>Completed
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Statistics Row -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-info fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.TotalLecturers</h3>
+                            <p class="stats-label">Total Lecturers</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-chalkboard-teacher me-1"></i>Active
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-warning fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.LecturersWithoutDomain</h3>
+                            <p class="stats-label">No Domain Assigned</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-exclamation-triangle me-1"></i>Pending
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-danger fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@Model.UnassignedEvaluations</h3>
+                            <p class="stats-label">Need Evaluators</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-user-times me-1"></i>Urgent
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card stats-secondary fade-in-up">
+                    <div class="stats-content">
+                        <div class="stats-details">
+                            <h3>@(Model.TotalLecturers - Model.LecturersWithoutDomain)</h3>
+                            <p class="stats-label">Domain Assigned</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-check-double me-1"></i>Complete
+                            </div>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Actions -->
+        <div class="row mb-4">
+            <!-- Recent Proposals Section -->
+            <div class="col-lg-8 mb-4">
+                <div class="management-card fade-in-up">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="header-text">
+                                <h5>Recent Proposals</h5>
+                                <span>Latest submission overview</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body-custom">
+                        @if (Model.RecentProposals.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
                                         <tr>
-                                            <td>@proposal.Student.User.FullName</td>
-                                            <td>@proposal.Title</td>
-                                            <td>
-                                                <span class="badge 
-                                                    @(proposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
-                                                      proposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
-                                                      proposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
-                                                      "bg-secondary")">
-                                                    @proposal.Status
-                                                </span>
-                                            </td>
-                                            <td>@proposal.SubmittedAt?.ToString("MMM dd, yyyy")</td>
-                                            <td>
-                                                <a href="/Committee/Proposals/Details/@proposal.Id" class="btn btn-sm btn-outline-primary">
-                                                    <i class="fa fa-eye"></i> View
-                                                </a>
-                                            </td>
+                                            <th><i class="fas fa-user me-2"></i>Student</th>
+                                            <th><i class="fas fa-file-text me-2"></i>Title</th>
+                                            <th><i class="fas fa-traffic-light me-2"></i>Status</th>
+                                            <th><i class="fas fa-calendar me-2"></i>Submitted</th>
+                                            <th><i class="fas fa-cogs me-2"></i>Actions</th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <p class="text-muted">No proposals submitted yet.</p>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Quick Actions</h4>
-                </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <a href="/Committee/Proposals" class="btn btn-primary">
-                            <i class="fa fa-file"></i> Manage Proposals
-                        </a>
-                        
-                        <a href="/Committee/Students" class="btn btn-info">
-                            <i class="fa fa-users"></i> Manage Students
-                        </a>
-                        
-                        <a href="/Committee/Evaluators" class="btn btn-success">
-                            <i class="fa fa-user-check"></i> Assign Evaluators
-                        </a>
-                        
-                        <a href="/Committee/Lecturers" class="btn btn-warning">
-                            <i class="fa fa-chalkboard-teacher"></i> Manage Lecturers
-                        </a>
-                        
-                        <a href="/Committee/Reports" class="btn btn-secondary">
-                            <i class="fa fa-chart-bar"></i> View Reports
-                        </a>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var proposal in Model.RecentProposals)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sm bg-light rounded-circle d-flex align-items-center justify-content-center me-2">
+                                                            <i class="fas fa-user text-muted"></i>
+                                                        </div>
+                                                        @proposal.Student.User.FullName
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="fw-medium">@proposal.Title</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge rounded-pill 
+                                                        @(proposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
+                                                          proposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
+                                                          proposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
+                                                          "bg-secondary")">
+                                                        @proposal.Status
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-clock me-1"></i>
+                                                        @proposal.SubmittedAt?.ToString("MMM dd, yyyy")
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <a href="/Committee/Proposals/Details/@proposal.Id" class="btn btn-sm btn-outline-primary rounded-pill">
+                                                        <i class="fas fa-eye me-1"></i>View
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No proposals submitted yet.</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
 
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5 class="card-title">System Alerts</h5>
-                </div>
-                <div class="card-body">
-                    @if (Model.PendingProposals > 0)
-                    {
-                        <div class="alert alert-warning">
-                            <i class="fa fa-exclamation-triangle"></i>
-                            <strong>@Model.PendingProposals</strong> proposals awaiting review
+            <!-- Quick Actions & Alerts -->
+            <div class="col-lg-4">
+                <!-- Quick Actions Card -->
+                <div class="management-card fade-in-up mb-4">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="header-text">
+                                <h5>Quick Actions</h5>
+                                <span>Committee management tools</span>
+                            </div>
                         </div>
-                    }
-                    
-                    <div class="alert alert-info">
-                        <i class="fa fa-info-circle"></i>
-                        System is running normally
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="d-grid gap-3">
+                            <a href="/Committee/Proposals" class="btn btn-outline-primary btn-action">
+                                <i class="fas fa-file-alt me-2"></i>Manage Proposals
+                            </a>
+                            
+                            <a href="/Committee/Students" class="btn btn-outline-info btn-action">
+                                <i class="fas fa-user-graduate me-2"></i>Manage Students
+                            </a>
+                            
+                            <a href="/Committee/Evaluators" class="btn btn-outline-success btn-action">
+                                <i class="fas fa-user-check me-2"></i>Assign Evaluators
+                            </a>
+                            
+                            <a href="/Committee/LecturerDomains" class="btn btn-outline-warning btn-action">
+                                <i class="fas fa-users-cog me-2"></i>Assign Domains
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Alerts Card -->
+                <div class="management-card fade-in-up">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="header-text">
+                                <h5>System Alerts</h5>
+                                <span>Important notifications</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body-custom">
+                        @if (Model.PendingProposals > 0)
+                        {
+                            <div class="alert alert-warning border-0 shadow-sm">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+                                    <div>
+                                        <strong>@Model.PendingProposals</strong> proposals awaiting review
+                                        <br>
+                                        <small class="text-muted">Requires your attention</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.LecturersWithoutDomain > 0)
+                        {
+                            <div class="alert alert-warning border-0 shadow-sm">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-slash fa-2x me-3"></i>
+                                    <div>
+                                        <strong>@Model.LecturersWithoutDomain</strong> lecturers need domain assignment
+                                        <br>
+                                        <small class="text-muted">Assign Research or Development domains</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.UnassignedEvaluations > 0)
+                        {
+                            <div class="alert alert-danger border-0 shadow-sm">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-clock fa-2x me-3"></i>
+                                    <div>
+                                        <strong>@Model.UnassignedEvaluations</strong> proposals need evaluators
+                                        <br>
+                                        <small class="text-muted">Each proposal requires 2 evaluators</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        @if (Model.PendingProposals == 0 && Model.LecturersWithoutDomain == 0 && Model.UnassignedEvaluations == 0)
+                        {
+                            <div class="alert alert-success border-0 shadow-sm">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-check-circle fa-2x me-3"></i>
+                                    <div>
+                                        All systems operational
+                                        <br>
+                                        <small class="text-muted">No pending committee tasks</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -176,5 +650,18 @@
         padding-bottom: 50px;
         float: right;
         opacity: 0.15;
+    }
+
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+    }
+
+    .btn-action {
+        border-radius: 10px !important;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0,123,255,0.05);
     }
 </style>

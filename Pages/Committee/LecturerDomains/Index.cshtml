@@ -1,0 +1,194 @@
+@page
+@model FYP1System.Pages.Committee.LecturerDomains.IndexModel
+@{
+    ViewData["Title"] = "Assign Lecturer Domains";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="text-primary">
+                        <i class="fas fa-users-cog me-2"></i>
+                        Assign Lecturer Domains
+                    </h2>
+                    <p class="text-muted">Assign research or development domains to lecturers</p>
+                </div>
+                <a href="/Committee" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list me-2"></i>
+                        Lecturers List
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Lecturers.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Lecturer Name</th>
+                                        <th>Email</th>
+                                        <th>Program</th>
+                                        <th>Current Domain</th>
+                                        <th>Office Location</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var lecturer in Model.Lecturers)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                        <i class="fas fa-user text-white"></i>
+                                                    </div>
+                                                    <div>
+                                                        <strong>@lecturer.User?.FullName</strong>
+                                                        @if (lecturer.IsCommittee)
+                                                        {
+                                                            <span class="badge bg-success ms-2">Committee</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>@lecturer.User?.Email</td>
+                                            <td>@lecturer.Program?.Name</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(lecturer.Domain))
+                                                {
+                                                    <span class="badge bg-info">@lecturer.Domain</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-warning">Not Assigned</span>
+                                                }
+                                            </td>
+                                            <td>@(lecturer.OfficeLocation ?? "N/A")</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" 
+                                                            data-bs-toggle="dropdown">
+                                                        <i class="fas fa-cog me-1"></i>Assign Domain
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <form method="post" asp-page-handler="AssignDomain" class="d-inline">
+                                                                <input type="hidden" name="lecturerId" value="@lecturer.Id" />
+                                                                <input type="hidden" name="domain" value="Research" />
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="fas fa-microscope me-2"></i>Research
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <form method="post" asp-page-handler="AssignDomain" class="d-inline">
+                                                                <input type="hidden" name="lecturerId" value="@lecturer.Id" />
+                                                                <input type="hidden" name="domain" value="Development" />
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="fas fa-code me-2"></i>Development
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        @if (!string.IsNullOrEmpty(lecturer.Domain))
+                                                        {
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li>
+                                                                <form method="post" asp-page-handler="AssignDomain" class="d-inline">
+                                                                    <input type="hidden" name="lecturerId" value="@lecturer.Id" />
+                                                                    <input type="hidden" name="domain" value="" />
+                                                                    <button type="submit" class="dropdown-item text-danger">
+                                                                        <i class="fas fa-times me-2"></i>Remove Domain
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No lecturers found</h5>
+                            <p class="text-muted">There are no active lecturers in the system.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Domain Summary -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0">Research Domain</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>@Model.Lecturers.Count(l => l.Domain == "Research")</strong> lecturers assigned
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">Development Domain</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>@Model.Lecturers.Count(l => l.Domain == "Development")</strong> lecturers assigned
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.avatar-sm {
+    width: 40px;
+    height: 40px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.dropdown-item {
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background-color: var(--bs-dropdown-link-hover-bg);
+}
+</style>

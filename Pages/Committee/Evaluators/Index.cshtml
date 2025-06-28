@@ -1,0 +1,372 @@
+@page
+@model FYP1System.Pages.Committee.Evaluators.IndexModel
+@{
+    ViewData["Title"] = "Assign Evaluators";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="text-primary">
+                        <i class="fas fa-user-check me-2"></i>
+                        Assign Evaluators
+                    </h2>
+                    <p class="text-muted">Assign two evaluators to each proposal based on project type (Research/Development)</p>
+                </div>
+                <a href="/Committee" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <!-- Filter Section -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-filter me-2"></i>Filter by Proposal Type
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="Filter" class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Proposal Type</label>
+                            <select asp-for="SelectedProposalType" asp-items="Model.ProposalTypeList" class="form-select">
+                                <option value="">All Types</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search me-2"></i>Filter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Proposals List -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list me-2"></i>
+                            Proposals Requiring Evaluator Assignment (@Model.ProposalsNeedingEvaluators.Count)
+                        </h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (Model.ProposalsNeedingEvaluators.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Supervisor</th>
+                                        <th>Current Evaluators</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var proposal in Model.ProposalsNeedingEvaluators)
+                                    {
+                                        var needsEvaluators = proposal.EvaluatorAssignments.Count(ea => ea.IsActive) < 2;
+                                        var availableForType = Model.AvailableEvaluators
+                                            .Where(e => e.Id != proposal.Student?.SupervisorId &&
+                                                       !proposal.EvaluatorAssignments.Any(ea => ea.EvaluatorId == e.Id && ea.IsActive) &&
+                                                       (proposal.Type == FYP1System.Models.ProposalType.Research ? e.Domain == "Research" : e.Domain == "Development"))
+                                            .ToList();
+
+                                        <tr class="@(needsEvaluators ? "table-warning" : "")">
+                                            <td>
+                                                <div>
+                                                    <strong>@proposal.Student?.User?.FullName</strong>
+                                                    <br>
+                                                    <small class="text-muted">@proposal.Student?.Program?.Name</small>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style="max-width: 250px;">
+                                                    <strong>@proposal.Title</strong>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge @(proposal.Type == FYP1System.Models.ProposalType.Research ? "bg-info" : "bg-success")">
+                                                    @proposal.Type
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (proposal.Student?.Supervisor != null)
+                                                {
+                                                    <span class="badge bg-secondary">@proposal.Student.Supervisor.User?.FullName</span>
+                                                    @if (!string.IsNullOrEmpty(proposal.Student.Supervisor.Domain))
+                                                    {
+                                                        <br><small class="text-muted">(@proposal.Student.Supervisor.Domain)</small>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-danger">Not assigned</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @foreach (var assignment in proposal.EvaluatorAssignments.Where(ea => ea.IsActive))
+                                                    {
+                                                        <div class="d-flex align-items-center mb-1">
+                                                            <span class="badge bg-primary me-2">@assignment.Evaluator.User?.FullName</span>
+                                                            <form method="post" asp-page-handler="RemoveEvaluator" class="d-inline">
+                                                                <input type="hidden" name="assignmentId" value="@assignment.Id" />
+                                                                <input type="hidden" name="SelectedProposalType" value="@Model.SelectedProposalType" />
+                                                                <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                                                        onclick="return confirm('Remove this evaluator?')">
+                                                                    <i class="fas fa-times"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    }
+                                                    
+                                                    @if (needsEvaluators)
+                                                    {
+                                                        <span class="badge bg-warning">
+                                                            Needs @(2 - proposal.EvaluatorAssignments.Count(ea => ea.IsActive)) more evaluator(s)
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-success">
+                                                            <i class="fas fa-check"></i> Complete
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if (needsEvaluators)
+                                                {
+                                                    <div class="btn-group" role="group">
+                                                        <!-- Manual Assignment -->
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" 
+                                                                    type="button" data-bs-toggle="dropdown"
+                                                                    @(availableForType.Any() ? "" : "disabled")>
+                                                                <i class="fas fa-user-plus me-1"></i>Assign
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                @foreach (var evaluator in availableForType)
+                                                                {
+                                                                    <li>
+                                                                        <form method="post" asp-page-handler="AssignEvaluator" class="d-inline">
+                                                                            <input type="hidden" name="proposalId" value="@proposal.Id" />
+                                                                            <input type="hidden" name="evaluatorId" value="@evaluator.Id" />
+                                                                            <input type="hidden" name="SelectedProposalType" value="@Model.SelectedProposalType" />
+                                                                            <button type="submit" class="dropdown-item">
+                                                                                <i class="fas fa-user me-2"></i>@evaluator.User?.FullName
+                                                                                @if (!string.IsNullOrEmpty(evaluator.Domain))
+                                                                                {
+                                                                                    <small class="text-muted">(@evaluator.Domain)</small>
+                                                                                }
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
+                                                                }
+                                                                @if (!availableForType.Any())
+                                                                {
+                                                                    <li><span class="dropdown-item-text text-muted">No available evaluators</span></li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+
+                                                        <!-- Auto Assignment -->
+                                                        <form method="post" asp-page-handler="AutoAssignEvaluators" class="d-inline">
+                                                            <input type="hidden" name="proposalId" value="@proposal.Id" />
+                                                            <input type="hidden" name="SelectedProposalType" value="@Model.SelectedProposalType" />
+                                                            <button type="submit" class="btn btn-sm btn-outline-success"
+                                                                    @(availableForType.Any() ? "" : "disabled")
+                                                                    onclick="return confirm('Auto-assign available evaluators?')">
+                                                                <i class="fas fa-magic me-1"></i>Auto
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-success">
+                                                        <i class="fas fa-check-circle"></i> Complete
+                                                    </span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-user-check fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No proposals requiring evaluator assignment</h5>
+                            <p class="text-muted">All submitted proposals have been assigned evaluators.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Evaluator Summary -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0">
+                                <i class="fas fa-microscope me-2"></i>Research Domain Evaluators
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                @foreach (var evaluator in Model.AvailableEvaluators.Where(e => e.Domain == "Research"))
+                                {
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>@evaluator.User?.FullName</strong>
+                                            <br>
+                                            <small class="text-muted">@evaluator.User?.Email</small>
+                                        </div>
+                                        <span class="badge bg-primary">
+                                            @evaluator.EvaluatorAssignments.Count(ea => ea.IsActive) assignments
+                                        </span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">
+                                <i class="fas fa-code me-2"></i>Development Domain Evaluators
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                @foreach (var evaluator in Model.AvailableEvaluators.Where(e => e.Domain == "Development"))
+                                {
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>@evaluator.User?.FullName</strong>
+                                            <br>
+                                            <small class="text-muted">@evaluator.User?.Email</small>
+                                        </div>
+                                        <span class="badge bg-primary">
+                                            @evaluator.EvaluatorAssignments.Count(ea => ea.IsActive) assignments
+                                        </span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Statistics -->
+            @if (Model.ProposalsNeedingEvaluators.Any())
+            {
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5>@Model.ProposalsNeedingEvaluators.Count</h5>
+                                        <p class="mb-0">Total Proposals</p>
+                                    </div>
+                                    <i class="fas fa-file-alt fa-2x opacity-75"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5>@Model.ProposalsNeedingEvaluators.Count(p => p.EvaluatorAssignments.Count(ea => ea.IsActive) < 2)</h5>
+                                        <p class="mb-0">Need Evaluators</p>
+                                    </div>
+                                    <i class="fas fa-exclamation-triangle fa-2x opacity-75"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5>@Model.ProposalsNeedingEvaluators.Count(p => p.Type == FYP1System.Models.ProposalType.Research)</h5>
+                                        <p class="mb-0">Research Type</p>
+                                    </div>
+                                    <i class="fas fa-microscope fa-2x opacity-75"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5>@Model.ProposalsNeedingEvaluators.Count(p => p.Type == FYP1System.Models.ProposalType.Development)</h5>
+                                        <p class="mb-0">Development Type</p>
+                                    </div>
+                                    <i class="fas fa-code fa-2x opacity-75"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+.table td {
+    vertical-align: middle;
+}
+
+.dropdown-item {
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background-color: var(--bs-dropdown-link-hover-bg);
+}
+
+.table-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+</style>

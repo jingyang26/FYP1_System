@@ -186,13 +186,21 @@ namespace FYP1System.Data
                 {
                     UserId = supervisorUser.Id,
                     ProgramId = program.Id,
-                    Domain = "Artificial Intelligence",
+                    Domain = "Research",
                     OfficeLocation = "Block B, Level 3",
                     IsCommittee = false
                 };
 
                 context.Lecturers.Add(supervisorLecturer);
                 await context.SaveChangesAsync();
+
+                // Assign supervisor to the student
+                var existingStudent = await context.Students.FirstOrDefaultAsync(s => s.StudentId == "SE12345");
+                if (existingStudent != null)
+                {
+                    existingStudent.SupervisorId = supervisorLecturer.Id;
+                    await context.SaveChangesAsync();
+                }
             }
 
             // Create sample evaluator
@@ -271,6 +279,49 @@ namespace FYP1System.Data
                 };
 
                 context.CommitteeMembers.Add(committeeMember2);
+                await context.SaveChangesAsync();
+            }
+
+            // Create additional sample data for testing
+            await CreateAdditionalSampleData(context);
+        }
+
+        private static async Task CreateAdditionalSampleData(ApplicationDbContext context)
+        {
+            // Add more students and assign supervisors
+            var seProgram = await context.Programs.FirstAsync(p => p.Name == "Software Engineering");
+            var deProgram = await context.Programs.FirstAsync(p => p.Name == "Data Engineering");
+            var supervisorLecturer = await context.Lecturers.FirstAsync(l => l.Domain == "Research");
+
+            // Create additional students if they don't exist
+            var existingStudentCount = await context.Students.CountAsync();
+            if (existingStudentCount < 3)
+            {
+                var studentsToAdd = new List<Student>
+                {
+                    new Student
+                    {
+                        UserId = Guid.NewGuid().ToString(), // Temporary - would normally be linked to ApplicationUser
+                        ProgramId = seProgram.Id,
+                        StudentId = "SE12346",
+                        Session = "2024/2025",
+                        Semester = 1,
+                        GPA = 3.25m,
+                        SupervisorId = supervisorLecturer.Id
+                    },
+                    new Student
+                    {
+                        UserId = Guid.NewGuid().ToString(), // Temporary - would normally be linked to ApplicationUser
+                        ProgramId = deProgram.Id,
+                        StudentId = "DE12347",
+                        Session = "2024/2025",
+                        Semester = 1,
+                        GPA = 3.90m
+                        // No supervisor assigned yet
+                    }
+                };
+
+                context.Students.AddRange(studentsToAdd);
                 await context.SaveChangesAsync();
             }
         }

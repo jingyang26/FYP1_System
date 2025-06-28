@@ -26,7 +26,7 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post">
+                <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post">
                     <button type="submit" class="dropdown-item logout-btn">
                         <i class="fas fa-sign-out-alt me-2"></i>
                         Logout
@@ -39,15 +39,15 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link auth-link register-link" asp-area="Identity" asp-page="/Account/Register">
-            <i class="fas fa-user-plus nav-icon"></i>
-            <span>Register</span>
+        <a class="nav-link auth-link login-link" asp-page="/Account/Login">
+            <i class="fas fa-sign-in-alt nav-icon"></i>
+            <span>Login</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link auth-link login-link" asp-area="Identity" asp-page="/Account/Login">
-            <i class="fas fa-sign-in-alt nav-icon"></i>
-            <span>Login</span>
+        <a class="nav-link auth-link register-link" asp-page="/Account/Register">
+            <i class="fas fa-user-plus nav-icon"></i>
+            <span>Register</span>
         </a>
     </li>
 }

@@ -10,9 +10,9 @@
     --dark-blue: #1976D2;
     --accent-blue: #2196F3;
     --soft-blue: #F5F9FF;
-    --text-primary: #2C3E50;
-    --text-secondary: #64748B;
-    --text-muted: #94A3B8;
+    --text-primary: #000000;
+    --text-secondary: #000000;
+    --text-muted: #000000;
     --white: #FFFFFF;
     --light-gray: #F8FAFC;
     --border-light: #E2E8F0;
@@ -55,6 +55,114 @@ html {
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
     border-color: var(--primary-blue);
+}
+
+/* Global Text Color - Selective Override */
+body, 
+.container, .container-fluid,
+.card-body,
+.form-label,
+.form-control,
+.table td,
+.table th,
+h1, h2, h3, h4, h5, h6,
+p, span:not(.badge), div:not(.badge), 
+a:not(.btn):not(.nav-link), 
+label, li:not(.breadcrumb-item),
+small:not(.badge *),
+.text-muted,
+.text-primary,
+.text-secondary {
+    color: #000000 !important;
+}
+
+/* Keep Bootstrap component colors intact */
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link,
+.bg-primary, .bg-primary *,
+.bg-success, .bg-success *,
+.bg-warning, .bg-warning *,
+.bg-info, .bg-info *,
+.bg-danger, .bg-danger *,
+.bg-dark, .bg-dark *,
+.btn-primary, .btn-primary *,
+.btn-success, .btn-success *,
+.btn-warning, .btn-warning *,
+.btn-info, .btn-info *,
+.btn-danger, .btn-danger *,
+.btn-dark, .btn-dark *,
+.badge,
+.alert-success, .alert-success *,
+.alert-danger, .alert-danger *,
+.alert-warning, .alert-warning *,
+.alert-info, .alert-info *,
+.breadcrumb-item.active,
+.dropdown-item.active {
+    color: inherit !important;
+}
+
+/* Specific overrides for card headers */
+.card-header.bg-primary,
+.card-header.bg-primary h5,
+.card-header.bg-primary .mb-0,
+.card-header.bg-primary i,
+.card-header.bg-primary small {
+    color: #ffffff !important;
+}
+.bg-primary h2,
+.bg-primary h3,
+.bg-primary h4,
+.bg-primary h5,
+.bg-primary h6 {
+    color: #000000 !important;
+}
+
+/* Additional specific black text overrides */
+.text-primary,
+.text-secondary,
+.text-muted,
+.text-info,
+.text-warning,
+.text-success,
+.text-danger,
+.link-primary,
+.link-secondary {
+    color: #000000 !important;
+}
+
+/* Form elements */
+.form-control,
+.form-select,
+.form-check-label {
+    color: #000000 !important;
+}
+
+/* Table elements */
+.table td,
+.table th {
+    color: #000000 !important;
+}
+
+/* Card elements */
+.card-body,
+.card-text,
+.card-title {
+    color: #000000 !important;
+}
+
+/* List elements */
+.list-group-item {
+    color: #000000 !important;
+}
+
+/* Navigation elements */
+.nav-link:not(.text-white) {
+    color: #000000 !important;
+}
+
+/* Dropdown elements */
+.dropdown-item {
+    color: #000000 !important;
 }
 
 /* =============================================================================
@@ -418,35 +526,95 @@ html {
     transform: translateY(-1px);
 }
 
-/* Back Button Styling for Admin Pages */
-.btn-back-admin {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-    color: white;
+/* Light Blue Theme Button Variants */
+.btn-success {
+    background: linear-gradient(135deg, #5DADE2 0%, #3498DB 100%);
     border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
-}
-
-.btn-back-admin:hover {
-    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-    text-decoration: none;
 }
 
-.btn-back-admin i {
+.btn-success:hover {
+    background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #87CEEB 0%, #5DADE2 100%);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
+    color: white;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #5DADE2 0%, #3498DB 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #85C1E9 0%, #5DADE2 100%);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
+    color: white;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #5DADE2 0%, #3498DB 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #AED6F1 0%, #85C1E9 100%);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #85C1E9 0%, #5DADE2 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+/* Button Large Sizes */
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+}
+
+/* Button Focus States */
+.btn:focus,
+.btn:active:focus {
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+/* Button Icon Spacing */
+.btn i {
     transition: transform 0.3s ease;
 }
 
-.btn-back-admin:hover i {
-    transform: translateX(-2px);
+.btn:hover i {
+    transform: scale(1.1);
 }
 
 /* Cards */
@@ -841,23 +1009,23 @@ html {
 }
 
 .admin-icon {
-    background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+    background: linear-gradient(135deg, #4A90E2, #2196F3);
 }
 
 .committee-icon {
-    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    background: linear-gradient(135deg, #5DADE2, #3498DB);
 }
 
 .student-icon {
-    background: linear-gradient(135deg, #45B7D1, #96C93D);
+    background: linear-gradient(135deg, #87CEEB, #5DADE2);
 }
 
 .supervisor-icon {
-    background: linear-gradient(135deg, #F093FB, #F5576C);
+    background: linear-gradient(135deg, #85C1E9, #5DADE2);
 }
 
 .evaluator-icon {
-    background: linear-gradient(135deg, #4FACFE, #00F2FE);
+    background: linear-gradient(135deg, #AED6F1, #85C1E9);
 }
 
 .card-title {
@@ -966,4 +1134,23 @@ html {
         margin: 0.5rem 0;
         width: 100%;
     }
+}
+
+/* Gradient Background Classes */
+.bg-gradient-primary {
+    background: var(--gradient-primary) !important;
+    color: white !important;
+}
+
+.bg-gradient-light {
+    background: var(--gradient-light) !important;
+}
+
+/* Text Color Utilities */
+.text-light {
+    color: #f8f9fa !important;
+}
+
+.opacity-75 {
+    opacity: 0.75 !important;
 }

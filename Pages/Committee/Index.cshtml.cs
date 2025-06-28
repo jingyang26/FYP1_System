@@ -20,6 +20,9 @@ namespace FYP1System.Pages.Committee
         public int TotalProposals { get; set; }
         public int PendingProposals { get; set; }
         public int ApprovedProposals { get; set; }
+        public int TotalLecturers { get; set; }
+        public int LecturersWithoutDomain { get; set; }
+        public int UnassignedEvaluations { get; set; }
         public List<Proposal> RecentProposals { get; set; } = new();
 
         public async Task OnGetAsync()
@@ -30,6 +33,15 @@ namespace FYP1System.Pages.Committee
                 .CountAsync(p => p.Status == ProposalStatus.Submitted || p.Status == ProposalStatus.UnderReview);
             ApprovedProposals = await _context.Proposals
                 .CountAsync(p => p.Status == ProposalStatus.Approved);
+
+            TotalLecturers = await _context.Lecturers.CountAsync(l => l.IsActive);
+            LecturersWithoutDomain = await _context.Lecturers
+                .CountAsync(l => l.IsActive && string.IsNullOrEmpty(l.Domain));
+            
+            UnassignedEvaluations = await _context.Proposals
+                .Include(p => p.EvaluatorAssignments)
+                .Where(p => p.Status == ProposalStatus.Submitted || p.Status == ProposalStatus.UnderReview)
+                .CountAsync(p => p.EvaluatorAssignments.Count < 2);
 
             RecentProposals = await _context.Proposals
                 .Include(p => p.Student)

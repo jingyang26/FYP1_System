@@ -43,8 +43,8 @@ namespace FYP1System.Pages.Admin.Lecturers
             if (!string.IsNullOrEmpty(search))
             {
                 lecturersQuery = lecturersQuery.Where(l => 
-                    l.User!.FullName.Contains(search) || 
-                    l.User.Email.Contains(search) ||
+                    (l.User != null && l.User.FullName != null && l.User.FullName.Contains(search)) || 
+                    (l.User != null && l.User.Email != null && l.User.Email.Contains(search)) ||
                     (l.Domain != null && l.Domain.Contains(search)));
             }
 

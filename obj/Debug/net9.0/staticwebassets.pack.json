@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\FYP1System.z6fetarmpk.bundle.scp.css"
     },
     {
+      "Id": "D:\\AD\\AD TEST\\wwwroot\\css\\auth.css",
+      "PackagePath": "staticwebassets\\css\\auth.css"
+    },
+    {
       "Id": "D:\\AD\\AD TEST\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
