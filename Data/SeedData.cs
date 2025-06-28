@@ -293,6 +293,10 @@ namespace FYP1System.Data
             var deProgram = await context.Programs.FirstAsync(p => p.Name == "Data Engineering");
             var supervisorLecturer = await context.Lecturers.FirstAsync(l => l.Domain == "Research");
 
+            // Get existing users for additional students
+            var adminUser = await context.Users.FirstAsync(u => u.Email == "admin@example.com");
+            var committeeUser = await context.Users.FirstAsync(u => u.Email == "committee@example.com");
+
             // Create additional students if they don't exist
             var existingStudentCount = await context.Students.CountAsync();
             if (existingStudentCount < 3)
@@ -301,7 +305,7 @@ namespace FYP1System.Data
                 {
                     new Student
                     {
-                        UserId = Guid.NewGuid().ToString(), // Temporary - would normally be linked to ApplicationUser
+                        UserId = adminUser.Id, // Use admin user for additional student
                         ProgramId = seProgram.Id,
                         StudentId = "SE12346",
                         Session = "2024/2025",
@@ -311,7 +315,7 @@ namespace FYP1System.Data
                     },
                     new Student
                     {
-                        UserId = Guid.NewGuid().ToString(), // Temporary - would normally be linked to ApplicationUser
+                        UserId = committeeUser.Id, // Use committee user for additional student
                         ProgramId = deProgram.Id,
                         StudentId = "DE12347",
                         Session = "2024/2025",

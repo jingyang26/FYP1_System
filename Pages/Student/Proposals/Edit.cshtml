@@ -1,0 +1,181 @@
+@page
+@model FYP1System.Pages.Student.Proposals.EditModel
+@{
+    ViewData["Title"] = "Edit Proposal";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="fas fa-edit me-2"></i>Edit Project Proposal
+                    </h4>
+                    <small>Last updated: @Model.Proposal.UpdatedAt.ToString("MMMM dd, yyyy")</small>
+                </div>
+                <div class="card-body">
+                    @if (Model.Proposal.Status == FYP1System.Models.ProposalStatus.NeedsRevision)
+                    {
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Revision Required</h6>
+                            <p class="mb-0">This proposal needs revision based on evaluator feedback. Please review the comments and make necessary changes.</p>
+                        </div>
+                    }
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Proposal.Id" />
+
+                        <!-- Basic Information -->
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Basic Information
+                            </h5>
+                            
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.Title" class="form-label">Project Title</label>
+                                <input asp-for="Input.Title" class="form-control" />
+                                <span asp-validation-for="Input.Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.Type" class="form-label">Project Type</label>
+                                <select asp-for="Input.Type" class="form-select" asp-items="Html.GetEnumSelectList<FYP1System.Models.ProposalType>()">
+                                    <option value="">Select project type</option>
+                                </select>
+                                <span asp-validation-for="Input.Type" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Project Details -->
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-edit me-2"></i>Project Details
+                            </h5>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.Description" class="form-label">Project Description</label>
+                                <textarea asp-for="Input.Description" class="form-control" rows="4"></textarea>
+                                <span asp-validation-for="Input.Description" class="text-danger"></span>
+                                <div class="form-text">Maximum 2000 characters</div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.Objectives" class="form-label">Project Objectives</label>
+                                <textarea asp-for="Input.Objectives" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Input.Objectives" class="text-danger"></span>
+                                <div class="form-text">Maximum 1000 characters</div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.Methodology" class="form-label">Methodology</label>
+                                <textarea asp-for="Input.Methodology" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Input.Methodology" class="text-danger"></span>
+                                <div class="form-text">Maximum 1000 characters</div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.ExpectedOutcomes" class="form-label">Expected Outcomes</label>
+                                <textarea asp-for="Input.ExpectedOutcomes" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Input.ExpectedOutcomes" class="text-danger"></span>
+                                <div class="form-text">Maximum 1000 characters</div>
+                            </div>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-file-upload me-2"></i>File Upload (Optional)
+                            </h5>
+                            
+                            @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+                            {
+                                <div class="alert alert-info">
+                                    <i class="fas fa-file me-2"></i>
+                                    Current file: <a href="@Model.Proposal.FilePath" target="_blank">Download Current File</a>
+                                </div>
+                            }
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Input.ProposalFile" class="form-label">Upload New File (Optional)</label>
+                                <input asp-for="Input.ProposalFile" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png" />
+                                <span asp-validation-for="Input.ProposalFile" class="text-danger"></span>
+                                <div class="form-text">Leave empty to keep current file. Accepted formats: PDF, JPG, PNG. Maximum size: 10MB</div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-page="./Details" asp-route-id="@Model.Proposal.Id" class="btn btn-secondary me-md-2">Cancel</a>
+                            <button type="submit" name="action" value="draft" class="btn btn-outline-primary me-md-2">
+                                <i class="fas fa-save me-2"></i>Save as Draft
+                            </button>
+                            <button type="submit" name="action" value="submit" class="btn btn-success">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Evaluation Feedback (if any) -->
+            @if (Model.Evaluations.Any())
+            {
+                <div class="card mt-4 shadow">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-clipboard-check me-2"></i>Evaluator Feedback
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var evaluation in Model.Evaluations)
+                        {
+                            <div class="evaluation-feedback mb-3 p-3 border rounded">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <strong>@evaluation.Evaluator.User.FullName</strong>
+                                    <span class="badge 
+                                        @(evaluation.Status == FYP1System.Models.EvaluationStatus.Approved ? "bg-success" :
+                                          evaluation.Status == FYP1System.Models.EvaluationStatus.Rejected ? "bg-danger" :
+                                          evaluation.Status == FYP1System.Models.EvaluationStatus.NeedsRevision ? "bg-warning" :
+                                          "bg-secondary")">
+                                        @evaluation.Status
+                                    </span>
+                                </div>
+                                
+                                @if (!string.IsNullOrEmpty(evaluation.Comments))
+                                {
+                                    <div class="feedback-comments">
+                                        <p class="mb-0">@evaluation.Comments</p>
+                                    </div>
+                                }
+
+                                <small class="text-muted">
+                                    Evaluated on: @evaluation.EvaluatedAt?.ToString("MMMM dd, yyyy")
+                                </small>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<style>
+.evaluation-feedback {
+    background-color: #f8f9fa;
+}
+
+.feedback-comments {
+    background-color: #fff;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    border-left: 4px solid #0d6efd;
+    margin: 0.5rem 0;
+}
+</style>

@@ -17,10 +17,16 @@ namespace FYP1System.Models
         [Display(Name = "Assigned Date")]
         public DateTime AssignedDate { get; set; } = DateTime.UtcNow;
 
+        [Display(Name = "Assigned At")]
+        public DateTime AssignedAt { get; set; } = DateTime.UtcNow;
+
         [Display(Name = "Assigned By")]
         public string? AssignedBy { get; set; }
 
         [Display(Name = "Is Active")]
         public bool IsActive { get; set; } = true;
+
+        // Navigation property for the evaluation (if exists)
+        public virtual ProposalEvaluation? Evaluation { get; set; }
     }
 }

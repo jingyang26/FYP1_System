@@ -1,0 +1,347 @@
+@page "/Supervisor/Proposals/Details/{id:int}"
+@model FYP1System.Pages.Supervisor.Proposals.DetailsModel
+@{
+    ViewData["Title"] = "Proposal Details";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-file-alt text-primary me-2"></i>Proposal Details
+        </h1>
+        <div class="d-flex gap-2">
+            <a href="/Supervisor/Proposals" class="btn btn-outline-primary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i>Back to Proposals
+            </a>
+            @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+            {
+                <a href="/Supervisor/Proposals/Download/@Model.Proposal.Id" class="btn btn-primary btn-sm">
+                    <i class="fas fa-download me-1"></i>Download Proposal
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Proposal Information -->
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Proposal Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Student:</div>
+                        <div class="col-sm-9">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm bg-primary bg-gradient rounded-circle d-flex align-items-center justify-content-center me-2">
+                                    <i class="fas fa-user-graduate text-white small"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">@Model.Proposal.Student.User.FullName</div>
+                                    <small class="text-muted">@Model.Proposal.Student.StudentId | @Model.Proposal.Student.Program?.Name</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Title:</div>
+                        <div class="col-sm-9">@Model.Proposal.Title</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Type:</div>
+                        <div class="col-sm-9">
+                            <span class="badge bg-info">@Model.Proposal.Type</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Status:</div>
+                        <div class="col-sm-9">
+                            @{
+                                var statusBadge = Model.Proposal.Status switch
+                                {
+                                    ProposalStatus.Draft => "bg-secondary",
+                                    ProposalStatus.Submitted => "bg-warning",
+                                    ProposalStatus.UnderReview => "bg-info",
+                                    ProposalStatus.Approved => "bg-success",
+                                    ProposalStatus.Rejected => "bg-danger",
+                                    ProposalStatus.NeedsRevision => "bg-warning",
+                                    ProposalStatus.Resubmitted => "bg-primary",
+                                    _ => "bg-secondary"
+                                };
+                            }
+                            <span class="badge @statusBadge">@Model.Proposal.Status.ToString().Replace("UnderReview", "Under Review").Replace("NeedsRevision", "Needs Revision")</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Session/Semester:</div>
+                        <div class="col-sm-9">@Model.Proposal.Session - Semester @Model.Proposal.Semester</div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Description))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">Description:</div>
+                            <div class="col-sm-9">@Model.Proposal.Description</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Objectives))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">Objectives:</div>
+                            <div class="col-sm-9">@Model.Proposal.Objectives</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Methodology))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">Methodology:</div>
+                            <div class="col-sm-9">@Model.Proposal.Methodology</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.ExpectedOutcomes))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">Expected Outcomes:</div>
+                            <div class="col-sm-9">@Model.Proposal.ExpectedOutcomes</div>
+                        </div>
+                    }
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Submitted:</div>
+                        <div class="col-sm-9">
+                            @if (Model.Proposal.SubmittedAt.HasValue)
+                            {
+                                <span>@Model.Proposal.SubmittedAt.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Not submitted</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluation Results -->
+            @if (Model.Proposal.ProposalEvaluations.Any())
+            {
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Evaluation Results</h6>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var evaluation in Model.Proposal.ProposalEvaluations)
+                        {
+                            <div class="evaluation-item mb-4 p-3 border rounded">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="mb-1">Evaluator: @evaluation.Evaluator.User.FullName</h6>
+                                        <small class="text-muted">@evaluation.Evaluator.StaffId</small>
+                                    </div>
+                                    <div>
+                                        @{
+                                            var evalStatusBadge = evaluation.Status switch
+                                            {
+                                                EvaluationStatus.Pending => "bg-warning",
+                                                EvaluationStatus.InProgress => "bg-info",
+                                                EvaluationStatus.Completed => "bg-primary",
+                                                EvaluationStatus.Approved => "bg-success",
+                                                EvaluationStatus.Rejected => "bg-danger",
+                                                EvaluationStatus.NeedsRevision => "bg-warning",
+                                                _ => "bg-secondary"
+                                            };
+                                        }
+                                        <span class="badge @evalStatusBadge">@evaluation.Status.ToString().Replace("NeedsRevision", "Needs Revision")</span>
+                                    </div>
+                                </div>
+
+                                @if (evaluation.Status != EvaluationStatus.Pending)
+                                {
+                                    <!-- Scores -->
+                                    @if (evaluation.OverallScore.HasValue || evaluation.TechnicalMeritScore.HasValue || evaluation.InnovationScore.HasValue || evaluation.FeasibilityScore.HasValue || evaluation.LiteratureReviewScore.HasValue)
+                                    {
+                                        <div class="row mb-3">
+                                            @if (evaluation.OverallScore.HasValue)
+                                            {
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="text-center">
+                                                        <div class="h4 mb-0 text-primary">@evaluation.OverallScore%</div>
+                                                        <small class="text-muted">Overall Score</small>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (evaluation.TechnicalMeritScore.HasValue)
+                                            {
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="text-center">
+                                                        <div class="h5 mb-0">@evaluation.TechnicalMeritScore%</div>
+                                                        <small class="text-muted">Technical Merit</small>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (evaluation.InnovationScore.HasValue)
+                                            {
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="text-center">
+                                                        <div class="h5 mb-0">@evaluation.InnovationScore%</div>
+                                                        <small class="text-muted">Innovation</small>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (evaluation.FeasibilityScore.HasValue)
+                                            {
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="text-center">
+                                                        <div class="h5 mb-0">@evaluation.FeasibilityScore%</div>
+                                                        <small class="text-muted">Feasibility</small>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (evaluation.LiteratureReviewScore.HasValue)
+                                            {
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="text-center">
+                                                        <div class="h5 mb-0">@evaluation.LiteratureReviewScore%</div>
+                                                        <small class="text-muted">Literature Review</small>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+
+                                    <!-- Evaluation Details -->
+                                    @if (!string.IsNullOrEmpty(evaluation.Comments))
+                                    {
+                                        <div class="mb-2">
+                                            <strong>Comments:</strong>
+                                            <p class="mt-1">@evaluation.Comments</p>
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(evaluation.Strengths))
+                                    {
+                                        <div class="mb-2">
+                                            <strong>Strengths:</strong>
+                                            <p class="mt-1 text-success">@evaluation.Strengths</p>
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(evaluation.Weaknesses))
+                                    {
+                                        <div class="mb-2">
+                                            <strong>Weaknesses:</strong>
+                                            <p class="mt-1 text-warning">@evaluation.Weaknesses</p>
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(evaluation.Recommendations))
+                                    {
+                                        <div class="mb-2">
+                                            <strong>Recommendations:</strong>
+                                            <p class="mt-1 text-info">@evaluation.Recommendations</p>
+                                        </div>
+                                    }
+
+                                    @if (evaluation.EvaluatedAt.HasValue)
+                                    {
+                                        <small class="text-muted">Evaluated on: @evaluation.EvaluatedAt.Value.ToString("dd/MM/yyyy HH:mm")</small>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="text-muted mb-0">Evaluation pending...</p>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.Proposal.Status == ProposalStatus.Submitted || Model.Proposal.Status == ProposalStatus.Resubmitted)
+                    {
+                        <a href="/Supervisor/Proposals/Review/@Model.Proposal.Id" class="btn btn-success btn-sm w-100 mb-2">
+                            <i class="fas fa-comment me-1"></i>Add Comments
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+                    {
+                        <a href="/Supervisor/Proposals/Download/@Model.Proposal.Id" class="btn btn-primary btn-sm w-100 mb-2">
+                            <i class="fas fa-download me-1"></i>Download Proposal
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Proposal.AgreementFilePath))
+                    {
+                        <a href="/Supervisor/Proposals/DownloadAgreement/@Model.Proposal.Id" class="btn btn-info btn-sm w-100 mb-2">
+                            <i class="fas fa-file-contract me-1"></i>Download Agreement
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <!-- Comments Summary -->
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Comments (@Model.Proposal.Comments.Count)</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.Proposal.Comments.Any())
+                    {
+                        <div class="comments-list" style="max-height: 400px; overflow-y: auto;">
+                            @foreach (var comment in Model.Proposal.Comments.OrderByDescending(c => c.CreatedAt))
+                            {
+                                <div class="comment-item mb-3 p-2 border-start border-3 border-primary">
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <small class="fw-bold">@comment.User.FullName</small>
+                                        <small class="text-muted">@comment.CreatedAt.ToString("dd/MM HH:mm")</small>
+                                    </div>
+                                    <p class="mb-0 small">@comment.Content</p>
+                                    @if (comment.IsPrivate)
+                                    {
+                                        <small class="text-warning"><i class="fas fa-lock me-1"></i>Private</small>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center mb-0">No comments yet.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    
+    .evaluation-item {
+        background-color: #f8f9fa;
+    }
+    
+    .comment-item {
+        background-color: #f8f9fa;
+    }
+</style>

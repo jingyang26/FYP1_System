@@ -1,0 +1,192 @@
+@page
+@model FYP1System.Pages.Student.AgreementModel
+@{
+    ViewData["Title"] = "Supervisor Agreement";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            @if (Model.Student?.Supervisor != null)
+            {
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-handshake me-2"></i>General Agreement Between Student and Supervisor
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Agreement Header -->
+                        <div class="text-center mb-4">
+                            <h5>Final Year Project (FYP1) Supervision Agreement</h5>
+                            <p class="text-muted">Academic Session: @Model.Student.Session</p>
+                        </div>
+
+                        <!-- Student and Supervisor Information -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="info-section">
+                                    <h6 class="text-primary">Student Information</h6>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Name:</strong></td>
+                                            <td>@Model.Student.User.FullName</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Student ID:</strong></td>
+                                            <td>@Model.Student.StudentId</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Program:</strong></td>
+                                            <td>@Model.Student.Program.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Email:</strong></td>
+                                            <td>@Model.Student.User.Email</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-section">
+                                    <h6 class="text-primary">Supervisor Information</h6>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Name:</strong></td>
+                                            <td>@Model.Student.Supervisor.User.FullName</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Domain:</strong></td>
+                                            <td>@Model.Student.Supervisor.Domain</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Office:</strong></td>
+                                            <td>@Model.Student.Supervisor.OfficeLocation</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Email:</strong></td>
+                                            <td>@Model.Student.Supervisor.User.Email</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Agreement Terms -->
+                        <div class="agreement-content">
+                            <h6 class="text-primary mb-3">Agreement Terms and Conditions</h6>
+                            
+                            <div class="terms-section mb-3">
+                                <h6>1. Student Responsibilities:</h6>
+                                <ul>
+                                    <li>Attend regular supervision meetings as scheduled</li>
+                                    <li>Submit progress reports and deliverables on time</li>
+                                    <li>Maintain professional communication with the supervisor</li>
+                                    <li>Follow ethical guidelines in research and development</li>
+                                    <li>Complete the project within the allocated timeframe</li>
+                                </ul>
+                            </div>
+
+                            <div class="terms-section mb-3">
+                                <h6>2. Supervisor Responsibilities:</h6>
+                                <ul>
+                                    <li>Provide guidance and expertise in the chosen domain</li>
+                                    <li>Conduct regular supervision meetings</li>
+                                    <li>Review and provide feedback on student's work</li>
+                                    <li>Support the student's academic and professional development</li>
+                                    <li>Evaluate the student's progress fairly and objectively</li>
+                                </ul>
+                            </div>
+
+                            <div class="terms-section mb-3">
+                                <h6>3. Meeting Schedule:</h6>
+                                <ul>
+                                    <li>Regular meetings will be held weekly or bi-weekly</li>
+                                    <li>Meeting schedule will be mutually agreed upon</li>
+                                    <li>Emergency consultations can be arranged when necessary</li>
+                                    <li>All meetings should be documented</li>
+                                </ul>
+                            </div>
+
+                            <div class="terms-section mb-3">
+                                <h6>4. Communication:</h6>
+                                <ul>
+                                    <li>Primary communication via institutional email</li>
+                                    <li>Response time should not exceed 2-3 working days</li>
+                                    <li>Professional communication standards must be maintained</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Agreement Status -->
+                        <div class="agreement-status text-center">
+                            <div class="alert alert-success">
+                                <h6><i class="fas fa-check-circle me-2"></i>Agreement Status: Active</h6>
+                                <p class="mb-0">This agreement is effective from the date of supervisor approval by the committee.</p>
+                                <small class="text-muted">Agreement Date: @DateTime.Now.ToString("MMMM dd, yyyy")</small>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="text-center mt-4">
+                            <button onclick="window.print()" class="btn btn-primary me-3">
+                                <i class="fas fa-print me-2"></i>Print Agreement
+                            </button>
+                            <a asp-page="./Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                    <h4>No Supervisor Assigned</h4>
+                    <p>You don't have a supervisor assigned yet. Please select a supervisor first.</p>
+                    <a asp-page="./SelectSupervisor" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-2"></i>Select Supervisor
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+.info-section {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    height: 100%;
+}
+
+.terms-section ul {
+    padding-left: 1.5rem;
+}
+
+.terms-section li {
+    margin-bottom: 0.25rem;
+}
+
+@@media print {
+    .btn, .alert {
+        display: none !important;
+    }
+    
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .card-header {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+}
+</style>

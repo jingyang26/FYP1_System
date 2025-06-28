@@ -1,0 +1,302 @@
+@page
+@model FYP1System.Pages.Evaluator.GuidelinesModel
+@{
+    ViewData["Title"] = "Evaluation Guidelines";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-book"></i> Evaluation Guidelines</h2>
+                <button onclick="window.print()" class="btn btn-outline-primary">
+                    <i class="bi bi-printer"></i> Print Guidelines
+                </button>
+            </div>
+
+            <!-- Overview -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> Overview</h5>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        As an evaluator for Final Year Project (FYP1) proposals, your role is critical in ensuring that students' 
+                        project proposals meet the required academic standards and are feasible for completion within the given timeframe.
+                    </p>
+                    <p>
+                        This document outlines the evaluation criteria, process, and best practices to ensure fair and consistent evaluation of all proposals.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Evaluation Criteria -->
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-list-check"></i> Evaluation Criteria</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="bi bi-gear-fill text-primary"></i> Technical Aspects (40%)</h6>
+                            <ul>
+                                <li>Technical feasibility of the proposed solution</li>
+                                <li>Appropriateness of chosen technologies and tools</li>
+                                <li>Innovation and creativity in the approach</li>
+                                <li>Technical complexity suitable for FYP level</li>
+                                <li>Clear understanding of technical requirements</li>
+                            </ul>
+
+                            <h6 class="mt-4"><i class="bi bi-target text-success"></i> Project Scope (25%)</h6>
+                            <ul>
+                                <li>Realistic scope for a one-semester project</li>
+                                <li>Clear project objectives and deliverables</li>
+                                <li>Well-defined project boundaries</li>
+                                <li>Achievable within available resources</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="bi bi-book text-warning"></i> Literature Review (20%)</h6>
+                            <ul>
+                                <li>Quality and relevance of cited sources</li>
+                                <li>Understanding of current state of the field</li>
+                                <li>Identification of research gaps</li>
+                                <li>Proper citation and referencing</li>
+                            </ul>
+
+                            <h6 class="mt-4"><i class="bi bi-pencil-square text-info"></i> Presentation Quality (15%)</h6>
+                            <ul>
+                                <li>Clarity and coherence of writing</li>
+                                <li>Proper use of academic language</li>
+                                <li>Logical structure and organization</li>
+                                <li>Grammar and spelling accuracy</li>
+                                <li>Appropriate use of figures and diagrams</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluation Process -->
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-white">
+                    <h5 class="mb-0"><i class="bi bi-arrow-right-circle"></i> Evaluation Process</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center mb-3">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span class="fw-bold">1</span>
+                                </div>
+                                <h6 class="mt-2">Review Proposal</h6>
+                                <p class="small text-muted">
+                                    Carefully read through the entire proposal document and supervisor comments.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mb-3">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span class="fw-bold">2</span>
+                                </div>
+                                <h6 class="mt-2">Evaluate & Score</h6>
+                                <p class="small text-muted">
+                                    Assess the proposal against the evaluation criteria and assign scores.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mb-3">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span class="fw-bold">3</span>
+                                </div>
+                                <h6 class="mt-2">Provide Feedback</h6>
+                                <p class="small text-muted">
+                                    Submit your evaluation with detailed comments and recommendations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scoring Guidelines -->
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-star"></i> Scoring Guidelines</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Score Range</th>
+                                    <th>Grade</th>
+                                    <th>Description</th>
+                                    <th>Characteristics</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>85-100%</strong></td>
+                                    <td><span class="badge bg-success">Excellent</span></td>
+                                    <td>Outstanding proposal exceeding expectations</td>
+                                    <td>Innovative, well-researched, clearly presented, highly feasible</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>70-84%</strong></td>
+                                    <td><span class="badge bg-primary">Good</span></td>
+                                    <td>Strong proposal meeting all requirements</td>
+                                    <td>Solid technical approach, good research, clear objectives</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>55-69%</strong></td>
+                                    <td><span class="badge bg-warning">Satisfactory</span></td>
+                                    <td>Acceptable proposal with minor issues</td>
+                                    <td>Meets basic requirements, some areas need improvement</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>40-54%</strong></td>
+                                    <td><span class="badge bg-danger">Needs Work</span></td>
+                                    <td>Proposal requires significant revision</td>
+                                    <td>Major gaps in research, unclear objectives, feasibility concerns</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Below 40%</strong></td>
+                                    <td><span class="badge bg-dark">Unsatisfactory</span></td>
+                                    <td>Proposal does not meet minimum standards</td>
+                                    <td>Fundamental issues, not ready for approval</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision Options -->
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-check-square"></i> Decision Options</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h6 class="mb-0"><i class="bi bi-check-circle"></i> Accept</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>When to use:</strong> Proposal meets all requirements and demonstrates excellence.</p>
+                                    <p><strong>Criteria:</strong> Score ≥ 70%, solid technical approach, realistic scope, good research.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-white">
+                                    <h6 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Accept with Conditions</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>When to use:</strong> Proposal is generally acceptable but has minor issues.</p>
+                                    <p><strong>Criteria:</strong> Score 55-69%, needs minor revisions or clarifications.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-danger">
+                                <div class="card-header bg-danger text-white">
+                                    <h6 class="mb-0"><i class="bi bi-x-circle"></i> Reject</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>When to use:</strong> Proposal has fundamental issues that cannot be easily addressed.</p>
+                                    <p><strong>Criteria:</strong> Score < 55%, major technical flaws, unrealistic scope.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Best Practices</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="bi bi-check-circle text-success"></i> Do:</h6>
+                            <ul>
+                                <li>Read the entire proposal carefully before making a decision</li>
+                                <li>Consider the student's academic level and experience</li>
+                                <li>Provide specific, constructive feedback</li>
+                                <li>Be consistent in your evaluation criteria</li>
+                                <li>Consider the supervisor's comments and expertise</li>
+                                <li>Focus on the feasibility within the given timeframe</li>
+                                <li>Evaluate the learning outcomes for the student</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="bi bi-x-circle text-danger"></i> Don't:</h6>
+                            <ul>
+                                <li>Make decisions based on personal preferences alone</li>
+                                <li>Ignore the supervisor's input and guidance</li>
+                                <li>Set unrealistic expectations for undergraduate work</li>
+                                <li>Provide vague or unhelpful feedback</li>
+                                <li>Rush through the evaluation process</li>
+                                <li>Focus solely on technical complexity</li>
+                                <li>Overlook the student's learning objectives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-envelope"></i> Need Help?</h5>
+                </div>
+                <div class="card-body">
+                    <p>If you have questions about the evaluation process or need clarification on specific proposals, please contact:</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Academic Committee</h6>
+                            <p>
+                                <i class="bi bi-envelope"></i> committee@university.edu<br>
+                                <i class="bi bi-telephone"></i> +60 3-1234 5678
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>System Support</h6>
+                            <p>
+                                <i class="bi bi-envelope"></i> support@university.edu<br>
+                                <i class="bi bi-telephone"></i> +60 3-1234 5679
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@@media print {
+    .btn, .card-header .btn {
+        display: none !important;
+    }
+    
+    .card {
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+    
+    .card-header {
+        background-color: #f8f9fa !important;
+        color: #000 !important;
+    }
+}
+</style>

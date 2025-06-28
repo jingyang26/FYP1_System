@@ -179,11 +179,17 @@ namespace FYP1System.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("AssignedBy")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("AssignedDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("EvaluationId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EvaluatorId")
                         .HasColumnType("INTEGER");
@@ -196,6 +202,8 @@ namespace FYP1System.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EvaluationId");
+
                     b.HasIndex("EvaluatorId");
 
                     b.HasIndex("ProposalId");
@@ -207,6 +215,9 @@ namespace FYP1System.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanSupervise")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
@@ -228,6 +239,14 @@ namespace FYP1System.Data.Migrations
 
                     b.Property<int>("ProgramId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Specialization")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StaffId")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -419,6 +438,9 @@ namespace FYP1System.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("LecturerId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("ProgramId")
                         .HasColumnType("INTEGER");
 
@@ -441,6 +463,8 @@ namespace FYP1System.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LecturerId");
 
                     b.HasIndex("ProgramId");
 
@@ -527,11 +551,9 @@ namespace FYP1System.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -569,11 +591,9 @@ namespace FYP1System.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -645,6 +665,10 @@ namespace FYP1System.Data.Migrations
 
             modelBuilder.Entity("FYP1System.Models.EvaluatorAssignment", b =>
                 {
+                    b.HasOne("FYP1System.Models.ProposalEvaluation", "Evaluation")
+                        .WithMany()
+                        .HasForeignKey("EvaluationId");
+
                     b.HasOne("FYP1System.Models.Lecturer", "Evaluator")
                         .WithMany("EvaluatorAssignments")
                         .HasForeignKey("EvaluatorId")
@@ -656,6 +680,8 @@ namespace FYP1System.Data.Migrations
                         .HasForeignKey("ProposalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Evaluation");
 
                     b.Navigation("Evaluator");
 
@@ -713,6 +739,10 @@ namespace FYP1System.Data.Migrations
 
             modelBuilder.Entity("FYP1System.Models.Student", b =>
                 {
+                    b.HasOne("FYP1System.Models.Lecturer", null)
+                        .WithMany("Students")
+                        .HasForeignKey("LecturerId");
+
                     b.HasOne("FYP1System.Models.Program", "Program")
                         .WithMany("Students")
                         .HasForeignKey("ProgramId")
@@ -807,6 +837,8 @@ namespace FYP1System.Data.Migrations
                     b.Navigation("CommitteeRoles");
 
                     b.Navigation("EvaluatorAssignments");
+
+                    b.Navigation("Students");
 
                     b.Navigation("SupervisedStudents");
                 });

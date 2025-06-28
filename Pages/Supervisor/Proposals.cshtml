@@ -1,0 +1,199 @@
+@page
+@model FYP1System.Pages.Supervisor.ProposalsModel
+@{
+    ViewData["Title"] = "My Students' Proposals";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-file-alt text-primary me-2"></i>My Students' Proposals
+        </h1>
+        <div class="d-flex gap-2">
+            <a href="/Supervisor" class="btn btn-outline-primary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Filter Proposals</h6>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-3">
+                    <label for="session" class="form-label">Session</label>
+                    <select class="form-select" id="session" name="session">
+                        <option value="">All Sessions</option>
+                        <option value="2023/2024" selected="@(Model.SelectedSession == "2023/2024")">2023/2024</option>
+                        <option value="2024/2025" selected="@(Model.SelectedSession == "2024/2025")">2024/2025</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="semester" class="form-label">Semester</label>
+                    <select class="form-select" id="semester" name="semester">
+                        <option value="">All Semesters</option>
+                        <option value="1" selected="@(Model.SelectedSemester == 1)">Semester 1</option>
+                        <option value="2" selected="@(Model.SelectedSemester == 2)">Semester 2</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option value="">All Statuses</option>
+                        <option value="Submitted" selected="@(Model.SelectedStatus == "Submitted")">Submitted</option>
+                        <option value="UnderReview" selected="@(Model.SelectedStatus == "UnderReview")">Under Review</option>
+                        <option value="Approved" selected="@(Model.SelectedStatus == "Approved")">Approved</option>
+                        <option value="Rejected" selected="@(Model.SelectedStatus == "Rejected")">Rejected</option>
+                        <option value="NeedsRevision" selected="@(Model.SelectedStatus == "NeedsRevision")">Needs Revision</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-filter me-1"></i>Filter
+                    </button>
+                    <a href="/Supervisor/Proposals" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-1"></i>Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Proposals List -->
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Proposals (@Model.Proposals.Count)
+            </h6>
+        </div>
+        <div class="card-body">
+            @if (Model.Proposals.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Student</th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Session/Semester</th>
+                                <th>Status</th>
+                                <th>Submitted</th>
+                                <th>Comments</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var proposal in Model.Proposals)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm bg-primary bg-gradient rounded-circle d-flex align-items-center justify-content-center me-2">
+                                                <i class="fas fa-user-graduate text-white small"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">@proposal.Student.User.FullName</div>
+                                                <small class="text-muted">@proposal.Student.StudentId</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold">@proposal.Title</div>
+                                        @if (!string.IsNullOrEmpty(proposal.Description))
+                                        {
+                                            <small class="text-muted">@(proposal.Description.Length > 100 ? proposal.Description.Substring(0, 100) + "..." : proposal.Description)</small>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">@proposal.Type</span>
+                                    </td>
+                                    <td>
+                                        <div>@proposal.Session</div>
+                                        <small class="text-muted">Semester @proposal.Semester</small>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var statusBadge = proposal.Status switch
+                                            {
+                                                ProposalStatus.Draft => "bg-secondary",
+                                                ProposalStatus.Submitted => "bg-warning",
+                                                ProposalStatus.UnderReview => "bg-info",
+                                                ProposalStatus.Approved => "bg-success",
+                                                ProposalStatus.Rejected => "bg-danger",
+                                                ProposalStatus.NeedsRevision => "bg-warning",
+                                                ProposalStatus.Resubmitted => "bg-primary",
+                                                _ => "bg-secondary"
+                                            };
+                                        }
+                                        <span class="badge @statusBadge">@proposal.Status.ToString().Replace("UnderReview", "Under Review").Replace("NeedsRevision", "Needs Revision")</span>
+                                    </td>
+                                    <td>
+                                        @if (proposal.SubmittedAt.HasValue)
+                                        {
+                                            <div>@proposal.SubmittedAt.Value.ToString("dd/MM/yyyy")</div>
+                                            <small class="text-muted">@proposal.SubmittedAt.Value.ToString("HH:mm")</small>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Not submitted</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-dark">@proposal.Comments.Count</span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="/Supervisor/Proposals/Details/@proposal.Id" class="btn btn-sm btn-outline-primary" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            @if (proposal.Status == ProposalStatus.Submitted || proposal.Status == ProposalStatus.Resubmitted)
+                                            {
+                                                <a href="/Supervisor/Proposals/Review/@proposal.Id" class="btn btn-sm btn-outline-success" title="Add Comments">
+                                                    <i class="fas fa-comment"></i>
+                                                </a>
+                                            }
+                                            @if (!string.IsNullOrEmpty(proposal.FilePath))
+                                            {
+                                                <a href="/Supervisor/Proposals/Download/@proposal.Id" class="btn btn-sm btn-outline-info" title="Download Proposal">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">No proposals found</h5>
+                    <p class="text-muted">No proposals match the current filter criteria.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-group .btn {
+        margin-right: 2px;
+    }
+    
+    .btn-group .btn:last-child {
+        margin-right: 0;
+    }
+</style>

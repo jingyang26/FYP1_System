@@ -1,0 +1,206 @@
+@page "/Supervisor/Proposals/Review/{id:int}"
+@model FYP1System.Pages.Supervisor.Proposals.ReviewModel
+@{
+    ViewData["Title"] = "Review Proposal";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-comment text-primary me-2"></i>Review Proposal
+        </h1>
+        <div class="d-flex gap-2">
+            <a href="/Supervisor/Proposals/Details/@Model.Proposal.Id" class="btn btn-outline-primary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i>Back to Details
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Proposal Summary -->
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Proposal Summary</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Student:</div>
+                        <div class="col-sm-9">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm bg-primary bg-gradient rounded-circle d-flex align-items-center justify-content-center me-2">
+                                    <i class="fas fa-user-graduate text-white small"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">@Model.Proposal.Student.User.FullName</div>
+                                    <small class="text-muted">@Model.Proposal.Student.StudentId</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Title:</div>
+                        <div class="col-sm-9">@Model.Proposal.Title</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Type:</div>
+                        <div class="col-sm-9">
+                            <span class="badge bg-info">@Model.Proposal.Type</span>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Description))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">Description:</div>
+                            <div class="col-sm-9">@Model.Proposal.Description</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">Proposal File:</div>
+                            <div class="col-sm-9">
+                                <a href="/Supervisor/Proposals/Download/@Model.Proposal.Id" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-download me-1"></i>Download Proposal
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Add Comment Form -->
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Add Your Comments</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="ProposalId" />
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Comment.Content" class="form-label">Your Comments</label>
+                            <textarea asp-for="Comment.Content" class="form-control" rows="6" 
+                                      placeholder="Provide your feedback on the proposal. Consider aspects like clarity, feasibility, innovation, and methodology..."></textarea>
+                            <span asp-validation-for="Comment.Content" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input asp-for="Comment.IsPrivate" class="form-check-input" type="checkbox" />
+                            <label asp-for="Comment.IsPrivate" class="form-check-label">
+                                <i class="fas fa-lock me-1"></i>Private comment (visible only to admin and committee)
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/Supervisor/Proposals/Details/@Model.Proposal.Id" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-comment me-1"></i>Add Comment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Existing Comments -->
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Existing Comments (@Model.Proposal.Comments.Count)</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.Proposal.Comments.Any())
+                    {
+                        <div class="comments-list" style="max-height: 500px; overflow-y: auto;">
+                            @foreach (var comment in Model.Proposal.Comments.OrderByDescending(c => c.CreatedAt))
+                            {
+                                <div class="comment-item mb-3 p-3 border rounded">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <small class="fw-bold">@comment.User.FullName</small>
+                                            @if (comment.IsPrivate)
+                                            {
+                                                <small class="text-warning ms-1">
+                                                    <i class="fas fa-lock"></i>
+                                                </small>
+                                            }
+                                        </div>
+                                        <small class="text-muted">@comment.CreatedAt.ToString("dd/MM HH:mm")</small>
+                                    </div>
+                                    <p class="mb-0 small">@comment.Content</p>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-comments fa-2x text-muted mb-2"></i>
+                            <p class="text-muted mb-0">No comments yet.</p>
+                            <small class="text-muted">Be the first to provide feedback!</small>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Guidelines -->
+            <div class="card shadow mt-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-success">Review Guidelines</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Review the proposal for clarity and coherence</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Assess the feasibility of the proposed approach</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Evaluate the innovation and significance</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Check if objectives are well-defined</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>Provide constructive feedback</small>
+                        </li>
+                        <li class="mb-0">
+                            <i class="fas fa-info-circle text-info me-2"></i>
+                            <small>Use private comments for internal notes</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    
+    .comment-item {
+        background-color: #f8f9fa;
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

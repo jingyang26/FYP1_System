@@ -116,8 +116,40 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/AD/AD TEST/Pages/Evaluator/Downloads.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXERvd25sb2Fkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Evaluations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXEV2YWx1YXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Guidelines.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXEd1aWRlbGluZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/AD/AD TEST/Pages/Evaluator/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Proposals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXFByb3Bvc2Fscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Proposals/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXFByb3Bvc2Fsc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Proposals/Download.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXFByb3Bvc2Fsc1xEb3dubG9hZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Proposals/DownloadAgreement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXFByb3Bvc2Fsc1xEb3dubG9hZEFncmVlbWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Evaluator/Proposals/Evaluate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZhbHVhdG9yXFByb3Bvc2Fsc1xFdmFsdWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/AD/AD TEST/Pages/Index.cshtml]
@@ -132,12 +164,76 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/AD/AD TEST/Pages/Student/Agreement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxBZ3JlZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Student/Comments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb21tZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/AD/AD TEST/Pages/Student/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/AD/AD TEST/Pages/Student/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Student/Proposals/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxQcm9wb3NhbHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Student/Proposals/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxQcm9wb3NhbHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Student/Proposals/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxQcm9wb3NhbHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Student/Proposals/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxQcm9wb3NhbHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Student/SelectSupervisor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxTZWxlY3RTdXBlcnZpc29yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Comments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxDb21tZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/AD/AD TEST/Pages/Supervisor/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Proposals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxQcm9wb3NhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Proposals/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxQcm9wb3NhbHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Proposals/Download.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxQcm9wb3NhbHNcRG93bmxvYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Proposals/DownloadAgreement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxQcm9wb3NhbHNcRG93bmxvYWRBZ3JlZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Proposals/Review.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxQcm9wb3NhbHNcUmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Reports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxSZXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AD/AD TEST/Pages/Supervisor/Students.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJ2aXNvclxTdHVkZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/AD/AD TEST/Pages/TestAdmin.cshtml]

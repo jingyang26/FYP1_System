@@ -1,0 +1,165 @@
+@page
+@model FYP1System.Pages.Student.CommentsModel
+@{
+    ViewData["Title"] = "Feedback & Comments";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>
+                    <i class="fas fa-comments me-2 text-primary"></i>Feedback & Comments
+                </h2>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
+
+            @if (Model.Comments.Any())
+            {
+                @foreach (var groupedComments in Model.Comments.GroupBy(c => c.Proposal))
+                {
+                    <div class="card mb-4 shadow">
+                        <div class="card-header bg-light">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="mb-0">@groupedComments.Key.Title</h5>
+                                    <small class="text-muted">
+                                        <i class="fas fa-cogs me-1"></i>@groupedComments.Key.Type
+                                        <span class="mx-2">|</span>
+                                        <span class="badge 
+                                            @(groupedComments.Key.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
+                                              groupedComments.Key.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
+                                              groupedComments.Key.Status == FYP1System.Models.ProposalStatus.NeedsRevision ? "bg-warning" :
+                                              groupedComments.Key.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-info" :
+                                              "bg-secondary")">
+                                            @groupedComments.Key.Status
+                                        </span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <a asp-page="./Proposals/Details" asp-route-id="@groupedComments.Key.Id" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>View Proposal
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var comment in groupedComments.OrderByDescending(c => c.CreatedAt))
+                            {
+                                <div class="comment-item mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="avatar-circle me-3">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="comment-content flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <strong class="comment-author">@comment.User.FullName</strong>
+                                                    <span class="badge bg-secondary ms-2">
+                                                        @(comment.User.UserName?.Contains("@") == true ? "Evaluator" : 
+                                                          comment.User.UserName?.Contains("supervisor") == true ? "Supervisor" : 
+                                                          "Staff")
+                                                    </span>
+                                                </div>
+                                                <small class="text-muted">
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    @comment.CreatedAt.ToString("MMM dd, yyyy 'at' h:mm tt")
+                                                </small>
+                                            </div>
+                                            <div class="comment-text">
+                                                @comment.Content
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                @if (comment != groupedComments.Last())
+                                {
+                                    <hr class="my-3">
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!-- Pagination or Load More if needed -->
+                @if (Model.TotalComments > Model.Comments.Count)
+                {
+                    <div class="text-center mt-4">
+                        <p class="text-muted">
+                            Showing @Model.Comments.Count of @Model.TotalComments comments
+                        </p>
+                        <!-- Add pagination controls here if needed -->
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-comments fa-4x text-muted mb-4"></i>
+                    <h4 class="text-muted">No Feedback Yet</h4>
+                    <p class="text-muted">You haven't received any feedback on your proposals yet.</p>
+                    <p class="text-muted">Once evaluators review your submissions, their comments will appear here.</p>
+                    
+                    <div class="mt-4">
+                        <a asp-page="./Proposals/Index" class="btn btn-primary">
+                            <i class="fas fa-file-alt me-2"></i>View My Proposals
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+.comment-item {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    border-left: 4px solid #007bff;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.comment-author {
+    color: #495057;
+    font-size: 0.95rem;
+}
+
+.comment-text {
+    line-height: 1.6;
+    color: #495057;
+    margin-top: 0.5rem;
+}
+
+.comment-content {
+    min-width: 0; /* Prevents flex item from overflowing */
+}
+
+/* Different colors for different user types */
+.comment-item:has(.badge:contains("Evaluator")) {
+    border-left-color: #dc3545;
+}
+
+.comment-item:has(.badge:contains("Supervisor")) {
+    border-left-color: #28a745;
+}
+
+.comment-item:has(.badge:contains("Staff")) {
+    border-left-color: #ffc107;
+}
+</style>

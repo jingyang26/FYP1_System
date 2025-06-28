@@ -1,0 +1,173 @@
+@page
+@model FYP1System.Pages.Supervisor.CommentsModel
+@{
+    ViewData["Title"] = "My Comments";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-chat-left-text-fill"></i> My Comments</h2>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <!-- Filter Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-5">
+                            <label for="proposalTitle" class="form-label">Proposal Title</label>
+                            <input type="text" class="form-control" id="proposalTitle" name="proposalTitle" 
+                                   value="@Model.SelectedProposalTitle" placeholder="Search by proposal title...">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="status" class="form-label">Proposal Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="">All Statuses</option>
+                                <option value="Draft" selected="@(Model.SelectedStatus == "Draft")">Draft</option>
+                                <option value="Submitted" selected="@(Model.SelectedStatus == "Submitted")">Submitted</option>
+                                <option value="Under Review" selected="@(Model.SelectedStatus == "Under Review")">Under Review</option>
+                                <option value="Reviewed" selected="@(Model.SelectedStatus == "Reviewed")">Reviewed</option>
+                                <option value="Approved" selected="@(Model.SelectedStatus == "Approved")">Approved</option>
+                                <option value="Rejected" selected="@(Model.SelectedStatus == "Rejected")">Rejected</option>
+                                <option value="Revision Required" selected="@(Model.SelectedStatus == "Revision Required")">Revision Required</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="bi bi-search"></i> Filter
+                            </button>
+                            <a href="@Url.Page("Comments")" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-clockwise"></i> Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Comments List -->
+            @if (Model.MyComments.Any())
+            {
+                <div class="row">
+                    @foreach (var comment in Model.MyComments)
+                    {
+                        <div class="col-12 mb-3">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-0">
+                                            <i class="bi bi-file-text text-primary"></i>
+                                            @comment.Proposal?.Title
+                                        </h6>
+                                        <small class="text-muted">
+                                            Student: @comment.Proposal?.Student?.User?.UserName (@comment.Proposal?.Student?.StudentId)
+                                            | Program: @comment.Proposal?.Student?.Program?.Name
+                                        </small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-@(comment.Proposal?.Status == ProposalStatus.Approved ? "success" : 
+                                                              comment.Proposal?.Status == ProposalStatus.Rejected ? "danger" : 
+                                                              comment.Proposal?.Status == ProposalStatus.UnderReview ? "warning" : 
+                                                              "secondary") me-2">
+                                            @comment.Proposal?.Status
+                                        </span>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" 
+                                                    data-bs-toggle="dropdown">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="@Url.Page("Proposals/Details", new { id = comment.ProposalId })">
+                                                        <i class="bi bi-eye"></i> View Proposal
+                                                    </a>
+                                                </li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <form method="post" style="display: inline;" 
+                                                          onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                                                        <input type="hidden" name="commentId" value="@comment.Id" />
+                                                        <button type="submit" class="dropdown-item text-danger" 
+                                                                asp-page-handler="Delete">
+                                                            <i class="bi bi-trash"></i> Delete Comment
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                                 style="width: 40px; height: 40px;">
+                                                <i class="bi bi-person"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <strong>You</strong>
+                                                <small class="text-muted">@comment.CreatedAt.ToString("MMM dd, yyyy 'at' HH:mm")</small>
+                                            </div>
+                                            <p class="mb-0">@comment.Content</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Pagination would go here if needed -->
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-chat-left-text text-muted" style="font-size: 3rem;"></i>
+                        <h5 class="mt-3 text-muted">No Comments Found</h5>
+                        <p class="text-muted">
+                            @if (!string.IsNullOrEmpty(Model.SelectedProposalTitle) || !string.IsNullOrEmpty(Model.SelectedStatus))
+                            {
+                                <span>No comments found for the selected filters.</span>
+                            }
+                            else
+                            {
+                                <span>You haven't made any comments on proposals yet.</span>
+                            }
+                        </p>
+                        @if (!string.IsNullOrEmpty(Model.SelectedProposalTitle) || !string.IsNullOrEmpty(Model.SelectedStatus))
+                        {
+                            <a href="@Url.Page("Comments")" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-clockwise"></i> Clear Filters
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Page("Proposals")" class="btn btn-primary">
+                                <i class="bi bi-file-text"></i> View Proposals
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

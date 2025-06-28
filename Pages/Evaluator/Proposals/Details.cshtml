@@ -1,0 +1,341 @@
+@page "/Evaluator/Proposals/Details/{id:int}"
+@model FYP1System.Pages.Evaluator.Proposals.DetailsModel
+@{
+    ViewData["Title"] = "Proposal Details - Evaluation";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-clipboard-check text-primary me-2"></i>Proposal Details - Evaluation
+        </h1>
+        <div class="d-flex gap-2">
+            <a href="/Evaluator/Proposals" class="btn btn-outline-primary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i>Back to Assignments
+            </a>
+            @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+            {
+                <a href="/Evaluator/Proposals/Download/@Model.Proposal.Id" class="btn btn-primary btn-sm">
+                    <i class="fas fa-download me-1"></i>Download Proposal
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Proposal Information -->
+        <div class="col-lg-8">
+            <!-- Basic Information -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Proposal Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Student:</div>
+                        <div class="col-sm-9">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm bg-primary bg-gradient rounded-circle d-flex align-items-center justify-content-center me-2">
+                                    <i class="fas fa-user-graduate text-white small"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">@Model.Proposal.Student.User.FullName</div>
+                                    <small class="text-muted">@Model.Proposal.Student.StudentId | @Model.Proposal.Student.Program?.Name</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Supervisor:</div>
+                        <div class="col-sm-9">
+                            @if (Model.Proposal.Student.Supervisor != null)
+                            {
+                                <div>
+                                    <div class="fw-bold">@Model.Proposal.Student.Supervisor.User.FullName</div>
+                                    <small class="text-muted">@Model.Proposal.Student.Supervisor.StaffId</small>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No supervisor assigned</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Title:</div>
+                        <div class="col-sm-9">@Model.Proposal.Title</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Type:</div>
+                        <div class="col-sm-9">
+                            <span class="badge bg-info">@Model.Proposal.Type</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Session/Semester:</div>
+                        <div class="col-sm-9">@Model.Proposal.Session - Semester @Model.Proposal.Semester</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Proposal Status:</div>
+                        <div class="col-sm-9">
+                            @{
+                                var statusBadge = Model.Proposal.Status switch
+                                {
+                                    ProposalStatus.Draft => "bg-secondary",
+                                    ProposalStatus.Submitted => "bg-warning",
+                                    ProposalStatus.UnderReview => "bg-info",
+                                    ProposalStatus.Approved => "bg-success",
+                                    ProposalStatus.Rejected => "bg-danger",
+                                    ProposalStatus.NeedsRevision => "bg-warning",
+                                    ProposalStatus.Resubmitted => "bg-primary",
+                                    _ => "bg-secondary"
+                                };
+                            }
+                            <span class="badge @statusBadge">@Model.Proposal.Status.ToString().Replace("UnderReview", "Under Review").Replace("NeedsRevision", "Needs Revision")</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">Submitted:</div>
+                        <div class="col-sm-9">
+                            @if (Model.Proposal.SubmittedAt.HasValue)
+                            {
+                                <span>@Model.Proposal.SubmittedAt.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Not submitted</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proposal Content -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Proposal Content</h6>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Description))
+                    {
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-secondary">Description:</h6>
+                            <p class="text-justify">@Model.Proposal.Description</p>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Objectives))
+                    {
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-secondary">Objectives:</h6>
+                            <p class="text-justify">@Model.Proposal.Objectives</p>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.Methodology))
+                    {
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-secondary">Methodology:</h6>
+                            <p class="text-justify">@Model.Proposal.Methodology</p>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Proposal.ExpectedOutcomes))
+                    {
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-secondary">Expected Outcomes:</h6>
+                            <p class="text-justify">@Model.Proposal.ExpectedOutcomes</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Current Evaluation Status -->
+            @if (Model.CurrentEvaluation != null)
+            {
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Your Evaluation Progress</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h6 class="mb-1">Current Status</h6>
+                                @{
+                                    var evalStatusBadge = Model.CurrentEvaluation.Status switch
+                                    {
+                                        EvaluationStatus.Pending => "bg-warning",
+                                        EvaluationStatus.InProgress => "bg-info",
+                                        EvaluationStatus.Completed => "bg-primary",
+                                        EvaluationStatus.Approved => "bg-success",
+                                        EvaluationStatus.Rejected => "bg-danger",
+                                        EvaluationStatus.NeedsRevision => "bg-warning",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <span class="badge @evalStatusBadge">@Model.CurrentEvaluation.Status.ToString().Replace("NeedsRevision", "Needs Revision").Replace("InProgress", "In Progress")</span>
+                            </div>
+                            <div>
+                                @if (Model.CurrentEvaluation.Status == EvaluationStatus.Pending || Model.CurrentEvaluation.Status == EvaluationStatus.InProgress)
+                                {
+                                    <a href="/Evaluator/Proposals/Evaluate/@Model.Proposal.Id" class="btn btn-success">
+                                        <i class="fas fa-edit me-1"></i>
+                                        @if (Model.CurrentEvaluation.Status == EvaluationStatus.Pending) { <text>Start Evaluation</text> } else { <text>Continue Evaluation</text> }
+                                    </a>
+                                }
+                            </div>
+                        </div>
+
+                        @if (Model.CurrentEvaluation.Status != EvaluationStatus.Pending)
+                        {
+                            <!-- Progress Summary -->
+                            <div class="row">
+                                @if (Model.CurrentEvaluation.OverallScore.HasValue)
+                                {
+                                    <div class="col-md-3 text-center">
+                                        <div class="h4 mb-0 text-primary">@Model.CurrentEvaluation.OverallScore%</div>
+                                        <small class="text-muted">Overall Score</small>
+                                    </div>
+                                }
+                                @if (Model.CurrentEvaluation.TechnicalMeritScore.HasValue)
+                                {
+                                    <div class="col-md-3 text-center">
+                                        <div class="h6 mb-0">@Model.CurrentEvaluation.TechnicalMeritScore%</div>
+                                        <small class="text-muted">Technical Merit</small>
+                                    </div>
+                                }
+                                @if (Model.CurrentEvaluation.InnovationScore.HasValue)
+                                {
+                                    <div class="col-md-3 text-center">
+                                        <div class="h6 mb-0">@Model.CurrentEvaluation.InnovationScore%</div>
+                                        <small class="text-muted">Innovation</small>
+                                    </div>
+                                }
+                                @if (Model.CurrentEvaluation.FeasibilityScore.HasValue)
+                                {
+                                    <div class="col-md-3 text-center">
+                                        <div class="h6 mb-0">@Model.CurrentEvaluation.FeasibilityScore%</div>
+                                        <small class="text-muted">Feasibility</small>
+                                    </div>
+                                }
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(Model.CurrentEvaluation.Comments))
+                            {
+                                <hr>
+                                <div>
+                                    <h6 class="fw-bold text-secondary">Current Comments:</h6>
+                                    <p class="text-muted">@Model.CurrentEvaluation.Comments</p>
+                                </div>
+                            }
+
+                            @if (Model.CurrentEvaluation.EvaluatedAt.HasValue)
+                            {
+                                <small class="text-muted">Last updated: @Model.CurrentEvaluation.EvaluatedAt.Value.ToString("dd/MM/yyyy HH:mm")</small>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.CurrentEvaluation == null || Model.CurrentEvaluation.Status == EvaluationStatus.Pending || Model.CurrentEvaluation.Status == EvaluationStatus.InProgress)
+                    {
+                        <a href="/Evaluator/Proposals/Evaluate/@Model.Proposal.Id" class="btn btn-success btn-sm w-100 mb-2">
+                            <i class="fas fa-edit me-1"></i>
+                            @if (Model.CurrentEvaluation == null || Model.CurrentEvaluation.Status == EvaluationStatus.Pending) { <text>Start Evaluation</text> } else { <text>Continue Evaluation</text> }
+                        </a>
+                    }
+                    
+                    @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+                    {
+                        <a href="/Evaluator/Proposals/Download/@Model.Proposal.Id" class="btn btn-primary btn-sm w-100 mb-2">
+                            <i class="fas fa-download me-1"></i>Download Proposal
+                        </a>
+                    }
+                    
+                    @if (!string.IsNullOrEmpty(Model.Proposal.AgreementFilePath))
+                    {
+                        <a href="/Evaluator/Proposals/DownloadAgreement/@Model.Proposal.Id" class="btn btn-info btn-sm w-100 mb-2">
+                            <i class="fas fa-file-contract me-1"></i>Download Agreement
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <!-- Assignment Information -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Assignment Details</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <small class="text-muted">Assigned to you:</small>
+                        <div>@Model.Assignment.AssignedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Assignment.AssignedBy))
+                    {
+                        <div class="mb-2">
+                            <small class="text-muted">Assigned by:</small>
+                            <div>@Model.Assignment.AssignedBy</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Supervisor Comments -->
+            @if (Model.Proposal.Comments.Any())
+            {
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Supervisor Comments (@Model.Proposal.Comments.Count(c => !c.IsPrivate))</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="comments-list" style="max-height: 400px; overflow-y: auto;">
+                            @foreach (var comment in Model.Proposal.Comments.Where(c => !c.IsPrivate).OrderByDescending(c => c.CreatedAt))
+                            {
+                                <div class="comment-item mb-3 p-2 border-start border-3 border-primary">
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <small class="fw-bold">@comment.User.FullName</small>
+                                        <small class="text-muted">@comment.CreatedAt.ToString("dd/MM HH:mm")</small>
+                                    </div>
+                                    <p class="mb-0 small">@comment.Content</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    
+    .comment-item {
+        background-color: #f8f9fa;
+    }
+    
+    .text-justify {
+        text-align: justify;
+    }
+</style>

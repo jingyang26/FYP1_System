@@ -1,0 +1,289 @@
+@page
+@model FYP1System.Pages.Supervisor.ReportsModel
+@{
+    ViewData["Title"] = "Supervisor Reports";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-bar-chart-fill"></i> Supervisor Reports</h2>
+                <button onclick="window.print()" class="btn btn-outline-primary">
+                    <i class="bi bi-printer"></i> Print Report
+                </button>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="session" class="form-label">Session</label>
+                            <select class="form-select" id="session" name="session">
+                                <option value="">All Sessions</option>
+                                <option value="2023/2024" selected="@(Model.SelectedSession == "2023/2024")">2023/2024</option>
+                                <option value="2024/2025" selected="@(Model.SelectedSession == "2024/2025")">2024/2025</option>
+                                <option value="2025/2026" selected="@(Model.SelectedSession == "2025/2026")">2025/2026</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="semester" class="form-label">Semester</label>
+                            <select class="form-select" id="semester" name="semester">
+                                <option value="">All Semesters</option>
+                                <option value="1" selected="@(Model.SelectedSemester == 1)">1</option>
+                                <option value="2" selected="@(Model.SelectedSemester == 2)">2</option>
+                                <option value="3" selected="@(Model.SelectedSemester == 3)">3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="bi bi-search"></i> Filter
+                            </button>
+                            <a href="@Url.Page("Reports")" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-clockwise"></i> Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Summary Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-2">
+                    <div class="card text-center border-primary">
+                        <div class="card-body">
+                            <i class="bi bi-people text-primary" style="font-size: 2rem;"></i>
+                            <h3 class="mt-2 mb-0">@Model.TotalStudents</h3>
+                            <small class="text-muted">Total Students</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card text-center border-info">
+                        <div class="card-body">
+                            <i class="bi bi-file-text text-info" style="font-size: 2rem;"></i>
+                            <h3 class="mt-2 mb-0">@Model.TotalProposals</h3>
+                            <small class="text-muted">Total Proposals</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card text-center border-success">
+                        <div class="card-body">
+                            <i class="bi bi-check-circle text-success" style="font-size: 2rem;"></i>
+                            <h3 class="mt-2 mb-0">@Model.ApprovedProposals</h3>
+                            <small class="text-muted">Approved</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card text-center border-danger">
+                        <div class="card-body">
+                            <i class="bi bi-x-circle text-danger" style="font-size: 2rem;"></i>
+                            <h3 class="mt-2 mb-0">@Model.RejectedProposals</h3>
+                            <small class="text-muted">Rejected</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card text-center border-warning">
+                        <div class="card-body">
+                            <i class="bi bi-clock text-warning" style="font-size: 2rem;"></i>
+                            <h3 class="mt-2 mb-0">@Model.PendingProposals</h3>
+                            <small class="text-muted">Pending</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card text-center border-secondary">
+                        <div class="card-body">
+                            <i class="bi bi-chat-left-text text-secondary" style="font-size: 2rem;"></i>
+                            <h3 class="mt-2 mb-0">@Model.TotalComments</h3>
+                            <small class="text-muted">Comments</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Proposals by Status -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="bi bi-pie-chart"></i> Proposals by Status</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.ProposalsByStatus.Any())
+                            {
+                                @foreach (var status in Model.ProposalsByStatus)
+                                {
+                                    var percentage = Model.TotalProposals > 0 ? (status.Count * 100.0 / Model.TotalProposals) : 0;
+                                    var badgeClass = status.Status switch
+                                    {
+                                        "Approved" => "success",
+                                        "Rejected" => "danger",
+                                        "UnderReview" => "warning",
+                                        "Submitted" => "info",
+                                        _ => "secondary"
+                                    };
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <span class="badge bg-@badgeClass me-2">@status.Status</span>
+                                            <span>@status.Count proposal@(status.Count != 1 ? "s" : "")</span>
+                                        </div>
+                                        <strong>@percentage.ToString("F1")%</strong>
+                                    </div>
+                                    <div class="progress mb-3" style="height: 8px;">
+                                        <div class="progress-bar bg-@badgeClass" role="progressbar" 
+                                             style="width: @percentage%" aria-valuenow="@percentage" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center">No proposal data available</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proposals by Session -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="bi bi-calendar3"></i> Proposals by Session</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.ProposalsBySession.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Session</th>
+                                                <th>Total</th>
+                                                <th>Approved</th>
+                                                <th>Rejected</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var session in Model.ProposalsBySession)
+                                            {
+                                                <tr>
+                                                    <td><strong>@session.Session</strong></td>
+                                                    <td>@session.Count</td>
+                                                    <td><span class="badge bg-success">@session.ApprovedCount</span></td>
+                                                    <td><span class="badge bg-danger">@session.RejectedCount</span></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center">No session data available</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Recent Students -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="bi bi-people"></i> Recent Students</h5>
+                            <a href="@Url.Page("Students")" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.RecentStudents.Any())
+                            {
+                                @foreach (var student in Model.RecentStudents)
+                                {
+                                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                        <div>
+                                            <strong>@student.User?.UserName</strong>
+                                            <br>
+                                            <small class="text-muted">@student.StudentId | @student.Program?.Name</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="badge bg-primary">@student.Session</div>
+                                            <div class="badge bg-secondary">Sem @student.Semester</div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center">No students found</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Proposals -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="bi bi-file-text"></i> Recent Proposals</h5>
+                            <a href="@Url.Page("Proposals")" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.RecentProposals.Any())
+                            {
+                                @foreach (var proposal in Model.RecentProposals)
+                                {
+                                    var badgeClass = proposal.Status switch
+                                    {
+                                        ProposalStatus.Approved => "success",
+                                        ProposalStatus.Rejected => "danger",
+                                        ProposalStatus.UnderReview => "warning",
+                                        ProposalStatus.Submitted => "info",
+                                        _ => "secondary"
+                                    };
+                                    
+                                    <div class="d-flex justify-content-between align-items-start py-2 border-bottom">
+                                        <div class="flex-grow-1">
+                                            <strong>@proposal.Title</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                by @proposal.Student?.User?.UserName
+                                                @if (proposal.SubmittedAt.HasValue)
+                                                {
+                                                    <span>• @proposal.SubmittedAt.Value.ToString("MMM dd, yyyy")</span>
+                                                }
+                                            </small>
+                                        </div>
+                                        <span class="badge bg-@badgeClass">@proposal.Status</span>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center">No proposals found</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@@media print {
+    .btn, .card-header .btn, form {
+        display: none !important;
+    }
+    
+    .card {
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+    }
+}
+</style>

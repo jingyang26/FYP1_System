@@ -10,6 +10,10 @@ namespace FYP1System.Models
         public string UserId { get; set; } = string.Empty;
         public virtual ApplicationUser User { get; set; } = null!;
 
+        [Display(Name = "Staff ID")]
+        [StringLength(20)]
+        public string? StaffId { get; set; }
+
         [Display(Name = "Program")]
         public int ProgramId { get; set; }
         public virtual Program Program { get; set; } = null!;
@@ -18,9 +22,16 @@ namespace FYP1System.Models
         [StringLength(200)]
         public string? Domain { get; set; }
 
+        [Display(Name = "Specialization Details")]
+        [StringLength(500)]
+        public string? Specialization { get; set; }
+
         [Display(Name = "Office Location")]
         [StringLength(100)]
         public string? OfficeLocation { get; set; }
+
+        [Display(Name = "Can Supervise")]
+        public bool CanSupervise { get; set; } = true;
 
         [Display(Name = "Is Committee Member")]
         public bool IsCommittee { get; set; } = false;
@@ -32,6 +43,7 @@ namespace FYP1System.Models
         public bool IsActive { get; set; } = true;
 
         // Navigation properties
+        public virtual ICollection<Student> Students { get; set; } = new List<Student>();
         public virtual ICollection<Student> SupervisedStudents { get; set; } = new List<Student>();
         public virtual ICollection<CommitteeMember> CommitteeRoles { get; set; } = new List<CommitteeMember>();
         public virtual ICollection<EvaluatorAssignment> EvaluatorAssignments { get; set; } = new List<EvaluatorAssignment>();

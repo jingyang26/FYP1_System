@@ -1,0 +1,132 @@
+@page
+@model FYP1System.Pages.Student.SelectSupervisorModel
+@{
+    ViewData["Title"] = "Select Supervisor";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user-tie me-2"></i>Select Preferred Supervisor
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (Model.Student?.Supervisor != null)
+                    {
+                        <div class="alert alert-info">
+                            <h5><i class="fas fa-info-circle me-2"></i>Current Supervisor</h5>
+                            <p class="mb-0">
+                                <strong>@Model.Student.Supervisor.User.FullName</strong> - @Model.Student.Supervisor.Domain
+                                <br>
+                                <small class="text-muted">Office: @Model.Student.Supervisor.OfficeLocation</small>
+                            </p>
+                        </div>
+                    }
+
+                    <p class="text-muted mb-4">
+                        Select your preferred supervisor from the list below. Your selection will be reviewed by the committee.
+                    </p>
+
+                    <div class="row">
+                        @foreach (var lecturer in Model.AvailableLecturers)
+                        {
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100 supervisor-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@lecturer.User.FullName</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">@lecturer.Domain</h6>
+                                        
+                                        <div class="mb-3">
+                                            <small class="text-muted">
+                                                <i class="fas fa-map-marker-alt me-1"></i>@lecturer.OfficeLocation
+                                            </small>
+                                            <br>
+                                            <small class="text-muted">
+                                                <i class="fas fa-envelope me-1"></i>@lecturer.User.Email
+                                            </small>
+                                        </div>
+
+                                        @if (!string.IsNullOrEmpty(lecturer.Specialization))
+                                        {
+                                            <div class="mb-3">
+                                                <strong>Specialization:</strong>
+                                                <p class="small text-muted mb-0">@lecturer.Specialization</p>
+                                            </div>
+                                        }
+
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary">
+                                                Current Students: @lecturer.Students.Count
+                                            </span>
+                                        </div>
+
+                                        <div class="d-grid">
+                                            <form method="post" class="supervisor-form">
+                                                <input type="hidden" name="LecturerId" value="@lecturer.Id" />
+                                                <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                        @(Model.Student?.SupervisorId == lecturer.Id ? "disabled" : "")>
+                                                    @if (Model.Student?.SupervisorId == lecturer.Id)
+                                                    {
+                                                        <text><i class="fas fa-check me-1"></i>Selected</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text><i class="fas fa-hand-point-right me-1"></i>Select</text>
+                                                    }
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    @if (!Model.AvailableLecturers.Any())
+                    {
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                            <h5>No Supervisors Available</h5>
+                            <p class="mb-0">There are currently no available supervisors. Please contact the committee for assistance.</p>
+                        </div>
+                    }
+
+                    <div class="mt-4">
+                        <a asp-page="./Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.supervisor-card {
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid #dee2e6;
+}
+
+.supervisor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.supervisor-form button:disabled {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+</style>

@@ -345,31 +345,41 @@
                         </div>
                         <div class="card-body-custom">
                             <div class="d-grid gap-3">
+                                <a asp-page="./Profile" class="btn btn-outline-secondary btn-action">
+                                    <i class="fas fa-user-edit me-2"></i>Edit Profile
+                                </a>
+                                
                                 @if (Model.StudentInfo.Supervisor == null)
                                 {
-                                    <a href="/Student/SelectSupervisor" class="btn btn-outline-primary btn-action">
+                                    <a asp-page="./SelectSupervisor" class="btn btn-outline-primary btn-action">
                                         <i class="fas fa-user-plus me-2"></i>Select Supervisor
                                     </a>
                                 }
+                                else
+                                {
+                                    <a asp-page="./Agreement" class="btn btn-outline-success btn-action">
+                                        <i class="fas fa-handshake me-2"></i>View Agreement
+                                    </a>
+                                }
                                 
-                                <a href="/Student/Proposals" class="btn btn-outline-info btn-action">
+                                <a asp-page="./Proposals/Index" class="btn btn-outline-info btn-action">
                                     <i class="fas fa-file-alt me-2"></i>View All Proposals
                                 </a>
                                 
                                 @if (Model.LatestProposal == null || Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Rejected)
                                 {
-                                    <a href="/Student/Proposals/Create" class="btn btn-outline-success btn-action">
+                                    <a asp-page="./Proposals/Create" class="btn btn-outline-success btn-action">
                                         <i class="fas fa-plus me-2"></i>Submit New Proposal
                                     </a>
                                 }
                                 else if (Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.NeedsRevision)
                                 {
-                                    <a href="/Student/Proposals/Edit/@Model.LatestProposal.Id" class="btn btn-outline-warning btn-action">
+                                    <a asp-page="./Proposals/Edit" asp-route-id="@Model.LatestProposal.Id" class="btn btn-outline-warning btn-action">
                                         <i class="fas fa-edit me-2"></i>Revise Proposal
                                     </a>
                                 }
                                 
-                                <a href="/Student/Comments" class="btn btn-outline-secondary btn-action">
+                                <a asp-page="./Comments" class="btn btn-outline-secondary btn-action">
                                     <i class="fas fa-comments me-2"></i>View Feedback
                                 </a>
                             </div>
