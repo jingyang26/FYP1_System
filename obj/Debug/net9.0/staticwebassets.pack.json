@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\auth.css"
     },
     {
+      "Id": "D:\\AD\\AD TEST\\wwwroot\\css\\global-buttons.css",
+      "PackagePath": "staticwebassets\\css\\global-buttons.css"
+    },
+    {
       "Id": "D:\\AD\\AD TEST\\wwwroot\\css\\role-dashboard.css",
       "PackagePath": "staticwebassets\\css\\role-dashboard.css"
     },

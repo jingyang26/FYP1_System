@@ -8,9 +8,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">
-                        <i class="fas fa-user-edit me-2"></i>Personal Details Registration
+                <div class="card-header bg-primary" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important; border-bottom: 2px solid #dee2e6;">
+                    <h4 class="mb-0" style="color: #000000 !important; font-weight: 700;">
+                        <i class="fas fa-user-edit me-2" style="color: #007bff;"></i>Personal Details Registration
                     </h4>
                 </div>
                 <div class="card-body">
@@ -81,3 +81,114 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<style>
+/* Global Card Title Styling - Black Text for All Card Headers */
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4,
+.card-header h5,
+.card-header h6,
+.card-title,
+.card-subtitle,
+.profile-card-title,
+.header-title,
+.section-title,
+.dashboard-title {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+/* Ensure card header text is always black */
+.card-header {
+    color: #000000 !important;
+}
+
+.card-header * {
+    color: #000000 !important;
+}
+
+/* Override Bootstrap primary background with neutral styling */
+.card-header.bg-primary {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+    border-bottom: 2px solid #dee2e6 !important;
+}
+
+/* Professional card header styling */
+.card-header {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa) !important;
+    border-bottom: 2px solid #e9ecef !important;
+    padding: 1.25rem 1.5rem !important;
+}
+
+/* Icon colors in headers */
+.card-header i {
+    color: #007bff !important;
+    margin-right: 0.5rem;
+}
+
+/* Form labels */
+.form-label {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* Additional styling for professional look */
+.card {
+    border: none;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 2rem 1.5rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    color: #000000 !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+    color: #000000 !important;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #545b62);
+    border: none;
+    color: #000000 !important;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #545b62, #4e555b);
+    transform: translateY(-2px);
+    color: #000000 !important;
+}
+</style>

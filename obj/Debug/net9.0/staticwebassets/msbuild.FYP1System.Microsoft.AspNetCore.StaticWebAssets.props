@@ -18,6 +18,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\auth.css'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\global-buttons.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>FYP1System</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/FYP1System</BasePath>
+      <RelativePath>css/global-buttons.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>3994c0f2ut</Fingerprint>
+      <Integrity>KfxoOC8h/UGJfb3+qnEQf79jVly3mK4FqfO85NAzcyg=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\global-buttons.css'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\role-dashboard.css'))">
       <SourceType>Package</SourceType>
       <SourceId>FYP1System</SourceId>
@@ -30,8 +48,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>8284zkbd7h</Fingerprint>
-      <Integrity>0MSyh18pxdRs/cLD6XwbtJuDirekLOR/183d0eMCFUg=</Integrity>
+      <Fingerprint>5738t2lxik</Fingerprint>
+      <Integrity>zyj5U1N+L9mKRY7iSv7YMn/2QBxe3bjkDlCAmj9zUj8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\role-dashboard.css'))</OriginalItemSpec>
@@ -102,8 +120,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>hyhxy344ju</Fingerprint>
-      <Integrity>KWef7bRapU5crjEchuAzUrj+BW4hb6uis0LO5tyTVCg=</Integrity>
+      <Fingerprint>0wd5q56dgj</Fingerprint>
+      <Integrity>cPwcjvzoZErnj+ShQLqgRSl/pWDnizuY+Mn/9PGPERY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\role-dashboard.js'))</OriginalItemSpec>

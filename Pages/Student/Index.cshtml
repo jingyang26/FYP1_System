@@ -4,431 +4,444 @@
     ViewData["Title"] = "Student Dashboard";
 }
 
-<style>
-/* Student Dashboard Styling - Light Blue Theme */
-.student-dashboard {
-    padding: 2rem 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    min-height: calc(100vh - 200px);
-}
-
-/* Dashboard Header */
-.dashboard-header {
-    background: linear-gradient(135deg, #6fb3d3 0%, #5dade2 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(111, 179, 211, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.dashboard-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 100%;
-    height: 200%;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-    transform: rotate(45deg);
-}
-
-.dashboard-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0;
-    position: relative;
-    z-index: 2;
-}
-
-.dashboard-subtitle {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    margin: 0;
-    position: relative;
-    z-index: 2;
-}
-
-.dashboard-meta {
-    position: relative;
-    z-index: 2;
-}
-
-.dashboard-meta .badge {
-    font-size: 0.9rem;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-/* Info Cards */
-.info-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    border: none;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-}
-
-.info-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
-
-/* Color variants - Light Blue Theme */
-.info-primary {
-    --primary-color: #6fb3d3;
-    --secondary-color: #5dade2;
-}
-
-.info-success {
-    --primary-color: #7cc8e0;
-    --secondary-color: #6fb3d3;
-}
-
-.info-warning {
-    --primary-color: #a2d2ff;
-    --secondary-color: #87ceeb;
-}
-
-/* Management Cards */
-.management-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.management-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.card-header-custom {
-    padding: 1.5rem;
-    color: white;
-    border: none;
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-}
-
-.header-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-right: 1rem;
-}
-
-.header-text h5 {
-    margin: 0;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.header-text span {
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-.card-body-custom {
-    padding: 1.5rem;
-    flex-grow: 1;
-}
-
-.btn-action {
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.btn-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* Animation */
-@@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-/* Responsive Design */
-@@media (max-width: 768px) {
-    .dashboard-title {
-        font-size: 2rem;
-    }
-}
-</style>
-
-<div class="student-dashboard">
-    <div class="container">
-        <!-- Dashboard Header -->
-        <div class="dashboard-header mb-4 fade-in-up">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h1 class="dashboard-title">
-                        <i class="fas fa-user-graduate me-3"></i>Student Dashboard
-                    </h1>
-                    <p class="dashboard-subtitle">Your FYP1 journey management center</p>
-                </div>
-                <div class="col-md-4 text-md-end dashboard-meta">
-                    <span class="badge bg-light text-dark">
-                        <i class="fas fa-user-circle me-2"></i>@User.Identity?.Name
+<div class="role-dashboard student-dashboard">
+    <!-- Professional Header Section -->
+    <div class="dashboard-header mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="dashboard-title">
+                    <i class="bi bi-mortarboard me-3"></i>Student Portal
+                </h1>
+                <p class="dashboard-subtitle">Your comprehensive FYP1 management hub</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="dashboard-meta">
+                    <div class="user-badge mb-2">
+                        <i class="bi bi-person-circle me-2"></i>@User.Identity?.Name
+                    </div>
+                    <span class="badge badge-light-blue px-3 py-2">
+                        <i class="bi bi-calendar-event me-2"></i>
+                        <span id="current-datetime"></span>
                     </span>
-                    <br>
-                    <small class="text-light opacity-75">
-                        <i class="fas fa-calendar me-1"></i>@DateTime.Now.ToString("MMMM dd, yyyy")
-                    </small>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="container-fluid">
         @if (Model.StudentInfo != null)
         {
-            <!-- Student Information -->
+            <!-- Enhanced Quick Stats Row -->
             <div class="row mb-4">
-                <div class="col-lg-8 mb-4">
-                    <div class="info-card info-primary fade-in-up">
-                        <h4 class="mb-4">
-                            <i class="fas fa-id-card me-2 text-info"></i>Student Information
-                        </h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="info-item mb-3">
-                                    <label class="text-muted small">Student ID</label>
-                                    <p class="fw-bold mb-0">@Model.StudentInfo.StudentId</p>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-primary">
+                        <div class="stats-content">
+                            <div class="stats-icon">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h3>@Model.Proposals.Count</h3>
+                                <p class="stats-label">Total Proposals</p>
+                            </div>
+                        </div>
+                        <div class="stats-trend">
+                            <i class="bi bi-graph-up me-1"></i>
+                            Active submissions
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-success">
+                        <div class="stats-content">
+                            <div class="stats-icon">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h3>@Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.Approved)</h3>
+                                <p class="stats-label">Approved</p>
+                            </div>
+                        </div>
+                        <div class="stats-trend">
+                            <i class="bi bi-trophy me-1"></i>
+                            Success rate
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-info">
+                        <div class="stats-content">
+                            <div class="stats-icon">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h3>@Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.UnderReview || p.Status == FYP1System.Models.ProposalStatus.Submitted)</h3>
+                                <p class="stats-label">Under Review</p>
+                            </div>
+                        </div>
+                        <div class="stats-trend">
+                            <i class="bi bi-hourglass-split me-1"></i>
+                            Pending evaluation
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-warning">
+                        <div class="stats-content">
+                            <div class="stats-icon">
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h3>@(Model.StudentInfo.GPA?.ToString("F2") ?? "N/A")</h3>
+                                <p class="stats-label">Current GPA</p>
+                            </div>
+                        </div>
+                        <div class="stats-trend">
+                            <i class="bi bi-graph-up me-1"></i>
+                            Academic standing
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Student Information Card -->
+            <div class="row mb-4">
+                <div class="col-12 mb-4">
+                    <div class="student-profile-card">
+                        <!-- Card Header with Gradient -->
+                        <div class="profile-card-header">
+                            <div class="profile-header-content">
+                                <div class="profile-header-icon">
+                                    <i class="bi bi-person-badge"></i>
                                 </div>
-                                <div class="info-item mb-3">
-                                    <label class="text-muted small">Program</label>
-                                    <p class="fw-bold mb-0">
-                                        <i class="fas fa-graduation-cap me-2 text-primary"></i>
-                                        @Model.StudentInfo.Program?.Name
-                                    </p>
-                                </div>
-                                <div class="info-item mb-3">
-                                    <label class="text-muted small">Session</label>
-                                    <p class="fw-bold mb-0">@Model.StudentInfo.Session</p>
-                                </div>
-                                <div class="info-item mb-3">
-                                    <label class="text-muted small">Semester</label>
-                                    <p class="fw-bold mb-0">@Model.StudentInfo.Semester</p>
+                                <div class="profile-header-text">
+                                    <h4 class="profile-card-title">Student Profile</h4>
+                                    <p class="profile-card-subtitle">Your academic information and details</p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                @if (Model.StudentInfo.Supervisor != null)
-                                {
-                                    <div class="info-item mb-3">
-                                        <label class="text-muted small">Supervisor</label>
-                                        <p class="fw-bold mb-0">
-                                            <i class="fas fa-user-tie me-2 text-success"></i>
-                                            @Model.StudentInfo.Supervisor.User.FullName
-                                        </p>
+                            <div class="profile-header-decoration">
+                                <div class="decoration-circle circle-1"></div>
+                                <div class="decoration-circle circle-2"></div>
+                                <div class="decoration-circle circle-3"></div>
+                            </div>
+                        </div>
+
+                        <!-- Card Body with Enhanced Layout -->
+                        <div class="profile-card-body">
+                            <div class="row g-4">
+                                <!-- Left Column - Basic Information -->
+                                <div class="col-md-6">
+                                    <div class="profile-section">
+                                        <div class="section-header">
+                                            <h6 class="section-title">
+                                                <i class="bi bi-info-circle me-2"></i>Basic Information
+                                            </h6>
+                                        </div>
+                                        
+                                        <div class="profile-info-grid">
+                                            <div class="info-item">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-credit-card"></i>
+                                                </div>
+                                                <div class="info-content">
+                                                    <label class="info-label">Student ID</label>
+                                                    <div class="info-value fw-bold text-primary">@Model.StudentInfo.StudentId</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-item">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-mortarboard"></i>
+                                                </div>
+                                                <div class="info-content">
+                                                    <label class="info-label">Program</label>
+                                                    <div class="info-value">@Model.StudentInfo.Program?.Name</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-item">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-calendar-range"></i>
+                                                </div>
+                                                <div class="info-content">
+                                                    <label class="info-label">Academic Session</label>
+                                                    <div class="info-value">@Model.StudentInfo.Session</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-item">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-calendar3"></i>
+                                                </div>
+                                                <div class="info-content">
+                                                    <label class="info-label">Current Semester</label>
+                                                    <div class="info-value">
+                                                        <span class="badge bg-light-blue text-white px-3 py-2">
+                                                            Semester @Model.StudentInfo.Semester
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="info-item mb-3">
-                                        <label class="text-muted small">Domain</label>
-                                        <p class="fw-bold mb-0">@Model.StudentInfo.Supervisor.Domain</p>
-                                    </div>
-                                    <div class="info-item mb-3">
-                                        <label class="text-muted small">Office</label>
-                                        <p class="fw-bold mb-0">
-                                            <i class="fas fa-map-marker-alt me-2 text-info"></i>
-                                            @Model.StudentInfo.Supervisor.OfficeLocation
-                                        </p>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="alert alert-warning border-0">
-                                        <i class="fas fa-exclamation-triangle me-2"></i>
-                                        <strong>Supervisor:</strong> Not assigned yet
-                                    </div>
-                                }
-                                
-                                @if (Model.StudentInfo.GPA.HasValue)
-                                {
-                                    <div class="info-item mb-3">
-                                        <label class="text-muted small">GPA</label>
-                                        <p class="fw-bold mb-0">
-                                            <span class="badge bg-success fs-6">@Model.StudentInfo.GPA.Value.ToString("F2")</span>
-                                        </p>
-                                    </div>
-                                }
+                                </div>
+
+                                <!-- Right Column - Supervisor & GPA -->
+                                <div class="col-md-6">
+                                    @if (Model.StudentInfo.Supervisor != null)
+                                    {
+                                        <div class="profile-section">
+                                            <div class="section-header">
+                                                <h6 class="section-title">
+                                                    <i class="bi bi-person-check me-2"></i>Assigned Supervisor
+                                                </h6>
+                                            </div>
+                                            
+                                            <div class="supervisor-profile-card">
+                                                <div class="supervisor-avatar">
+                                                    <div class="avatar-circle">
+                                                        <i class="bi bi-person-circle"></i>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="supervisor-details">
+                                                    <h6 class="supervisor-name">@Model.StudentInfo.Supervisor.User.FullName</h6>
+                                                    
+                                                    <div class="supervisor-info-grid">
+                                                        <div class="supervisor-info-item">
+                                                            <i class="bi bi-lightbulb text-warning"></i>
+                                                            <span class="info-label">Domain:</span>
+                                                            <span class="info-value">@Model.StudentInfo.Supervisor.Domain</span>
+                                                        </div>
+                                                        
+                                                        <div class="supervisor-info-item">
+                                                            <i class="bi bi-geo-alt text-danger"></i>
+                                                            <span class="info-label">Office:</span>
+                                                            <span class="info-value">@Model.StudentInfo.Supervisor.OfficeLocation</span>
+                                                        </div>
+                                                        
+                                                        <div class="supervisor-info-item">
+                                                            <i class="bi bi-star text-warning"></i>
+                                                            <span class="info-label">Specialization:</span>
+                                                            <span class="info-value">@Model.StudentInfo.Supervisor.Specialization</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="profile-section">
+                                            <div class="no-supervisor-card">
+                                                <div class="no-supervisor-icon">
+                                                    <i class="bi bi-person-x"></i>
+                                                </div>
+                                                <h6 class="no-supervisor-title">Supervisor Assignment Pending</h6>
+                                                <p class="no-supervisor-text">Please select your preferred supervisor to continue with your FYP1 journey.</p>
+                                                <a asp-page="./SelectSupervisor" class="btn btn-light-blue btn-sm">
+                                                    <i class="bi bi-person-plus me-2"></i>Select Supervisor
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                    
+                                    @if (Model.StudentInfo.GPA.HasValue)
+                                    {
+                                        <div class="gpa-section mt-4">
+                                            <div class="gpa-card">
+                                                <div class="gpa-header">
+                                                    <h6 class="gpa-title">Academic Performance</h6>
+                                                </div>
+                                                <div class="gpa-display-enhanced">
+                                                    <div class="gpa-circle-enhanced">
+                                                        <div class="gpa-ring">
+                                                            <svg width="120" height="120" class="gpa-progress">
+                                                                <circle cx="60" cy="60" r="50" stroke="#e9ecef" stroke-width="8" fill="none"/>
+                                                                <circle cx="60" cy="60" r="50" stroke="url(#gpaGradient)" stroke-width="8" fill="none"
+                                                                        stroke-dasharray="@(((double)Model.StudentInfo.GPA.Value / 4.0) * 314) 314" 
+                                                                        stroke-dashoffset="0" 
+                                                                        stroke-linecap="round"
+                                                                        style="transform: rotate(-90deg); transform-origin: 60px 60px;"/>
+                                                                <defs>
+                                                                    <linearGradient id="gpaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                                        <stop offset="0%" style="stop-color:#6fb3d3;stop-opacity:1" />
+                                                                        <stop offset="100%" style="stop-color:#5dade2;stop-opacity:1" />
+                                                                    </linearGradient>
+                                                                </defs>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="gpa-content">
+                                                            <span class="gpa-value-enhanced">@Model.StudentInfo.GPA.Value.ToString("F2")</span>
+                                                            <span class="gpa-label-enhanced">CGPA</span>
+                                                            <div class="gpa-scale">out of 4.0</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                @if (Model.LatestProposal != null)
-                {
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            <h4 class="card-title">Latest Proposal</h4>
-                        </div>
-                        <div class="card-body">
-                            <h5>@Model.LatestProposal.Title</h5>
-                            <p><strong>Type:</strong> @Model.LatestProposal.Type</p>
-                            <p><strong>Status:</strong> 
-                                <span class="badge 
-                                    @(Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
-                                      Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
-                                      Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
-                                      "bg-secondary")">
-                                    @Model.LatestProposal.Status
-                                </span>
-                            </p>
-                            <p><strong>Submitted:</strong> @Model.LatestProposal.SubmittedAt?.ToString("MMM dd, yyyy")</p>
-                            
-                            @if (!string.IsNullOrEmpty(Model.LatestProposal.Description))
-                            {
-                                <p><strong>Description:</strong></p>
-                                <p class="text-muted">@Model.LatestProposal.Description</p>
-                            }
-                        </div>
-                    </div>
-                }
             </div>
 
-            <!-- Quick Actions & Summary -->
+            <!-- Professional Action Cards and Analytics -->
             <div class="row">
-                <div class="col-lg-8">
-                    <!-- Quick Actions Card -->
-                    <div class="management-card fade-in-up mb-4">
-                        <div class="card-header-custom" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);">
-                            <div class="header-content">
-                                <div class="header-icon">
-                                    <i class="fas fa-bolt"></i>
+                <!-- Quick Actions Section -->
+                <div class="col-12 mb-4">
+                    <div class="quick-actions-card">
+                        <div class="quick-actions-header">
+                            <div class="header-left">
+                                <div class="header-icon-wrapper">
+                                    <i class="bi bi-lightning"></i>
                                 </div>
                                 <div class="header-text">
-                                    <h5>Quick Actions</h5>
-                                    <span>Student tools</span>
+                                    <h3 class="header-title">Quick Actions</h3>
+                                    <p class="header-subtitle">Streamline your FYP1 workflow</p>
+                                </div>
+                            </div>
+                            <div class="header-right">
+                                <div class="status-indicator">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">Active</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body-custom">
-                            <div class="d-grid gap-3">
-                                <a asp-page="./Profile" class="btn btn-outline-secondary btn-action">
-                                    <i class="fas fa-user-edit me-2"></i>Edit Profile
-                                </a>
+                        <div class="quick-actions-body">
+                            <div class="actions-grid">
+                                <div class="action-item">
+                                    <a asp-page="./Profile" class="action-card-pro">
+                                        <div class="action-icon-pro primary">
+                                            <i class="bi bi-person-gear"></i>
+                                        </div>
+                                        <div class="action-content-pro">
+                                            <h6 class="action-title">Update Profile</h6>
+                                            <p class="action-description">Manage your personal information</p>
+                                        </div>
+                                        <div class="action-arrow-pro">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
                                 
                                 @if (Model.StudentInfo.Supervisor == null)
                                 {
-                                    <a asp-page="./SelectSupervisor" class="btn btn-outline-primary btn-action">
-                                        <i class="fas fa-user-plus me-2"></i>Select Supervisor
-                                    </a>
+                                    <div class="action-item">
+                                        <a asp-page="./SelectSupervisor" class="action-card-pro urgent">
+                                            <div class="action-icon-pro warning">
+                                                <i class="bi bi-person-plus"></i>
+                                            </div>
+                                            <div class="action-content-pro">
+                                                <h6 class="action-title">Select Supervisor</h6>
+                                                <p class="action-description">Choose your project supervisor</p>
+                                            </div>
+                                            <div class="action-arrow-pro">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
                                 }
                                 else
                                 {
-                                    <a asp-page="./Agreement" class="btn btn-outline-success btn-action">
-                                        <i class="fas fa-handshake me-2"></i>View Agreement
-                                    </a>
+                                    <div class="action-item">
+                                        <a asp-page="./Agreement" class="action-card-pro">
+                                            <div class="action-icon-pro success">
+                                                <i class="bi bi-file-check"></i>
+                                            </div>
+                                            <div class="action-content-pro">
+                                                <h6 class="action-title">View Agreement</h6>
+                                                <p class="action-description">Supervisor-student agreement</p>
+                                            </div>
+                                            <div class="action-arrow-pro">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
                                 }
                                 
-                                <a asp-page="./Proposals/Index" class="btn btn-outline-info btn-action">
-                                    <i class="fas fa-file-alt me-2"></i>View All Proposals
-                                </a>
+                                <div class="action-item">
+                                    <a asp-page="./Proposals/Index" class="action-card-pro">
+                                        <div class="action-icon-pro info">
+                                            <i class="bi bi-folder"></i>
+                                        </div>
+                                        <div class="action-content-pro">
+                                            <h6 class="action-title">All Proposals</h6>
+                                            <p class="action-description">View submission history</p>
+                                        </div>
+                                        <div class="action-arrow-pro">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
                                 
                                 @if (Model.LatestProposal == null || Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.Rejected)
                                 {
-                                    <a asp-page="./Proposals/Create" class="btn btn-outline-success btn-action">
-                                        <i class="fas fa-plus me-2"></i>Submit New Proposal
-                                    </a>
+                                    <div class="action-item">
+                                        <a asp-page="./Proposals/Create" class="action-card-pro highlight">
+                                            <div class="action-icon-pro success">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </div>
+                                            <div class="action-content-pro">
+                                                <h6 class="action-title">New Proposal</h6>
+                                                <p class="action-description">Submit a new project proposal</p>
+                                            </div>
+                                            <div class="action-arrow-pro">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
                                 }
                                 else if (Model.LatestProposal.Status == FYP1System.Models.ProposalStatus.NeedsRevision)
                                 {
-                                    <a asp-page="./Proposals/Edit" asp-route-id="@Model.LatestProposal.Id" class="btn btn-outline-warning btn-action">
-                                        <i class="fas fa-edit me-2"></i>Revise Proposal
-                                    </a>
+                                    <div class="action-item">
+                                        <a asp-page="./Proposals/Edit" asp-route-id="@Model.LatestProposal.Id" class="action-card-pro urgent">
+                                            <div class="action-icon-pro warning">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </div>
+                                            <div class="action-content-pro">
+                                                <h6 class="action-title">Revise Proposal</h6>
+                                                <p class="action-description">Update based on feedback</p>
+                                            </div>
+                                            <div class="action-arrow-pro">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
                                 }
                                 
-                                <a asp-page="./Comments" class="btn btn-outline-secondary btn-action">
-                                    <i class="fas fa-comments me-2"></i>View Feedback
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Proposal Summary Card -->
-                    <div class="management-card fade-in-up">
-                        <div class="card-header-custom" style="background: linear-gradient(135deg, #6f42c1 0%, #5a36a1 100%);">
-                            <div class="header-content">
-                                <div class="header-icon">
-                                    <i class="fas fa-chart-pie"></i>
+                                <div class="action-item">
+                                    <a asp-page="./Comments" class="action-card-pro">
+                                        <div class="action-icon-pro secondary">
+                                            <i class="bi bi-chat-dots"></i>
+                                        </div>
+                                        <div class="action-content-pro">
+                                            <h6 class="action-title">View Feedback</h6>
+                                            <p class="action-description">Check comments and reviews</p>
+                                        </div>
+                                        <div class="action-arrow-pro">
+                                            <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="header-text">
-                                    <h5>Proposal Summary</h5>
-                                    <span>Your submission overview</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body-custom">
-                            @{
-                                var approvedCount = Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.Approved);
-                                var rejectedCount = Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.Rejected);
-                                var pendingCount = Model.Proposals.Count(p => p.Status == FYP1System.Models.ProposalStatus.UnderReview || p.Status == FYP1System.Models.ProposalStatus.Submitted);
-                            }
-                            
-                            <div class="row text-center">
-                                <div class="col-12 mb-3">
-                                    <div class="summary-item">
-                                        <h3 class="text-primary">@Model.Proposals.Count</h3>
-                                        <p class="text-muted mb-0">Total Proposals</p>
+                                
+                                <div class="action-item">
+                                    <div class="action-card-pro disabled">
+                                        <div class="action-icon-pro light">
+                                            <i class="bi bi-calendar-event"></i>
+                                        </div>
+                                        <div class="action-content-pro">
+                                            <h6 class="action-title">Schedule Meeting</h6>
+                                            <p class="action-description">Coming soon</p>
+                                        </div>
+                                        <div class="action-arrow-pro">
+                                            <i class="bi bi-lock"></i>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            
-                            <hr class="my-3">
-                            
-                            <div class="summary-details">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span><i class="fas fa-check-circle text-success me-2"></i>Approved:</span>
-                                    <span class="badge bg-success">@approvedCount</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span><i class="fas fa-times-circle text-danger me-2"></i>Rejected:</span>
-                                    <span class="badge bg-danger">@rejectedCount</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span><i class="fas fa-clock text-warning me-2"></i>Under Review:</span>
-                                    <span class="badge bg-warning">@pendingCount</span>
                                 </div>
                             </div>
                         </div>
@@ -458,24 +471,917 @@
 </div>
 
 <style>
-.info-item label {
+/* Enhanced Professional Student Profile Card Design */
+
+/* Main Profile Card */
+.student-profile-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(111, 179, 211, 0.12);
+    border: 1px solid #e8f4fd;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.student-profile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(111, 179, 211, 0.18);
+}
+
+/* Enhanced Profile Card Header */
+.profile-card-header {
+    background: linear-gradient(135deg, #6fb3d3 0%, #5dade2 50%, #4a9ede 100%);
+    color: white;
+    padding: 24px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: headerShimmer 6s infinite;
+}
+
+.profile-header-content {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-header-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 1.8rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-header-text {
+    flex: 1;
+}
+
+.profile-card-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.profile-card-subtitle {
+    margin: 4px 0 0 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+/* Header Decoration */
+.profile-header-decoration {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+.decoration-circle {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+}
+
+.circle-1 { animation-delay: 0s; }
+.circle-2 { left: 15px; animation-delay: 1s; }
+.circle-3 { left: 30px; animation-delay: 2s; }
+
+@@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Profile Card Body */
+.profile-card-body {
+    padding: 30px;
+}
+
+/* Profile Sections */
+.profile-section {
+    margin-bottom: 24px;
+}
+
+.section-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f9ff;
+}
+
+.section-title {
+    color: #334155;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.section-title i {
+    color: #6fb3d3;
+    font-size: 1.1rem;
+}
+
+/* Enhanced Profile Info Grid */
+.profile-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f8fbff;
+    border-radius: 12px;
+    border-left: 4px solid #6fb3d3;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(111, 179, 211, 0.02), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateX(4px);
+    background: #f0f9ff;
+    box-shadow: 0 4px 15px rgba(111, 179, 211, 0.1);
+}
+
+.info-item:hover::before {
+    opacity: 1;
+}
+
+.info-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #6fb3d3, #5dade2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    margin-right: 16px;
+    box-shadow: 0 4px 12px rgba(111, 179, 211, 0.3);
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: #64748b;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+    display: block;
 }
 
-.summary-item h3 {
-    font-size: 2.5rem;
+.info-value {
+    color: #1e293b;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Enhanced Supervisor Profile Card */
+.supervisor-profile-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+    border: 2px solid #e8f4fd;
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.supervisor-profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #6fb3d3, #5dade2);
+}
+
+.supervisor-profile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(111, 179, 211, 0.15);
+    border-color: #6fb3d3;
+}
+
+.supervisor-avatar {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #6fb3d3, #5dade2);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.2rem;
+    box-shadow: 0 8px 25px rgba(111, 179, 211, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-circle::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: avatarShimmer 4s infinite;
+}
+
+@@keyframes avatarShimmer {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.supervisor-name {
+    color: #1e293b;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    text-align: center;
 }
 
-.summary-details {
+.supervisor-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.supervisor-info-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(111, 179, 211, 0.05);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.supervisor-info-item i {
+    width: 20px;
+    margin-right: 8px;
+}
+
+.supervisor-info-item .info-label {
+    font-weight: 600;
+    color: #64748b;
+    margin-right: 6px;
+}
+
+.supervisor-info-item .info-value {
+    color: #334155;
+    font-weight: 500;
+}
+
+/* No Supervisor Card */
+.no-supervisor-card {
+    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 20%, #fff7ed 100%);
+    border: 2px solid #fed7aa;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.no-supervisor-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.no-supervisor-title {
+    color: #92400e;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.no-supervisor-text {
+    color: #a16207;
     font-size: 0.9rem;
+    margin-bottom: 20px;
 }
 
-.btn-action {
-    border-radius: 10px !important;
+/* Enhanced GPA Section */
+.gpa-section {
+    background: linear-gradient(135deg, #f8fbff 0%, #e8f4fd 100%);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #e8f4fd;
+}
+
+.gpa-card {
+    text-align: center;
+}
+
+.gpa-header {
+    margin-bottom: 20px;
+}
+
+.gpa-title {
+    color: #334155;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.gpa-display-enhanced {
+    position: relative;
+}
+
+.gpa-circle-enhanced {
+    position: relative;
+    display: inline-block;
+}
+
+.gpa-ring {
+    filter: drop-shadow(0 8px 20px rgba(111, 179, 211, 0.3));
+}
+
+.gpa-progress {
+    transform: rotate(-90deg);
+}
+
+.gpa-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.gpa-value-enhanced {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.gpa-label-enhanced {
+    display: block;
+    font-size: 0.7rem;
+    color: #6fb3d3;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.gpa-scale {
+    font-size: 0.6rem;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+/* Enhanced Badge */
+.badge.bg-light-blue {
+    background: linear-gradient(135deg, #6fb3d3, #5dade2) !important;
+    color: white;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px rgba(111, 179, 211, 0.3);
+}
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .profile-card-body {
+        padding: 20px;
+    }
+    
+    .profile-header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-header-icon {
+        margin-right: 0;
+        margin-bottom: 16px;
+    }
+    
+    .info-item {
+        padding: 12px;
+    }
+    
+    .supervisor-profile-card {
+        padding: 20px;
+    }
+    
+    .avatar-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+    
+    .gpa-value-enhanced {
+        font-size: 1.6rem;
+    }
+    
+    .profile-card-header {
+        padding: 20px;
+    }
+}
+
+/* Loading Animation */
+@@keyframes profileCardLoad {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.student-profile-card {
+    animation: profileCardLoad 0.8s ease-out;
+}
+
+/* ============================================
+   PROFESSIONAL QUICK ACTIONS CARD STYLING
+   ============================================ */
+
+/* Main Quick Actions Card */
+.quick-actions-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.quick-actions-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #6610f2, #e83e8c, #fd7e14);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+}
+
+@@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.quick-actions-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.12);
+}
+
+/* Quick Actions Header */
+.quick-actions-header {
+    padding: 30px 35px 25px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-icon-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: iconShimmer 3s infinite;
+}
+
+@@keyframes iconShimmer {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.header-text {
+    flex: 1;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #212529;
+    letter-spacing: -0.5px;
+}
+
+.header-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: 400;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 25px;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #28a745;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.status-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* Quick Actions Body */
+.quick-actions-body {
+    padding: 35px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Professional Action Cards */
+.action-card-pro {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    background: #ffffff;
+    border: 2px solid #f1f3f4;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    gap: 18px;
+}
+
+.action-card-pro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.02), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.action-card-pro:hover {
+    transform: translateY(-3px);
+    border-color: #007bff;
+    box-shadow: 0 12px 40px rgba(0, 123, 255, 0.15);
+    text-decoration: none;
+}
+
+.action-card-pro:hover::before {
+    opacity: 1;
+}
+
+.action-card-pro.urgent {
+    border-color: #ffc107;
+    animation: urgentPulse 2s infinite;
+}
+
+.action-card-pro.urgent:hover {
+    border-color: #e0a800;
+    box-shadow: 0 12px 40px rgba(255, 193, 7, 0.25);
+}
+
+.action-card-pro.highlight {
+    border-color: #28a745;
+}
+
+.action-card-pro.highlight:hover {
+    border-color: #1e7e34;
+    box-shadow: 0 12px 40px rgba(40, 167, 69, 0.25);
+}
+
+.action-card-pro.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: #e9ecef;
+}
+
+.action-card-pro.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: #e9ecef;
+}
+
+@@keyframes urgentPulse {
+    0% { border-color: #ffc107; }
+    50% { border-color: #ffed4e; }
+    100% { border-color: #ffc107; }
+}
+
+/* Action Card Icons */
+.action-icon-pro {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.action-icon-pro.primary { background: linear-gradient(135deg, #007bff, #0056b3); }
+.action-icon-pro.success { background: linear-gradient(135deg, #28a745, #1e7e34); }
+.action-icon-pro.warning { background: linear-gradient(135deg, #ffc107, #e0a800); }
+.action-icon-pro.info { background: linear-gradient(135deg, #17a2b8, #117a8b); }
+.action-icon-pro.secondary { background: linear-gradient(135deg, #6c757d, #545b62); }
+.action-icon-pro.light { background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #6c757d; }
+
+.action-card-pro:hover .action-icon-pro {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Action Card Content */
+.action-content-pro {
+    flex: 1;
+}
+
+.action-title {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #212529;
+    letter-spacing: -0.2px;
+}
+
+.action-description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+/* Action Card Arrow */
+.action-arrow-pro {
+    width: 35px;
+    height: 35px;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #007bff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.action-card-pro:hover .action-arrow-pro {
+    background: #007bff;
+    color: white;
+    transform: translateX(3px);
+}
+
+.action-card-pro.disabled .action-arrow-pro {
+    background: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+}
+
+/* ============================================
+   GLOBAL BUTTON TEXT COLOR OVERRIDE
+   ============================================ */
+
+/* Ensure ALL buttons across the application use black text */
+.btn, 
+button, 
+.btn-primary, 
+.btn-secondary, 
+.btn-success, 
+.btn-danger, 
+.btn-warning, 
+.btn-info, 
+.btn-light, 
+.btn-dark,
+.btn-light-blue,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info,
+.btn-outline-light,
+.btn-outline-dark,
+a.btn,
+a.button,
+input[type="submit"],
+input[type="button"],
+.action-button,
+.submit-button,
+.form-button {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* Hover states for buttons */
+.btn:hover, 
+button:hover, 
+.btn-primary:hover, 
+.btn-secondary:hover, 
+.btn-success:hover, 
+.btn-danger:hover, 
+.btn-warning:hover, 
+.btn-info:hover, 
+.btn-light:hover, 
+.btn-dark:hover,
+.btn-light-blue:hover,
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-success:hover,
+.btn-outline-danger:hover,
+.btn-outline-warning:hover,
+.btn-outline-info:hover,
+.btn-outline-light:hover,
+.btn-outline-dark:hover {
+    color: #000000 !important;
+}
+
+/* Focus and active states */
+.btn:focus, 
+.btn:active,
+.btn.active,
+button:focus,
+button:active,
+input[type="submit"]:focus,
+input[type="submit"]:active,
+input[type="button"]:focus,
+input[type="button"]:active {
+    color: #000000 !important;
+}
+
+/* Responsive Design */
+@@media (max-width: 768px) {
+    .quick-actions-header {
+        padding: 25px 20px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .header-left {
+        gap: 15px;
+    }
+    
+    .header-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .header-title {
+        font-size: 1.5rem;
+    }
+    
+    .quick-actions-body {
+        padding: 25px 20px;
+    }
+    
+    .actions-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .action-card-pro {
+        padding: 18px 20px;
+    }
+    
+    .action-icon-pro {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+@@media (max-width: 576px) {
+    .action-card-pro {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .action-arrow-pro {
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+    }
 }
 </style>

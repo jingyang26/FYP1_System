@@ -1,0 +1,582 @@
+/* ============================================
+   GLOBAL BUTTON STYLING FOR ALL ROLES & PAGES
+   ============================================ */
+
+/* Universal Button Text Color Override */
+.btn, 
+button, 
+.btn-primary, 
+.btn-secondary, 
+.btn-success, 
+.btn-danger, 
+.btn-warning, 
+.btn-info, 
+.btn-light, 
+.btn-dark,
+.btn-light-blue,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info,
+.btn-outline-light,
+.btn-outline-dark,
+a.btn,
+a.button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.action-button,
+.submit-button,
+.form-button,
+.navbar .btn,
+.card .btn,
+.modal .btn,
+.dropdown .btn {
+    color: #000000 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+/* Hover states for buttons */
+.btn:hover, 
+button:hover, 
+.btn-primary:hover, 
+.btn-secondary:hover, 
+.btn-success:hover, 
+.btn-danger:hover, 
+.btn-warning:hover, 
+.btn-info:hover, 
+.btn-light:hover, 
+.btn-dark:hover,
+.btn-light-blue:hover,
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-success:hover,
+.btn-outline-danger:hover,
+.btn-outline-warning:hover,
+.btn-outline-info:hover,
+.btn-outline-light:hover,
+.btn-outline-dark:hover,
+a.btn:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover {
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+/* Focus and active states */
+.btn:focus, 
+.btn:active,
+.btn.active,
+button:focus,
+button:active,
+input[type="submit"]:focus,
+input[type="submit"]:active,
+input[type="button"]:focus,
+input[type="button"]:active,
+input[type="reset"]:focus,
+input[type="reset"]:active,
+a.btn:focus,
+a.btn:active {
+    color: #000000 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+/* Visited state for button links */
+a.btn:visited {
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+/* Professional Button Enhancement */
+.btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* Specific button type enhancements */
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #1e7e34, #155724);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #e0a800, #d39e00);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #117a8b);
+    border-color: #17a2b8;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #117a8b, #0c5460);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #545b62);
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #545b62, #4e555b);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+}
+
+.btn-light-blue {
+    background: linear-gradient(135deg, #6fb3d3, #5dade2);
+    border-color: #6fb3d3;
+}
+
+.btn-light-blue:hover {
+    background: linear-gradient(135deg, #5dade2, #4a9ede);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(111, 179, 211, 0.3);
+}
+
+/* Small button sizes */
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+/* Outline button enhancements */
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info {
+    background: transparent;
+    border-width: 2px;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: #007bff;
+    border-color: #007bff;
+    transform: translateY(-2px);
+}
+
+.btn-outline-success:hover {
+    background: #28a745;
+    border-color: #28a745;
+    transform: translateY(-2px);
+}
+
+.btn-outline-warning:hover {
+    background: #ffc107;
+    border-color: #ffc107;
+    transform: translateY(-2px);
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    transform: translateY(-2px);
+}
+
+.btn-outline-info:hover {
+    background: #17a2b8;
+    border-color: #17a2b8;
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    border-color: #6c757d;
+    transform: translateY(-2px);
+}
+
+/* Disabled button state */
+.btn:disabled,
+.btn.disabled,
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Button groups */
+.btn-group .btn {
+    border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.btn-group .btn:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Form button styling */
+.form-control + .btn,
+.input-group .btn {
+    border-radius: 0 8px 8px 0;
+}
+
+/* Navigation button styling */
+.navbar .btn {
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+/* Card button styling */
+.card .btn {
+    margin: 4px 2px;
+}
+
+/* Modal button styling */
+.modal-footer .btn {
+    margin-left: 8px;
+}
+
+/* Responsive button adjustments */
+@media (max-width: 768px) {
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .btn-sm {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-lg {
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+}
+
+/* Loading state for buttons */
+.btn.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: btnSpin 1s linear infinite;
+}
+
+@keyframes btnSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   GLOBAL CARD TITLE STYLING - BLACK TEXT
+   ============================================ */
+
+/* Ensure all card titles use black text */
+.card-header,
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4,
+.card-header h5,
+.card-header h6,
+.card-title,
+.card-subtitle,
+.profile-card-title,
+.header-title,
+.section-title,
+.dashboard-title,
+.quick-actions-header h1,
+.quick-actions-header h2,
+.quick-actions-header h3,
+.quick-actions-header h4,
+.quick-actions-header h5,
+.quick-actions-header h6,
+.management-card h1,
+.management-card h2,
+.management-card h3,
+.management-card h4,
+.management-card h5,
+.management-card h6 {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+/* Override any background color text */
+.card-header.bg-primary,
+.card-header.bg-secondary,
+.card-header.bg-success,
+.card-header.bg-danger,
+.card-header.bg-warning,
+.card-header.bg-info,
+.card-header.bg-light,
+.card-header.bg-dark {
+    color: #000000 !important;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+    border-bottom: 2px solid #dee2e6 !important;
+}
+
+/* Ensure all text in card headers is black */
+.card-header *,
+.quick-actions-header *,
+.management-card-header *,
+.card-header-custom * {
+    color: #000000 !important;
+}
+
+/* Professional card header styling */
+.card-header {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa) !important;
+    border-bottom: 2px solid #e9ecef !important;
+    padding: 1.25rem 1.5rem !important;
+}
+
+/* Icons in headers - keep them colored for visual appeal */
+.card-header i,
+.quick-actions-header i,
+.management-card-header i {
+    color: #007bff !important;
+    margin-right: 0.5rem;
+}
+
+/* Form labels */
+.form-label,
+label {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* Additional global card styling */
+.card {
+    border: none !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+}
+
+.card-body {
+    padding: 2rem 1.5rem !important;
+}
+
+/* Form controls styling */
+.form-control,
+.form-select {
+    border-radius: 8px !important;
+    border: 2px solid #e9ecef !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease !important;
+    color: #000000 !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+    color: #000000 !important;
+}
+
+/* Text colors for form elements */
+.form-control::placeholder {
+    color: #6c757d !important;
+}
+
+.form-text {
+    color: #6c757d !important;
+}
+
+/* Validation text */
+.text-danger {
+    color: #dc3545 !important;
+}
+
+/* Table headers */
+.table th,
+.table-header {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+/* Modal headers */
+.modal-header,
+.modal-header h1,
+.modal-header h2,
+.modal-header h3,
+.modal-header h4,
+.modal-header h5,
+.modal-header h6,
+.modal-title {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+/* Navbar brand and text */
+.navbar-brand,
+.nav-link {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* Alert headers */
+.alert h1,
+.alert h2,
+.alert h3,
+.alert h4,
+.alert h5,
+.alert h6 {
+    color: #000000 !important;
+}
+
+/* Badge text */
+.badge {
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* Dropdown items */
+.dropdown-item {
+    color: #000000 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #000000 !important;
+    background-color: #f8f9fa !important;
+}
+
+/* List group items */
+.list-group-item {
+    color: #000000 !important;
+}
+
+/* Breadcrumb */
+.breadcrumb-item {
+    color: #000000 !important;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d !important;
+}
+
+/* Tab navigation */
+.nav-tabs .nav-link,
+.nav-pills .nav-link {
+    color: #000000 !important;
+}
+
+.nav-tabs .nav-link.active,
+.nav-pills .nav-link.active {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+
+/* Button with icons */
+.btn i {
+    margin-right: 6px;
+    font-size: 0.9em;
+}
+
+.btn i:last-child {
+    margin-right: 0;
+    margin-left: 6px;
+}
+
+.btn-sm i {
+    font-size: 0.8em;
+    margin-right: 4px;
+}
+
+.btn-lg i {
+    font-size: 1em;
+    margin-right: 8px;
+}
