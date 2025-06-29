@@ -351,63 +351,8 @@
 
         <!-- Management Actions -->
         <div class="row mb-4">
-            <!-- My Students Section -->
-            <div class="col-lg-8 mb-4">
-                <div class="management-card fade-in-up">
-                    <div class="card-header-custom" style="background: linear-gradient(135deg, #6f42c1 0%, #5a36a1 100%);">
-                        <div class="header-content">
-                            <div class="header-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="header-text">
-                                <h5>My Students</h5>
-                                <span>Students under supervision</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body-custom">
-                        @if (Model.MyStudents.Any())
-                        {
-                            <div class="row">
-                                @foreach (var student in Model.MyStudents)
-                                {
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card border-0 shadow-sm">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar-sm bg-primary bg-gradient rounded-circle d-flex align-items-center justify-content-center me-3">
-                                                        <i class="fas fa-user-graduate text-white"></i>
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="mb-1">@student.User.FullName</h6>
-                                                        <p class="text-muted mb-1 small">@student.StudentId</p>
-                                                        <small class="text-info">@student.Program?.Name</small>
-                                                    </div>
-                                                    <div>
-                                                        <a href="/Supervisor/Students/Details/@student.Id" class="btn btn-sm btn-outline-primary">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="text-center py-4">
-                                <i class="fas fa-user-graduate fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">No students assigned yet.</p>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions & Recent Proposals -->
-            <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="col-lg-12">
                 <!-- Quick Actions Card -->
                 <div class="management-card fade-in-up mb-4">
                     <div class="card-header-custom" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);">
@@ -422,74 +367,28 @@
                         </div>
                     </div>
                     <div class="card-body-custom">
-                        <div class="d-grid gap-3">
-                            <a href="/Supervisor/Students" class="btn btn-outline-primary btn-action">
-                                <i class="fas fa-users me-2"></i>View All Students
-                            </a>
-                            
-                            <a href="/Supervisor/Proposals" class="btn btn-outline-info btn-action">
-                                <i class="fas fa-file-alt me-2"></i>Review Proposals
-                            </a>
-                            
-                            <a href="/Supervisor/Comments" class="btn btn-outline-success btn-action">
-                                <i class="fas fa-comments me-2"></i>Manage Comments
-                            </a>
-                            
-                            <a href="/Supervisor/Reports" class="btn btn-outline-warning btn-action">
-                                <i class="fas fa-chart-bar me-2"></i>View Reports
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Proposals Card -->
-                <div class="management-card fade-in-up">
-                    <div class="card-header-custom" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
-                        <div class="header-content">
-                            <div class="header-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="header-text">
-                                <h5>Recent Proposals</h5>
-                                <span>Latest submissions</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body-custom">
-                        @if (Model.RecentProposals.Any())
-                        {
-                            @foreach (var proposal in Model.RecentProposals)
-                            {
-                                <div class="border-bottom pb-3 mb-3">
-                                    <h6 class="fw-bold mb-2">@proposal.Title</h6>
-                                    <p class="text-muted mb-1 small">by @proposal.Student.User.FullName</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="badge rounded-pill 
-                                            @(proposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
-                                              proposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
-                                              proposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
-                                              "bg-secondary")">
-                                            @proposal.Status
-                                        </span>
-                                        <small class="text-muted">
-                                            @proposal.SubmittedAt?.ToString("MMM dd")
-                                        </small>
-                                    </div>
-                                </div>
-                            }
-                            <div class="text-center">
-                                <a href="/Supervisor/Proposals" class="btn btn-sm btn-outline-primary">
-                                    View All <i class="fas fa-arrow-right ms-1"></i>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <a href="/Supervisor/Students" class="btn btn-outline-primary btn-action w-100">
+                                    <i class="fas fa-users me-2"></i>View All Students
                                 </a>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="text-center py-3">
-                                <i class="fas fa-file-alt fa-2x text-muted mb-2"></i>
-                                <p class="text-muted small">No recent proposals</p>
+                            <div class="col-md-3 mb-3">
+                                <a href="/Supervisor/Proposals" class="btn btn-outline-info btn-action w-100">
+                                    <i class="fas fa-file-alt me-2"></i>Review Proposals
+                                </a>
                             </div>
-                        }
+                            <div class="col-md-3 mb-3">
+                                <a href="/Supervisor/Comments" class="btn btn-outline-success btn-action w-100">
+                                    <i class="fas fa-comments me-2"></i>Manage Comments
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="/Supervisor/Reports" class="btn btn-outline-warning btn-action w-100">
+                                    <i class="fas fa-chart-bar me-2"></i>View Reports
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

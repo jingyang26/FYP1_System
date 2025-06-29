@@ -81,6 +81,57 @@
     margin-bottom: 1.5rem;
 }
 
+.form-group-with-icon {
+    margin-bottom: 1.5rem;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #6c757d;
+    z-index: 3;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.form-control-with-icon {
+    padding-left: 3rem !important;
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+    padding: 1rem 1rem 1rem 3rem;
+    font-size: 1rem;
+    height: 60px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.form-control-with-icon:focus {
+    border-color: #5DADE2;
+    box-shadow: 0 0 0 0.25rem rgba(93, 173, 226, 0.25);
+    outline: none;
+}
+
+/* Style select elements properly */
+select.form-control-with-icon {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 1rem center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+    padding-right: 3rem;
+}
+
+.form-control-with-icon:focus + .input-icon,
+.form-control-with-icon:not(:placeholder-shown) + .input-icon {
+    color: #5DADE2;
+}
+
 .form-floating input,
 .form-floating select {
     border-radius: 15px;
