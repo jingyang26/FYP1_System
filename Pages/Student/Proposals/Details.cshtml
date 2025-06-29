@@ -148,9 +148,9 @@
                                         <div class="d-flex justify-content-between align-items-start mb-2">
                                             <strong>@evaluation.Evaluator.User.FullName</strong>
                                             <span class="badge 
-                                                @(evaluation.Status == FYP1System.Models.EvaluationStatus.Approved ? "bg-success" :
+                                                @(evaluation.Status == FYP1System.Models.EvaluationStatus.Accepted ? "bg-success" :
                                                   evaluation.Status == FYP1System.Models.EvaluationStatus.Rejected ? "bg-danger" :
-                                                  evaluation.Status == FYP1System.Models.EvaluationStatus.NeedsRevision ? "bg-warning" :
+                                                  evaluation.Status == FYP1System.Models.EvaluationStatus.AcceptedWithConditions ? "bg-warning" :
                                                   "bg-secondary")">
                                                 @evaluation.Status
                                             </span>

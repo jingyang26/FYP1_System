@@ -6,10 +6,10 @@ namespace FYP1System.Models
     {
         Pending,
         InProgress,
-        Completed,
-        Approved,
+        Accepted,
+        AcceptedWithConditions,
         Rejected,
-        NeedsRevision
+        Completed
     }
 
     public class ProposalEvaluation

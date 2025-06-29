@@ -1,0 +1,286 @@
+@page
+@model FYP1System.Pages.Evaluator.ProposalsModel
+@{
+    ViewData["Title"] = "Assigned Proposals";
+}
+
+<style>
+/* Evaluator Proposals Styling */
+.proposals-page {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+    min-height: calc(100vh - 200px);
+}
+
+.page-header {
+    background: linear-gradient(135deg, #6fb3d3 0%, #5dade2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(111, 179, 211, 0.3);
+    margin-bottom: 2rem;
+}
+
+.proposal-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: none;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.proposal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.proposal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.proposal-body {
+    padding: 1.5rem;
+}
+
+.proposal-footer {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.status-pending {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+}
+
+.status-completed {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.status-inprogress {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+}
+
+.filter-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-evaluate {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-evaluate:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.btn-view {
+    background: transparent;
+    color: #6b7280;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-view:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #374151;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #cbd5e1;
+    margin-bottom: 2rem;
+}
+</style>
+
+<div class="proposals-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0">
+                        <i class="fas fa-clipboard-list me-3"></i>Assigned Proposals
+                    </h1>
+                    <p class="mb-0 opacity-90">Review and evaluate student proposals</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-tasks me-2"></i>@Model.Assignments.Count Assignments
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-card">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="session" class="form-label">Session</label>
+                    <select name="session" class="form-select" id="session">
+                        <option value="">All Sessions</option>
+                        <option value="2024/2025" selected="@(Model.SelectedSession == "2024/2025")">2024/2025</option>
+                        <option value="2023/2024" selected="@(Model.SelectedSession == "2023/2024")">2023/2024</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="status" class="form-label">Evaluation Status</label>
+                    <select name="status" class="form-select" id="status">
+                        <option value="">All Status</option>
+                        <option value="pending" selected="@(Model.SelectedStatus == "pending")">Pending</option>
+                        <option value="inprogress" selected="@(Model.SelectedStatus == "inprogress")">In Progress</option>
+                        <option value="completed" selected="@(Model.SelectedStatus == "completed")">Completed</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-filter me-1"></i>Filter
+                    </button>
+                    <a href="/Evaluator/Proposals" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-1"></i>Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Proposals List -->
+        @if (Model.Assignments.Any())
+        {
+            @foreach (var assignment in Model.Assignments)
+            {
+                var proposal = assignment.Proposal;
+                var evaluation = assignment.Evaluation;
+                var evaluationStatus = evaluation?.Status.ToString() ?? "Pending";
+                
+                <div class="proposal-card">
+                    <div class="proposal-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="mb-2 fw-bold">@proposal.Title</h5>
+                                <div class="text-muted mb-2">
+                                    <i class="fas fa-user me-2"></i>@proposal.Student.User.FullName
+                                    <span class="mx-2">•</span>
+                                    <i class="fas fa-id-card me-2"></i>@proposal.Student.StudentId
+                                    <span class="mx-2">•</span>
+                                    <i class="fas fa-graduation-cap me-2"></i>@proposal.Student.Program?.Name
+                                </div>
+                                <small class="text-info">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    Assigned: @assignment.AssignedDate.ToString("MMM dd, yyyy")
+                                </small>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                @{
+                                    var statusClass = evaluationStatus.ToLower() switch
+                                    {
+                                        "pending" => "status-pending",
+                                        "inprogress" => "status-inprogress",
+                                        "accepted" or "acceptedwithconditions" or "rejected" => "status-completed",
+                                        _ => "status-pending"
+                                    };
+                                }
+                                <span class="status-badge @statusClass">
+                                    @(evaluationStatus == "AcceptedWithConditions" ? "Accepted with Conditions" : evaluationStatus)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(proposal.Description))
+                    {
+                        <div class="proposal-body">
+                            <h6 class="mb-2">Description</h6>
+                            <p class="text-muted mb-0">
+                                @(proposal.Description.Length > 200 ? proposal.Description.Substring(0, 200) + "..." : proposal.Description)
+                            </p>
+                        </div>
+                    }
+
+                    <div class="proposal-footer">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                @if (evaluation != null && evaluation.OverallScore.HasValue)
+                                {
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">Overall Score:</span>
+                                        <span class="fw-bold text-primary fs-5">@evaluation.OverallScore.Value.ToString("F1")/100</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Not evaluated yet</span>
+                                }
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <div class="btn-group">
+                                    <a href="/Evaluator/Proposals/Details/@proposal.Id" class="btn btn-view">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                    @if (evaluation == null || evaluation.Status == EvaluationStatus.Pending || evaluation.Status == EvaluationStatus.InProgress)
+                                    {
+                                        <a href="/Evaluator/Proposals/Evaluate/@proposal.Id" class="btn btn-evaluate">
+                                            <i class="fas fa-clipboard-check me-1"></i>
+                                            @(evaluation == null ? "Start Evaluation" : "Continue Evaluation")
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Evaluator/Proposals/Evaluate/@proposal.Id" class="btn btn-view">
+                                            <i class="fas fa-eye me-1"></i>View Evaluation
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-clipboard-list"></i>
+                <h4 class="text-muted">No Proposals Assigned</h4>
+                <p class="text-muted">You don't have any proposals assigned for evaluation yet.</p>
+                <a href="/Evaluator" class="btn btn-primary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+                </a>
+            </div>
+        }
+    </div>
+</div>

@@ -332,81 +332,10 @@
             </div>
         </div>
 
-        <!-- Management Actions -->
-        <div class="row mb-4">
-            <!-- Assigned Proposals Section -->
-            <div class="col-lg-8 mb-4">
+        <!-- Quick Actions Section -->
+        <div class="row mb-4 justify-content-center">
+            <div class="col-lg-6">
                 <div class="management-card fade-in-up">
-                    <div class="card-header-custom" style="background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);">
-                        <div class="header-content">
-                            <div class="header-icon">
-                                <i class="fas fa-clipboard-list"></i>
-                            </div>
-                            <div class="header-text">
-                                <h5>Recent Assignments</h5>
-                                <span>Latest proposals to evaluate</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body-custom">
-                        @if (Model.RecentAssignments.Any())
-                        {
-                            @foreach (var proposal in Model.RecentAssignments)
-                            {
-                                var assignment = Model.MyAssignments.FirstOrDefault(a => a.ProposalId == proposal.Id);
-                                <div class="card border-0 shadow-sm mb-3">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <h6 class="fw-bold mb-2">@proposal.Title</h6>
-                                                <p class="text-muted mb-1">
-                                                    <i class="fas fa-user me-2"></i>@proposal.Student.User.FullName
-                                                    <span class="mx-2">•</span>
-                                                    <i class="fas fa-graduation-cap me-2"></i>@proposal.Student.Program?.Name
-                                                </p>
-                                                <small class="text-info">
-                                                    <i class="fas fa-calendar me-1"></i>
-                                                    Assigned: @assignment?.AssignedDate.ToString("MMM dd, yyyy")
-                                                </small>
-                                            </div>
-                                            <div class="col-md-4 text-end">
-                                                <span class="badge rounded-pill 
-                                                    @(proposal.Status == FYP1System.Models.ProposalStatus.Approved ? "bg-success" :
-                                                      proposal.Status == FYP1System.Models.ProposalStatus.Rejected ? "bg-danger" :
-                                                      proposal.Status == FYP1System.Models.ProposalStatus.UnderReview ? "bg-warning" :
-                                                      "bg-secondary") mb-2">
-                                                    @proposal.Status
-                                                </span>
-                                                <br>
-                                                <a href="/Evaluator/Proposals/Evaluate/@proposal.Id" class="btn btn-sm btn-outline-primary">
-                                                    <i class="fas fa-clipboard-check me-1"></i>Evaluate
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            <div class="text-center">
-                                <a href="/Evaluator/Proposals" class="btn btn-outline-primary">
-                                    View All Assignments <i class="fas fa-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="text-center py-4">
-                                <i class="fas fa-clipboard fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">No proposals assigned yet.</p>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions & Evaluation Guide -->
-            <div class="col-lg-4">
-                <!-- Quick Actions Card -->
-                <div class="management-card fade-in-up mb-4">
                     <div class="card-header-custom" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);">
                         <div class="header-content">
                             <div class="header-icon">
@@ -435,56 +364,6 @@
                             <a href="/Evaluator/Guidelines" class="btn btn-outline-warning btn-action">
                                 <i class="fas fa-book me-2"></i>Guidelines
                             </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Evaluation Guide Card -->
-                <div class="management-card fade-in-up">
-                    <div class="card-header-custom" style="background: linear-gradient(135deg, #6f42c1 0%, #5a36a1 100%);">
-                        <div class="header-content">
-                            <div class="header-icon">
-                                <i class="fas fa-info-circle"></i>
-                            </div>
-                            <div class="header-text">
-                                <h5>Evaluation Guide</h5>
-                                <span>Assessment criteria</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body-custom">
-                        <div class="evaluation-criteria">
-                            <div class="criteria-item mb-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span><i class="fas fa-cogs text-primary me-2"></i>Technical Merit</span>
-                                    <span class="badge bg-light text-dark">25%</span>
-                                </div>
-                            </div>
-                            <div class="criteria-item mb-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span><i class="fas fa-lightbulb text-warning me-2"></i>Innovation</span>
-                                    <span class="badge bg-light text-dark">25%</span>
-                                </div>
-                            </div>
-                            <div class="criteria-item mb-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span><i class="fas fa-check-double text-success me-2"></i>Feasibility</span>
-                                    <span class="badge bg-light text-dark">25%</span>
-                                </div>
-                            </div>
-                            <div class="criteria-item mb-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span><i class="fas fa-book-open text-info me-2"></i>Literature Review</span>
-                                    <span class="badge bg-light text-dark">25%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-3">
-                        <div class="text-center">
-                            <small class="text-muted">
-                                <i class="fas fa-star me-1"></i>
-                                Score range: 0-100 for each criteria
-                            </small>
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ namespace FYP1System.Pages.Evaluator
         }
 
         public List<EvaluatorAssignment> Assignments { get; set; } = new();
+        public Models.Lecturer? LecturerInfo { get; set; }
         public string? SelectedSession { get; set; }
         public string? SelectedStatus { get; set; }
         public string? SelectedType { get; set; }
@@ -34,10 +35,10 @@ namespace FYP1System.Pages.Evaluator
             }
 
             // Get the lecturer record for the current user (acting as evaluator)
-            var lecturer = await _context.Lecturers
+            LecturerInfo = await _context.Lecturers
                 .FirstOrDefaultAsync(l => l.UserId == user.Id);
 
-            if (lecturer == null)
+            if (LecturerInfo == null)
             {
                 return RedirectToPage("/Account/Login");
             }
@@ -53,55 +54,39 @@ namespace FYP1System.Pages.Evaluator
                         .ThenInclude(s => s.User)
                 .Include(ea => ea.Proposal)
                     .ThenInclude(p => p.Student)
-                        .ThenInclude(s => s.Supervisor)
-                            .ThenInclude(sup => sup.User)
-                .Include(ea => ea.Proposal)
-                    .ThenInclude(p => p.Student)
                         .ThenInclude(s => s.Program)
-                .Include(ea => ea.Evaluator)
-                    .ThenInclude(e => e.User)
-                .Where(ea => ea.EvaluatorId == lecturer.Id);
+                .Include(ea => ea.Evaluation)
+                .Where(ea => ea.EvaluatorId == LecturerInfo.Id && ea.IsActive);
 
             // Apply filters
             if (!string.IsNullOrEmpty(session))
             {
-                query = query.Where(ea => ea.Proposal.Session == session);
+                query = query.Where(ea => ea.Proposal.Student.Session == session);
             }
 
-            if (!string.IsNullOrEmpty(type) && Enum.TryParse<ProposalType>(type, out var typeEnum))
+            if (!string.IsNullOrEmpty(status))
             {
-                query = query.Where(ea => ea.Proposal.Type == typeEnum);
+                switch (status.ToLower())
+                {
+                    case "pending":
+                        query = query.Where(ea => ea.Evaluation == null || ea.Evaluation.Status == EvaluationStatus.Pending);
+                        break;
+                    case "completed":
+                        query = query.Where(ea => ea.Evaluation != null && 
+                            (ea.Evaluation.Status == EvaluationStatus.Accepted || 
+                             ea.Evaluation.Status == EvaluationStatus.AcceptedWithConditions || 
+                             ea.Evaluation.Status == EvaluationStatus.Rejected));
+                        break;
+                    case "inprogress":
+                        query = query.Where(ea => ea.Evaluation != null && ea.Evaluation.Status == EvaluationStatus.InProgress);
+                        break;
+                }
             }
 
-            // Get assignments with evaluations
-            var assignments = await query
-                .Select(ea => new 
-                {
-                    Assignment = ea,
-                    Evaluation = _context.ProposalEvaluations
-                        .FirstOrDefault(pe => pe.ProposalId == ea.ProposalId && pe.EvaluatorId == lecturer.Id)
-                })
-                .OrderByDescending(x => x.Assignment.AssignedAt)
+            Assignments = await query
+                .OrderByDescending(ea => ea.AssignedDate)
                 .ToListAsync();
 
-            // Create assignment list with evaluations
-            var assignmentList = assignments.Select(x => 
-            {
-                var assignment = x.Assignment;
-                assignment.Evaluation = x.Evaluation;
-                return assignment;
-            }).ToList();
-
-            // Apply evaluation status filter
-            if (!string.IsNullOrEmpty(status) && Enum.TryParse<EvaluationStatus>(status, out var statusEnum))
-            {
-                assignmentList = assignmentList.Where(a => 
-                    (a.Evaluation?.Status == statusEnum) || 
-                    (statusEnum == EvaluationStatus.Pending && a.Evaluation == null)
-                ).ToList();
-            }
-
-            Assignments = assignmentList;
             return Page();
         }
     }

@@ -4,317 +4,629 @@
     ViewData["Title"] = "Evaluate Proposal";
 }
 
-<div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-star text-primary me-2"></i>Evaluate Proposal
-        </h1>
-        <div class="d-flex gap-2">
-            <a href="/Evaluator/Proposals/Details/@Model.Proposal.Id" class="btn btn-outline-primary btn-sm">
-                <i class="fas fa-arrow-left me-1"></i>Back to Details
-            </a>
-        </div>
-    </div>
+<style>
+/* Evaluation Page Styling - Light Blue Theme */
+.evaluation-page {
+    background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+    min-height: calc(100vh - 200px);
+    padding: 2rem 0;
+}
 
-    <form method="post">
-        <input type="hidden" asp-for="ProposalId" />
-        
-        <div class="row">
-            <!-- Evaluation Form -->
-            <div class="col-lg-8">
-                <!-- Proposal Summary -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Proposal Summary</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <strong>Student:</strong> @Model.Proposal.Student.User.FullName (@Model.Proposal.Student.StudentId)
-                                </div>
-                                <div class="mb-2">
-                                    <strong>Title:</strong> @Model.Proposal.Title
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <strong>Type:</strong> <span class="badge bg-info">@Model.Proposal.Type</span>
-                                </div>
-                                <div class="mb-2">
-                                    <strong>Session:</strong> @Model.Proposal.Session - Semester @Model.Proposal.Semester
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+.page-header {
+    background: linear-gradient(135deg, #6fb3d3 0%, #5dade2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(111, 179, 211, 0.3);
+    margin-bottom: 2rem;
+}
+
+.evaluation-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: none;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.card-header-custom {
+    background: linear-gradient(135deg, #6fb3d3 0%, #5dade2 100%);
+    color: white;
+    padding: 1.5rem;
+    border: none;
+    font-weight: 600;
+}
+
+.form-section {
+    padding: 2rem;
+}
+
+.score-input {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.score-input:focus {
+    background: white;
+    border-color: #6fb3d3;
+    box-shadow: 0 0 0 3px rgba(111, 179, 211, 0.1);
+}
+
+.status-card {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.status-card:hover {
+    border-color: #6fb3d3;
+    background: #f8fafc;
+}
+
+.status-card.selected {
+    border-color: #6fb3d3;
+    background: rgba(111, 179, 211, 0.1);
+}
+
+.status-accepted {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.status-conditions {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.status-rejected {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.score-display {
+    background: linear-gradient(135deg, #6fb3d3 0%, #5dade2 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.evaluation-readonly {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+}
+</style>
+
+<div class="evaluation-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0">
+                        <i class="fas fa-clipboard-check me-3"></i>Evaluate Proposal
+                    </h1>
+                    <p class="mb-0 opacity-90">Provide comprehensive evaluation and feedback</p>
                 </div>
-
-                <!-- Evaluation Criteria -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Evaluation Scores</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Evaluation.TechnicalMeritScore" class="form-label">Technical Merit Score (0-100)</label>
-                                <input asp-for="Evaluation.TechnicalMeritScore" type="number" class="form-control" min="0" max="100" step="0.1" />
-                                <span asp-validation-for="Evaluation.TechnicalMeritScore" class="text-danger"></span>
-                                <small class="form-text text-muted">Assess the technical quality and soundness of the approach</small>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Evaluation.InnovationScore" class="form-label">Innovation Score (0-100)</label>
-                                <input asp-for="Evaluation.InnovationScore" type="number" class="form-control" min="0" max="100" step="0.1" />
-                                <span asp-validation-for="Evaluation.InnovationScore" class="text-danger"></span>
-                                <small class="form-text text-muted">Evaluate the novelty and creativity of the proposal</small>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Evaluation.FeasibilityScore" class="form-label">Feasibility Score (0-100)</label>
-                                <input asp-for="Evaluation.FeasibilityScore" type="number" class="form-control" min="0" max="100" step="0.1" />
-                                <span asp-validation-for="Evaluation.FeasibilityScore" class="text-danger"></span>
-                                <small class="form-text text-muted">Rate the practicality and achievability of the proposal</small>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Evaluation.LiteratureReviewScore" class="form-label">Literature Review Score (0-100)</label>
-                                <input asp-for="Evaluation.LiteratureReviewScore" type="number" class="form-control" min="0" max="100" step="0.1" />
-                                <span asp-validation-for="Evaluation.LiteratureReviewScore" class="text-danger"></span>
-                                <small class="form-text text-muted">Assess the quality and relevance of literature review</small>
-                            </div>
-
-                            <div class="col-12 mb-3">
-                                <label asp-for="Evaluation.OverallScore" class="form-label">Overall Score (0-100)</label>
-                                <input asp-for="Evaluation.OverallScore" type="number" class="form-control" min="0" max="100" step="0.1" />
-                                <span asp-validation-for="Evaluation.OverallScore" class="text-danger"></span>
-                                <small class="form-text text-muted">Provide an overall assessment score</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Evaluation Details -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Evaluation Details</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label asp-for="Evaluation.Comments" class="form-label">General Comments</label>
-                            <textarea asp-for="Evaluation.Comments" class="form-control" rows="4" 
-                                      placeholder="Provide overall feedback on the proposal..."></textarea>
-                            <span asp-validation-for="Evaluation.Comments" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Evaluation.Strengths" class="form-label">Strengths</label>
-                            <textarea asp-for="Evaluation.Strengths" class="form-control" rows="3" 
-                                      placeholder="Identify the strong points of the proposal..."></textarea>
-                            <span asp-validation-for="Evaluation.Strengths" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Evaluation.Weaknesses" class="form-label">Weaknesses</label>
-                            <textarea asp-for="Evaluation.Weaknesses" class="form-control" rows="3" 
-                                      placeholder="Identify areas that need improvement..."></textarea>
-                            <span asp-validation-for="Evaluation.Weaknesses" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Evaluation.Recommendations" class="form-label">Recommendations</label>
-                            <textarea asp-for="Evaluation.Recommendations" class="form-control" rows="3" 
-                                      placeholder="Provide recommendations for improvement or next steps..."></textarea>
-                            <span asp-validation-for="Evaluation.Recommendations" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Final Decision -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Final Decision</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label asp-for="Evaluation.Status" class="form-label">Evaluation Status</label>
-                            <select asp-for="Evaluation.Status" class="form-select">
-                                <option value="">Select Status...</option>
-                                <option value="@EvaluationStatus.InProgress">Save as Draft (In Progress)</option>
-                                <option value="@EvaluationStatus.Approved">Accepted</option>
-                                <option value="@EvaluationStatus.NeedsRevision">Accepted with Conditions</option>
-                                <option value="@EvaluationStatus.Rejected">Rejected</option>
-                                <option value="@EvaluationStatus.Completed">Complete Review (No Final Decision)</option>
-                            </select>
-                            <span asp-validation-for="Evaluation.Status" class="text-danger"></span>
-                        </div>
-
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle me-2"></i>
-                            <strong>Status Guidelines:</strong>
-                            <ul class="mb-0 mt-2">
-                                <li><strong>Save as Draft:</strong> Save your progress and continue later</li>
-                                <li><strong>Accepted:</strong> Proposal meets all requirements and is approved</li>
-                                <li><strong>Accepted with Conditions:</strong> Proposal is good but needs minor revisions</li>
-                                <li><strong>Rejected:</strong> Proposal does not meet requirements</li>
-                                <li><strong>Complete Review:</strong> Submit evaluation without final decision</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <a href="/Evaluator/Proposals/Details/@Model.Proposal.Id" class="btn btn-outline-secondary">
-                                    <i class="fas fa-times me-1"></i>Cancel
-                                </a>
-                            </div>
-                            <div>
-                                <button type="submit" name="action" value="save" class="btn btn-outline-primary me-2">
-                                    <i class="fas fa-save me-1"></i>Save Progress
-                                </button>
-                                <button type="submit" name="action" value="submit" class="btn btn-success">
-                                    <i class="fas fa-check me-1"></i>Submit Evaluation
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="/Evaluator/Proposals" class="btn btn-light">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Proposals
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <!-- Evaluation Guide -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-success">Evaluation Guidelines</h6>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="text-primary">Scoring Criteria:</h6>
-                        <ul class="small">
-                            <li><strong>Technical Merit (0-100):</strong> Soundness of methodology, technical approach</li>
-                            <li><strong>Innovation (0-100):</strong> Novelty, creativity, originality</li>
-                            <li><strong>Feasibility (0-100):</strong> Practicality, resource requirements, timeline</li>
-                            <li><strong>Literature Review (0-100):</strong> Comprehensiveness, relevance, quality</li>
-                            <li><strong>Overall (0-100):</strong> Holistic assessment</li>
-                        </ul>
-
-                        <hr>
-
-                        <h6 class="text-primary">Decision Guidelines:</h6>
-                        <ul class="small">
-                            <li><strong>Accepted:</strong> Overall score ≥ 70, meets all criteria</li>
-                            <li><strong>Accepted with Conditions:</strong> Score 60-69, minor issues</li>
-                            <li><strong>Rejected:</strong> Score < 60, major deficiencies</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Proposal Files -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Related Documents</h6>
-                    </div>
-                    <div class="card-body">
-                        @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
-                        {
-                            <a href="/Evaluator/Proposals/Download/@Model.Proposal.Id" class="btn btn-outline-primary btn-sm w-100 mb-2">
-                                <i class="fas fa-download me-1"></i>Download Proposal
-                            </a>
-                        }
-                        
-                        @if (!string.IsNullOrEmpty(Model.Proposal.AgreementFilePath))
-                        {
-                            <a href="/Evaluator/Proposals/DownloadAgreement/@Model.Proposal.Id" class="btn btn-outline-info btn-sm w-100 mb-2">
-                                <i class="fas fa-file-contract me-1"></i>Download Agreement
-                            </a>
-                        }
-
-                        @if (string.IsNullOrEmpty(Model.Proposal.FilePath) && string.IsNullOrEmpty(Model.Proposal.AgreementFilePath))
-                        {
-                            <p class="text-muted text-center mb-0">No files available for download.</p>
-                        }
-                    </div>
-                </div>
-
-                <!-- Current Progress -->
-                @if (Model.Evaluation.Status != EvaluationStatus.Pending && Model.Evaluation.Id > 0)
-                {
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-warning">Current Progress</h6>
+        <form method="post">
+            <div class="row">
+                <!-- Main Evaluation Form -->
+                <div class="col-lg-8">
+                    <!-- Proposal Summary -->
+                    <div class="evaluation-card">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-file-alt me-2"></i>Proposal Summary
+                            </h5>
                         </div>
-                        <div class="card-body">
-                            <div class="text-center">
-                                @{
-                                    var statusBadge = Model.Evaluation.Status switch
+                        <div class="form-section">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <strong>Student:</strong> @Model.Proposal.Student.User.FullName
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Student ID:</strong> @Model.Proposal.Student.StudentId
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Program:</strong> @Model.Proposal.Student.Program?.Name
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <strong>Title:</strong> @Model.Proposal.Title
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Type:</strong> <span class="badge bg-info">@Model.Proposal.Type</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Session:</strong> @Model.Proposal.Session - Semester @Model.Proposal.Semester
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @if (!string.IsNullOrEmpty(Model.Proposal.Description))
+                            {
+                                <div class="mt-3">
+                                    <strong>Description:</strong>
+                                    <div class="mt-2 p-3 bg-light rounded">
+                                        @Model.Proposal.Description
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Scores -->
+                    <div class="evaluation-card">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-star me-2"></i>Evaluation Scores
+                            </h5>
+                        </div>
+                        <div class="form-section">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Input.TechnicalMeritScore" class="form-label fw-bold">
+                                        Technical Merit Score (0-100)
+                                    </label>
+                                    @if (Model.CanEdit)
                                     {
-                                        EvaluationStatus.InProgress => "bg-info",
-                                        EvaluationStatus.Completed => "bg-primary",
-                                        EvaluationStatus.Approved => "bg-success",
-                                        EvaluationStatus.Rejected => "bg-danger",
-                                        EvaluationStatus.NeedsRevision => "bg-warning",
-                                        _ => "bg-secondary"
-                                    };
-                                }
-                                <span class="badge @statusBadge">@Model.Evaluation.Status.ToString().Replace("NeedsRevision", "Needs Revision").Replace("InProgress", "In Progress")</span>
-                                
-                                @if (Model.Evaluation.UpdatedAt != DateTime.MinValue)
+                                        <input asp-for="Input.TechnicalMeritScore" type="number" class="form-control score-input" 
+                                               min="0" max="100" step="0.1" placeholder="Enter score (0-100)">
+                                    }
+                                    else
+                                    {
+                                        <div class="evaluation-readonly">
+                                            @(Model.Input.TechnicalMeritScore?.ToString("F1") ?? "Not scored")
+                                        </div>
+                                    }
+                                    <span asp-validation-for="Input.TechnicalMeritScore" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Input.InnovationScore" class="form-label fw-bold">
+                                        Innovation Score (0-100)
+                                    </label>
+                                    @if (Model.CanEdit)
+                                    {
+                                        <input asp-for="Input.InnovationScore" type="number" class="form-control score-input" 
+                                               min="0" max="100" step="0.1" placeholder="Enter score (0-100)">
+                                    }
+                                    else
+                                    {
+                                        <div class="evaluation-readonly">
+                                            @(Model.Input.InnovationScore?.ToString("F1") ?? "Not scored")
+                                        </div>
+                                    }
+                                    <span asp-validation-for="Input.InnovationScore" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Input.FeasibilityScore" class="form-label fw-bold">
+                                        Feasibility Score (0-100)
+                                    </label>
+                                    @if (Model.CanEdit)
+                                    {
+                                        <input asp-for="Input.FeasibilityScore" type="number" class="form-control score-input" 
+                                               min="0" max="100" step="0.1" placeholder="Enter score (0-100)">
+                                    }
+                                    else
+                                    {
+                                        <div class="evaluation-readonly">
+                                            @(Model.Input.FeasibilityScore?.ToString("F1") ?? "Not scored")
+                                        </div>
+                                    }
+                                    <span asp-validation-for="Input.FeasibilityScore" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Input.LiteratureReviewScore" class="form-label fw-bold">
+                                        Literature Review Score (0-100)
+                                    </label>
+                                    @if (Model.CanEdit)
+                                    {
+                                        <input asp-for="Input.LiteratureReviewScore" type="number" class="form-control score-input" 
+                                               min="0" max="100" step="0.1" placeholder="Enter score (0-100)">
+                                    }
+                                    else
+                                    {
+                                        <div class="evaluation-readonly">
+                                            @(Model.Input.LiteratureReviewScore?.ToString("F1") ?? "Not scored")
+                                        </div>
+                                    }
+                                    <span asp-validation-for="Input.LiteratureReviewScore" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            @if (Model.Input.OverallScore.HasValue)
+                            {
+                                <div class="score-display mt-3">
+                                    <i class="fas fa-trophy me-2"></i>Overall Score: @Model.Input.OverallScore.Value.ToString("F1")
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Status -->
+                    <div class="evaluation-card">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-check-circle me-2"></i>Evaluation Decision
+                            </h5>
+                        </div>
+                        <div class="form-section">
+                            @if (Model.CanEdit)
+                            {
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="status-card status-accepted">
+                                            <label class="d-flex align-items-center cursor-pointer">
+                                                <input type="radio" asp-for="Input.Status" value="@EvaluationStatus.Accepted" class="me-2">
+                                                <div>
+                                                    <div class="fw-bold text-success">
+                                                        <i class="fas fa-check me-1"></i>Accepted
+                                                    </div>
+                                                    <small class="text-muted">Proposal meets all requirements</small>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="status-card status-conditions">
+                                            <label class="d-flex align-items-center cursor-pointer">
+                                                <input type="radio" asp-for="Input.Status" value="@EvaluationStatus.AcceptedWithConditions" class="me-2">
+                                                <div>
+                                                    <div class="fw-bold text-warning">
+                                                        <i class="fas fa-exclamation-triangle me-1"></i>Accepted with Conditions
+                                                    </div>
+                                                    <small class="text-muted">Requires minor revisions</small>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="status-card status-rejected">
+                                            <label class="d-flex align-items-center cursor-pointer">
+                                                <input type="radio" asp-for="Input.Status" value="@EvaluationStatus.Rejected" class="me-2">
+                                                <div>
+                                                    <div class="fw-bold text-danger">
+                                                        <i class="fas fa-times me-1"></i>Rejected
+                                                    </div>
+                                                    <small class="text-muted">Does not meet requirements</small>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="evaluation-readonly">
+                                    <strong>Status:</strong> 
+                                    @switch (Model.Input.Status)
+                                    {
+                                        case EvaluationStatus.Accepted:
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check me-1"></i>Accepted
+                                            </span>
+                                            break;
+                                        case EvaluationStatus.AcceptedWithConditions:
+                                            <span class="badge bg-warning">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>Accepted with Conditions
+                                            </span>
+                                            break;
+                                        case EvaluationStatus.Rejected:
+                                            <span class="badge bg-danger">
+                                                <i class="fas fa-times me-1"></i>Rejected
+                                            </span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-secondary">@Model.Input.Status</span>
+                                            break;
+                                    }
+                                </div>
+                            }
+                            <span asp-validation-for="Input.Status" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Comments and Feedback -->
+                    <div class="evaluation-card">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-comments me-2"></i>Detailed Feedback
+                            </h5>
+                        </div>
+                        <div class="form-section">
+                            <div class="mb-3">
+                                <label asp-for="Input.Strengths" class="form-label fw-bold">Strengths</label>
+                                @if (Model.CanEdit)
                                 {
-                                    <div class="mt-2">
-                                        <small class="text-muted">Last saved: @Model.Evaluation.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</small>
+                                    <textarea asp-for="Input.Strengths" class="form-control" rows="3" 
+                                              placeholder="Highlight the strengths of this proposal..."></textarea>
+                                }
+                                else
+                                {
+                                    <div class="evaluation-readonly">
+                                        @(Model.Input.Strengths ?? "No strengths noted")
+                                    </div>
+                                }
+                                <span asp-validation-for="Input.Strengths" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Weaknesses" class="form-label fw-bold">Weaknesses</label>
+                                @if (Model.CanEdit)
+                                {
+                                    <textarea asp-for="Input.Weaknesses" class="form-control" rows="3" 
+                                              placeholder="Identify areas that need improvement..."></textarea>
+                                }
+                                else
+                                {
+                                    <div class="evaluation-readonly">
+                                        @(Model.Input.Weaknesses ?? "No weaknesses noted")
+                                    </div>
+                                }
+                                <span asp-validation-for="Input.Weaknesses" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Recommendations" class="form-label fw-bold">Recommendations</label>
+                                @if (Model.CanEdit)
+                                {
+                                    <textarea asp-for="Input.Recommendations" class="form-control" rows="3" 
+                                              placeholder="Provide specific recommendations for improvement..."></textarea>
+                                }
+                                else
+                                {
+                                    <div class="evaluation-readonly">
+                                        @(Model.Input.Recommendations ?? "No recommendations provided")
+                                    </div>
+                                }
+                                <span asp-validation-for="Input.Recommendations" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Comments" class="form-label fw-bold">Additional Comments</label>
+                                @if (Model.CanEdit)
+                                {
+                                    <textarea asp-for="Input.Comments" class="form-control" rows="4" 
+                                              placeholder="Any additional comments or feedback..."></textarea>
+                                }
+                                else
+                                {
+                                    <div class="evaluation-readonly">
+                                        @(Model.Input.Comments ?? "No additional comments")
+                                    </div>
+                                }
+                                <span asp-validation-for="Input.Comments" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Action Buttons -->
+                    @if (Model.CanEdit)
+                    {
+                        <div class="evaluation-card">
+                            <div class="card-header-custom">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-save me-2"></i>Actions
+                                </h5>
+                            </div>
+                            <div class="form-section">
+                                <div class="d-grid gap-3">
+                                    <button type="submit" name="action" value="save" class="btn btn-save">
+                                        <i class="fas fa-save me-2"></i>Save Draft
+                                    </button>
+                                    <button type="submit" name="action" value="submit" class="btn btn-submit">
+                                        <i class="fas fa-paper-plane me-2"></i>Submit Evaluation
+                                    </button>
+                                </div>
+                                <div class="mt-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Save Draft allows you to continue later. Submit Evaluation finalizes your review.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Evaluation Guidelines -->
+                    <div class="evaluation-card">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-book me-2"></i>Evaluation Guidelines
+                            </h5>
+                        </div>
+                        <div class="form-section">
+                            <div class="mb-3">
+                                <h6 class="fw-bold">Technical Merit (0-100)</h6>
+                                <small class="text-muted">
+                                    Assess the technical soundness, methodology, and implementation approach.
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="fw-bold">Innovation (0-100)</h6>
+                                <small class="text-muted">
+                                    Evaluate the novelty, creativity, and original contribution of the proposal.
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="fw-bold">Feasibility (0-100)</h6>
+                                <small class="text-muted">
+                                    Consider the practicality, resources required, and likelihood of successful completion.
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="fw-bold">Literature Review (0-100)</h6>
+                                <small class="text-muted">
+                                    Review the quality and relevance of literature survey and background research.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proposal Files -->
+                    <div class="evaluation-card">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-download me-2"></i>Documents
+                            </h5>
+                        </div>
+                        <div class="form-section">
+                            @if (!string.IsNullOrEmpty(Model.Proposal.FilePath))
+                            {
+                                <a href="/Evaluator/Proposals/Details/@Model.Proposal.Id/Download" class="btn btn-outline-primary w-100 mb-2">
+                                    <i class="fas fa-file-pdf me-1"></i>Download Proposal
+                                </a>
+                            }
+                            
+                            @if (!string.IsNullOrEmpty(Model.Proposal.AgreementFilePath))
+                            {
+                                <a href="/Evaluator/Proposals/Details/@Model.Proposal.Id/DownloadAgreement" class="btn btn-outline-info w-100 mb-2">
+                                    <i class="fas fa-file-contract me-1"></i>Download Agreement
+                                </a>
+                            }
+
+                            @if (string.IsNullOrEmpty(Model.Proposal.FilePath) && string.IsNullOrEmpty(Model.Proposal.AgreementFilePath))
+                            {
+                                <p class="text-muted text-center mb-0">No files available for download.</p>
+                            }
+                        </div>
+                    </div>
+
+                    @if (Model.ExistingEvaluation != null)
+                    {
+                        <!-- Evaluation History -->
+                        <div class="evaluation-card">
+                            <div class="card-header-custom">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-history me-2"></i>Evaluation History
+                                </h5>
+                            </div>
+                            <div class="form-section">
+                                <div class="mb-2">
+                                    <strong>Created:</strong> @Model.ExistingEvaluation.CreatedAt.ToString("MMM dd, yyyy")
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Last Updated:</strong> @Model.ExistingEvaluation.UpdatedAt.ToString("MMM dd, yyyy")
+                                </div>
+                                @if (Model.ExistingEvaluation.EvaluatedAt.HasValue)
+                                {
+                                    <div class="mb-2">
+                                        <strong>Submitted:</strong> @Model.ExistingEvaluation.EvaluatedAt.Value.ToString("MMM dd, yyyy")
                                     </div>
                                 }
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
     <script>
-        // Auto-calculate overall score based on other scores
         document.addEventListener('DOMContentLoaded', function() {
-            const scoreInputs = [
-                'Evaluation_TechnicalMeritScore',
-                'Evaluation_InnovationScore', 
-                'Evaluation_FeasibilityScore',
-                'Evaluation_LiteratureReviewScore'
-            ];
+            // Auto-calculate overall score
+            const scoreInputs = document.querySelectorAll('input[type="number"]');
             
-            const overallInput = document.getElementById('Evaluation_OverallScore');
-            
-            scoreInputs.forEach(id => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.addEventListener('input', calculateOverall);
+            function calculateOverallScore() {
+                const technical = parseFloat(document.querySelector('input[name="Input.TechnicalMeritScore"]').value) || 0;
+                const innovation = parseFloat(document.querySelector('input[name="Input.InnovationScore"]').value) || 0;
+                const feasibility = parseFloat(document.querySelector('input[name="Input.FeasibilityScore"]').value) || 0;
+                const literature = parseFloat(document.querySelector('input[name="Input.LiteratureReviewScore"]').value) || 0;
+                
+                const overall = (technical + innovation + feasibility + literature) / 4;
+                const overallDisplay = document.querySelector('.score-display');
+                
+                if (overallDisplay && (technical > 0 || innovation > 0 || feasibility > 0 || literature > 0)) {
+                    overallDisplay.innerHTML = `<i class="fas fa-trophy me-2"></i>Overall Score: ${overall.toFixed(1)}`;
+                    overallDisplay.style.display = 'block';
                 }
+            }
+            
+            scoreInputs.forEach(input => {
+                input.addEventListener('input', calculateOverallScore);
             });
             
-            function calculateOverall() {
-                let total = 0;
-                let count = 0;
-                
-                scoreInputs.forEach(id => {
-                    const input = document.getElementById(id);
-                    if (input && input.value && !isNaN(input.value)) {
-                        total += parseFloat(input.value);
-                        count++;
+            // Status card selection
+            const statusCards = document.querySelectorAll('.status-card');
+            const statusRadios = document.querySelectorAll('input[name="Input.Status"]');
+            
+            statusRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    statusCards.forEach(card => card.classList.remove('selected'));
+                    if (this.checked) {
+                        this.closest('.status-card').classList.add('selected');
                     }
                 });
-                
-                if (count > 0 && overallInput) {
-                    const average = (total / count).toFixed(1);
-                    overallInput.value = average;
-                }
+            });
+            
+            // Initialize selected status card
+            const selectedRadio = document.querySelector('input[name="Input.Status"]:checked');
+            if (selectedRadio) {
+                selectedRadio.closest('.status-card').classList.add('selected');
             }
         });
     </script>
