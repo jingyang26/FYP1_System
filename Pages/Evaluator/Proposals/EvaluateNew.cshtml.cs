@@ -10,12 +10,12 @@ using System.ComponentModel.DataAnnotations;
 namespace FYP1System.Pages.Evaluator.Proposals
 {
     [Authorize(Roles = "Evaluator")]
-    public class EvaluateModel : PageModel
+    public class EvaluateNewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public EvaluateModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public EvaluateNewModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;

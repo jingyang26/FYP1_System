@@ -294,8 +294,8 @@ namespace FYP1System.Data
             var supervisorLecturer = await context.Lecturers.FirstAsync(l => l.Domain == "Research");
 
             // Get existing users for additional students
-            var adminUser = await context.Users.FirstAsync(u => u.Email == "admin@example.com");
-            var committeeUser = await context.Users.FirstAsync(u => u.Email == "committee@example.com");
+            var adminUser = await context.Users.FirstAsync(u => u.Email == "admin@fyp1.edu.my");
+            var committeeUser = await context.Users.FirstAsync(u => u.Email == "committee@fyp1.edu.my");
 
             // Create additional students if they don't exist
             var existingStudentCount = await context.Students.CountAsync();
