@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FYP1System")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2c6de58f90b0989e9109fe3cb656c77670aa750")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a549da554170b8afc629d04dca02574b93447f7f")]
 [assembly: System.Reflection.AssemblyProductAttribute("FYP1System")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FYP1System")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
