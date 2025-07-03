@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FYP1System.Data;
@@ -23,7 +24,7 @@ namespace FYP1System.Pages.Student
         public List<Proposal> Proposals { get; set; } = new();
         public Proposal? LatestProposal { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
@@ -33,6 +34,12 @@ namespace FYP1System.Pages.Student
                     .Include(s => s.Supervisor)
                     .ThenInclude(s => s!.User)
                     .FirstOrDefaultAsync(s => s.UserId == user.Id);
+
+                // If student profile doesn't exist, redirect to complete profile page
+                if (StudentInfo == null)
+                {
+                    return RedirectToPage("/Student/CompleteProfile");
+                }
 
                 if (StudentInfo != null)
                 {
@@ -44,6 +51,8 @@ namespace FYP1System.Pages.Student
                     LatestProposal = Proposals.FirstOrDefault();
                 }
             }
+            
+            return Page();
         }
     }
 }

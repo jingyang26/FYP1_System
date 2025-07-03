@@ -451,21 +451,26 @@
         }
         else
         {
-            <!-- Setup Required Message -->
+            <!-- Profile Setup Required - This shouldn't appear since we redirect in the page model -->
             <div class="row">
                 <div class="col-12">
                     <div class="info-card info-warning fade-in-up text-center">
-                        <i class="fas fa-exclamation-triangle fa-4x text-warning mb-4"></i>
-                        <h4 class="text-warning">Setup Required</h4>
-                        <p class="text-muted">Your student profile is not complete. Please contact the administrator to set up your student record.</p>
-                        <hr class="my-4">
-                        <small class="text-muted">
-                            <i class="fas fa-info-circle me-1"></i>
-                            Once your profile is set up, you'll be able to access all student features.
-                        </small>
+                        <i class="bi bi-exclamation-triangle" style="font-size: 4rem;" class="text-warning mb-4"></i>
+                        <h4 class="text-warning">Profile Setup Required</h4>
+                        <p class="text-muted">Redirecting to profile completion page...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <script>
+                // Fallback redirect if the page model redirect didn't work
+                setTimeout(function() {
+                    window.location.href = '/Student/CompleteProfile';
+                }, 2000);
+            </script>
         }
     </div>
 </div>

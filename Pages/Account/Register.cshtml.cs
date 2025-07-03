@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using FYP1System.Models;
 
@@ -37,8 +35,6 @@ namespace FYP1System.Pages.Account
 
         public string? ReturnUrl { get; set; }
 
-        public List<SelectListItem> RoleList { get; set; } = new();
-
         public class InputModel
         {
             [Required]
@@ -50,9 +46,8 @@ namespace FYP1System.Pages.Account
             [Display(Name = "Full Name")]
             public string FullName { get; set; } = string.Empty;
 
-            [Required]
-            [Display(Name = "Role")]
-            public string Role { get; set; } = string.Empty;
+            // Fixed to Student role only
+            public string Role { get; set; } = "Student";
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -66,16 +61,17 @@ namespace FYP1System.Pages.Account
             public string ConfirmPassword { get; set; } = string.Empty;
         }
 
-        public async Task OnGetAsync(string? returnUrl = null)
+        public void OnGet(string? returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            await LoadRoleListAsync();
+            // No need to load roles since we only support Student registration
         }
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            await LoadRoleListAsync();
+            // Set role to Student since that's the only allowed role
+            Input.Role = "Student";
 
             if (ModelState.IsValid)
             {
@@ -112,22 +108,8 @@ namespace FYP1System.Pages.Account
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         
-                        // Redirect to appropriate dashboard based on role
-                        switch (Input.Role)
-                        {
-                            case "Admin":
-                                return LocalRedirect("/Admin");
-                            case "Committee":
-                                return LocalRedirect("/Committee");
-                            case "Student":
-                                return LocalRedirect("/Student");
-                            case "Supervisor":
-                                return LocalRedirect("/Supervisor");
-                            case "Evaluator":
-                                return LocalRedirect("/Evaluator");
-                            default:
-                                return LocalRedirect(returnUrl);
-                        }
+                        // Always redirect to Student dashboard since only students can register
+                        return LocalRedirect("/Student");
                     }
                 }
                 foreach (var error in result.Errors)
@@ -163,14 +145,6 @@ namespace FYP1System.Pages.Account
             return (IUserEmailStore<ApplicationUser>)_userStore;
         }
 
-        private async Task LoadRoleListAsync()
-        {
-            var roles = await _roleManager.Roles.ToListAsync();
-            RoleList = roles.Select(r => new SelectListItem
-            {
-                Value = r.Name,
-                Text = r.Name
-            }).ToList();
-        }
+        // Removed LoadRoleListAsync since we only support Student registration
     }
 }

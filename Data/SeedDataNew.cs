@@ -222,10 +222,10 @@ namespace FYP1System.Data
 
             var supervisorUsers = new[]
             {
-                new { Email = "supervisor1.se@fyp1.edu.my", FullName = "Dr. Sarah Johnson", Domain = "Web Development", Office = "Block A, Level 4", ProgramName = "Software Engineering" },
-                new { Email = "supervisor2.se@fyp1.edu.my", FullName = "Dr. Michael Brown", Domain = "Mobile Development", Office = "Block A, Level 5", ProgramName = "Software Engineering" },
-                new { Email = "supervisor1.de@fyp1.edu.my", FullName = "Prof. Robert Wilson", Domain = "Machine Learning", Office = "Block C, Level 4", ProgramName = "Data Engineering" },
-                new { Email = "supervisor2.de@fyp1.edu.my", FullName = "Dr. Linda Taylor", Domain = "Big Data Analytics", Office = "Block C, Level 5", ProgramName = "Data Engineering" }
+                new { Email = "supervisor1.se@fyp1.edu.my", FullName = "Dr. Sarah Johnson", Domain = "Development", Office = "Block A, Level 4", ProgramName = "Software Engineering" },
+                new { Email = "supervisor2.se@fyp1.edu.my", FullName = "Dr. Michael Brown", Domain = "Research", Office = "Block A, Level 5", ProgramName = "Software Engineering" },
+                new { Email = "supervisor1.de@fyp1.edu.my", FullName = "Prof. Robert Wilson", Domain = "Research", Office = "Block C, Level 4", ProgramName = "Data Engineering" },
+                new { Email = "supervisor2.de@fyp1.edu.my", FullName = "Dr. Linda Taylor", Domain = "Development", Office = "Block C, Level 5", ProgramName = "Data Engineering" }
             };
 
             foreach (var supervisorData in supervisorUsers)
@@ -273,10 +273,10 @@ namespace FYP1System.Data
 
             var evaluatorUsers = new[]
             {
-                new { Email = "evaluator1.se@fyp1.edu.my", FullName = "Prof. Kevin Martinez", Domain = "Software Architecture", Office = "Block A, Level 7", ProgramName = "Software Engineering" },
-                new { Email = "evaluator2.se@fyp1.edu.my", FullName = "Dr. Nancy Rodriguez", Domain = "System Analysis", Office = "Block A, Level 8", ProgramName = "Software Engineering" },
-                new { Email = "evaluator1.de@fyp1.edu.my", FullName = "Dr. Steven Lewis", Domain = "Data Mining", Office = "Block C, Level 6", ProgramName = "Data Engineering" },
-                new { Email = "evaluator2.de@fyp1.edu.my", FullName = "Dr. Dorothy Clark", Domain = "Statistical Analysis", Office = "Block C, Level 7", ProgramName = "Data Engineering" }
+                new { Email = "evaluator1.se@fyp1.edu.my", FullName = "Prof. Kevin Martinez", Domain = "Development", Office = "Block A, Level 7", ProgramName = "Software Engineering" },
+                new { Email = "evaluator2.se@fyp1.edu.my", FullName = "Dr. Nancy Rodriguez", Domain = "Research", Office = "Block A, Level 8", ProgramName = "Software Engineering" },
+                new { Email = "evaluator1.de@fyp1.edu.my", FullName = "Dr. Steven Lewis", Domain = "Development", Office = "Block C, Level 6", ProgramName = "Data Engineering" },
+                new { Email = "evaluator2.de@fyp1.edu.my", FullName = "Dr. Dorothy Clark", Domain = "Research", Office = "Block C, Level 7", ProgramName = "Data Engineering" }
             };
 
             foreach (var evaluatorData in evaluatorUsers)
