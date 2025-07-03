@@ -248,9 +248,6 @@
                             </div>
                             <div class="col-md-6 text-md-end">
                                 <div class="btn-group">
-                                    <a href="/Evaluator/Proposals/Details/@proposal.Id" class="btn btn-view">
-                                        <i class="fas fa-eye me-1"></i>View
-                                    </a>
                                     @if (evaluation == null || evaluation.Status == EvaluationStatus.Pending || evaluation.Status == EvaluationStatus.InProgress)
                                     {
                                         <a href="/Evaluator/Proposals/Evaluate/@proposal.Id" class="btn btn-evaluate">
